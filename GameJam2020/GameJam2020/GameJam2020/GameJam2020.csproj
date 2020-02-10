@@ -72,12 +72,21 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="OldCode\Game1DrJekyll.cs" />
     <Compile Include="OldCode\Grid.cs" />
     <Compile Include="OldCode\InGame.cs" />
     <Compile Include="OldCode\Menu.cs" />
     <Compile Include="OldCode\ControlScheme.cs" />
     <Compile Include="OldCode\Game1Python.cs" />
+=======
+    <Compile Include="OldCode\ControlScheme.cs" />
+    <Compile Include="OldCode\Game1DrJekyll.cs" />
+    <Compile Include="OldCode\Game1Python.cs" />
+    <Compile Include="OldCode\Grid.cs" />
+    <Compile Include="OldCode\InGame.cs" />
+    <Compile Include="OldCode\Menu.cs" />
+>>>>>>> master
     <Compile Include="OldCode\MenuManager.cs" />
     <Compile Include="OldCode\SaveFile.cs" />
     <Compile Include="OldCode\Tiles.cs" />
