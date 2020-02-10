@@ -68,8 +68,8 @@ namespace Tools_XNA_dotNET_Framework
         /// </summary>
         public float Rotation
         {
-            get => rotation;
-            set => rotation = value % MathHelper.TwoPi;
+            get {return rotation; }
+            set { rotation = value % MathHelper.TwoPi; }
         }
 
 
