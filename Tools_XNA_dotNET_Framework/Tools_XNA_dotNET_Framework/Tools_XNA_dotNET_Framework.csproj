@@ -56,7 +56,6 @@
     <Compile Include="Camera2D.cs" />
     <Compile Include="CollidableObject.cs" />
     <Compile Include="ColorHelper.cs" />
-    <Compile Include="DynamicCompiling.cs" />
     <Compile Include="ExtendedSpriteBatch.cs" />
     <Compile Include="MathHelperExtensions.cs" />
     <Compile Include="Primitives2D.cs" />
