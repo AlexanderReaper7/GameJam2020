@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_XNA_dotNET_Framework
+namespace Tools_XNA
 {
     public static class SplitScreenHelper
     {

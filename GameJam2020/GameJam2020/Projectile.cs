@@ -120,7 +120,7 @@ namespace GameJam2020
                 spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
             }
 
-            if (is3D)
+            else
             {
                 //spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
             }

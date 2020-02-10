@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Tools_XNA_dotNET_Framework
+namespace Tools_XNA
 {
     public class Camera2D
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_XNA_dotNET_Framework
+namespace Tools_XNA
 {
     /// <summary>
     /// Contains extension methods for the SpriteBatch class

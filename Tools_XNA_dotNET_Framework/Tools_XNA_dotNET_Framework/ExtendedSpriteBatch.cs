@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_XNA_dotNET_Framework
+namespace Tools_XNA
 {
     /// <summary>
     /// An extended version of the SpriteBatch class that supports line and

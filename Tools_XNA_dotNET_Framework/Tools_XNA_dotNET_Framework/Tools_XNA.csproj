@@ -7,9 +7,9 @@
     <ProjectGuid>{268B980E-2C5D-4F8F-A578-18FFDF6FB1BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tools_XNA_dotNET_Framework</RootNamespace>
-    <AssemblyName>Tools_XNA_dotNET_Framework</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Tools_XNA</RootNamespace>
+    <AssemblyName>Tools_XNA</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -32,14 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.Framework.Net, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.Net.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -47,7 +44,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -58,13 +54,28 @@
     <Compile Include="ColorHelper.cs" />
     <Compile Include="ExtendedSpriteBatch.cs" />
     <Compile Include="MathHelperExtensions.cs" />
+    <Compile Include="OldCode\ControlScheme.cs" />
+    <Compile Include="World.cs" />
+    <None Include="OldCode\Game1DrJekyll.cs" />
+    <None Include="OldCode\Game1Python.cs" />
+    <Compile Include="OldCode\Grid.cs" />
+    <None Include="OldCode\InGame.cs" />
+    <Compile Include="OldCode\Menu.cs" />
+    <None Include="OldCode\SaveFile.cs" />
+    <Compile Include="OldCode\Tiles.cs" />
+    <Compile Include="OldCode\TilesMap.cs" />
+    <Compile Include="OldTools\Camera.cs" />
+    <Compile Include="OldTools\ChaseCamera.cs" />
+    <Compile Include="OldTools\CustomModel.cs" />
+    <Compile Include="OldTools\Material.cs" />
+    <Compile Include="OldTools\ParticleSystem.cs" />
+    <Compile Include="OldTools\ParticleVertex.cs" />
+    <Compile Include="OldTools\SkyBox.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Primitives2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleCollisionHelper.cs" />
     <Compile Include="SplitScreenHelper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
