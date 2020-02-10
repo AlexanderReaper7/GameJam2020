@@ -1,4 +1,6 @@
-namespace GameJam2020_3D
+using System;
+
+namespace GameJam2020_2D
 {
 #if WINDOWS || XBOX
     static class Program

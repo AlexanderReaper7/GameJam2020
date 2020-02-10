@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_XNA_dotNET_Framework
+namespace Tools_XNA
 {
     /// <summary>
     ///     An object that can be used to depict a sprite in world space which can detect pixel level collisions with other
