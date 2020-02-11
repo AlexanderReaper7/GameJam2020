@@ -5,9 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameJam2020
+namespace Tools_XNA
 {
-    class Projectile
+    public class Projectile
     {
         // If projectile exists in 2D or 3D space // Olle A 200210
         private bool is2D;
@@ -68,7 +68,10 @@ namespace GameJam2020
             is2D = false;
         }
 
-        // Function for removing the projectile 
+        // Olle A 200210
+        /// <summary>
+        /// Update. Moves projectile and checks for collisions
+        /// </summary>
         public void Remove()
         {
             // TODO: Code for culling this projectile instance
@@ -87,7 +90,7 @@ namespace GameJam2020
 
 
             // Check for collisions
-            CheckCollision();
+            //CheckCollision();
         }
 
 
@@ -99,7 +102,7 @@ namespace GameJam2020
         /// Checks if projectile collides with something
         /// Could also be done from another class
         /// </summary>
-        public void CheckCollision()
+        private void checkCollision()
         {
             //Check if projectile enters new tile and act accordingly
                 //Kill player or something
@@ -107,38 +110,25 @@ namespace GameJam2020
            throw new NotImplementedException();
         }
 
+        // Olle A 200211
         // Gustav H, Olle A 200210
         /// <summary>
-        /// Draw. Draws the bullet
+        /// Draw function for 2D
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Draw the bullet
-
-            if (is2D)
-            {
-                spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
-            }
-
-            else
-            {
-                //spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
-            }
+            // Draw texture
+            spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
         }
 
+        // Olle A 200211
+        /// <summary>
+        /// Draw function for 3D
+        /// </summary>
         public void Draw(Camera camera)
         {
-            // Draw the bullet
-
-            if (is2D)
-            {
-                spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
-            }
-
-            else
-            {
-                //spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
-            }
+            // Draw model using supplied camera
+            model.Draw(camera.View, camera.Projection, camera.Projection);
         }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="AlexanderCode\MathHelperExtensions.cs" />
     <Compile Include="GameStates.cs" />
     <Compile Include="JuliusCode\ControlScheme.cs" />
+    <Compile Include="Projectile.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldObjects.cs" />
     <None Include="JuliusCode\Game1DrJekyll.cs" />
