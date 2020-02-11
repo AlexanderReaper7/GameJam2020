@@ -47,23 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayDimensionHelper.cs" />
-    <Compile Include="ByteSerializer.cs" />
-    <Compile Include="Camera2D.cs" />
-    <Compile Include="CollidableObject.cs" />
-    <Compile Include="ColorHelper.cs" />
-    <Compile Include="ExtendedSpriteBatch.cs" />
-    <Compile Include="MathHelperExtensions.cs" />
-    <Compile Include="OldCode\ControlScheme.cs" />
+    <Compile Include="AlexanderCode\ArrayDimensionHelper.cs" />
+    <Compile Include="AlexanderCode\ByteSerializer.cs" />
+    <Compile Include="AlexanderCode\Camera2D.cs" />
+    <Compile Include="AlexanderCode\CollidableObject.cs" />
+    <Compile Include="AlexanderCode\ColorHelper.cs" />
+    <Compile Include="AlexanderCode\ExtendedSpriteBatch.cs" />
+    <Compile Include="AlexanderCode\MathHelperExtensions.cs" />
+    <Compile Include="GameStates.cs" />
+    <Compile Include="JuliusCode\ControlScheme.cs" />
     <Compile Include="World.cs" />
-    <None Include="OldCode\Game1DrJekyll.cs" />
-    <None Include="OldCode\Game1Python.cs" />
-    <Compile Include="OldCode\Grid.cs" />
-    <None Include="OldCode\InGame.cs" />
-    <Compile Include="OldCode\Menu.cs" />
-    <None Include="OldCode\SaveFile.cs" />
-    <Compile Include="OldCode\Tiles.cs" />
-    <Compile Include="OldCode\TilesMap.cs" />
+    <None Include="JuliusCode\Game1DrJekyll.cs" />
+    <None Include="JuliusCode\Game1Python.cs" />
+    <Compile Include="JuliusCode\Grid.cs" />
+    <None Include="JuliusCode\InGame.cs" />
+    <Compile Include="JuliusCode\Menu.cs" />
+    <None Include="JuliusCode\SaveFile.cs" />
+    <Compile Include="JuliusCode\Tiles.cs" />
+    <Compile Include="JuliusCode\TilesMap.cs" />
     <Compile Include="OldTools\Camera.cs" />
     <Compile Include="OldTools\ChaseCamera.cs" />
     <Compile Include="OldTools\CustomModel.cs" />
@@ -71,11 +72,12 @@
     <Compile Include="OldTools\ParticleSystem.cs" />
     <Compile Include="OldTools\ParticleVertex.cs" />
     <Compile Include="OldTools\SkyBox.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Primitives2D.cs" />
+    <Compile Include="AlexanderCode\Extensions.cs" />
+    <Compile Include="AlexanderCode\Primitives2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RectangleCollisionHelper.cs" />
-    <Compile Include="SplitScreenHelper.cs" />
+    <Compile Include="AlexanderCode\RectangleCollisionHelper.cs" />
+    <Compile Include="AlexanderCode\SplitScreenHelper.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

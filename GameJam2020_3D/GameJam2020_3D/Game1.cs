@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Tools_XNA;
 
 namespace GameJam2020_3D
 {
@@ -18,6 +19,7 @@ namespace GameJam2020_3D
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private World world;
 
 
         public Game1()
@@ -34,8 +36,7 @@ namespace GameJam2020_3D
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            
             base.Initialize();
         }
 
