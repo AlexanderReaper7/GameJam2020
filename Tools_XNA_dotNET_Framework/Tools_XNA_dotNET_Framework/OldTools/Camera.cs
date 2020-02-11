@@ -53,7 +53,7 @@ namespace Tools_XNA
             // Projection takes in a predetermined value (of pi) degree field of view, aspect ratio, near plane and far plane.
             this.projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, aspectRatio, 0.1f, 1000000.0f);
 
-            Matrix.CreateOrthographic()
+            Matrix.CreateOrthographic();
         }
 
         // "Open" update method for any class to override
