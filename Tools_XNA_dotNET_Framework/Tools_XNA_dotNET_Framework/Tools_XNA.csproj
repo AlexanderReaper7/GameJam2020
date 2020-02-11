@@ -58,6 +58,8 @@
     <Compile Include="GameStates.cs" />
     <Compile Include="IsometricCamera.cs" />
     <Compile Include="JuliusCode\ControlScheme.cs" />
+    <Compile Include="JuliusCode\Menu.cs" />
+    <Compile Include="MenuManager.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldObjects.cs" />
@@ -65,7 +67,6 @@
     <None Include="JuliusCode\Game1Python.cs" />
     <Compile Include="JuliusCode\Grid.cs" />
     <None Include="JuliusCode\InGame.cs" />
-    <Compile Include="JuliusCode\Menu.cs" />
     <None Include="JuliusCode\SaveFile.cs" />
     <Compile Include="JuliusCode\Tiles.cs" />
     <Compile Include="JuliusCode\TilesMap.cs" />
