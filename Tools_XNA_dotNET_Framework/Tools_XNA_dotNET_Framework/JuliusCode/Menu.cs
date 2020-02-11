@@ -30,8 +30,8 @@ namespace Tools_XNA
         }
 
         // Easy navigation of buttons and button states, takes in an input of up, down, left and right
-        /*
-        public void Navigation(bool up, bool down, bool left, bool right)
+        
+        public void Navigation(bool up, bool down)
         {
             if (up)
             {
@@ -43,18 +43,8 @@ namespace Tools_XNA
                 // Make the selection go down in current page
                 Pages[CurrentPage].SelectDown(false);
             }
-            else if (left)
-            {
-                // Make the selection change to left in current page's current button
-                Pages[CurrentPage].Buttons[Pages[CurrentPage].ButtonSelection].SelectLeft(false);
-            }
-            else if (right)
-            {
-                // Make the selection change to right in current page's current button
-                Pages[CurrentPage].Buttons[Pages[CurrentPage].ButtonSelection].SelectRight(false);
-            }
         }
-        */
+        
         /// <summary>
         /// Updates menu logic
         /// </summary>
@@ -103,8 +93,8 @@ namespace Tools_XNA
         public List<Line> Text = new List<Line>();
         // Variable that handles buttons
         public List<IButton> Buttons = new List<IButton>();
-        //
         // A selection variable for buttons
+        public int ButtonSelection = 0;
 
         // Method for adding a background to a page, insert texture and it's transparency value (in %)
         public void AddBackground(Texture2D texture, float transparency)
@@ -161,6 +151,35 @@ namespace Tools_XNA
 
             // return null if no button is selected
             return null;
+        }
+
+        // Navigation method, go down (loop and get back to top when reaching the end)
+        public void SelectDown(bool loop)
+        {
+            if (loop)
+            {
+                ButtonSelection++;
+                if (ButtonSelection > Buttons.Count - 1) ButtonSelection = 0;
+
+            }
+            else
+            {
+                if (ButtonSelection < Buttons.Count - 1) ButtonSelection++;
+            }
+        }
+
+        // Navigation method, go up (loop and get back to bottom when reaching the beginning)
+        public void SelectUp(bool loop)
+        {
+            if (loop)
+            {
+                ButtonSelection--;
+                if (ButtonSelection < 0) ButtonSelection = Buttons.Count - 1;
+            }
+            else
+            {
+                if (ButtonSelection > 0) ButtonSelection--;
+            }
         }
 
         // Update mouse collisions with buttons TODO: add depth to collision
