@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_XNA.OldTools
+namespace Tools_XNA
 {
     /*
      * A struct is a value type which means that all information within the struct is allocated at the struct. 

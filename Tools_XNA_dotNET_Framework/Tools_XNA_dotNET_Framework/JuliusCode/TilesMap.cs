@@ -3,9 +3,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static Tools_XNA.OldCode.Tiles;
+using static Tools_XNA.Tiles;
 
-namespace Tools_XNA.OldCode
+namespace Tools_XNA
 {
     class TilesMap
     {

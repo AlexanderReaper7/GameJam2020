@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_XNA.OldTools
+namespace Tools_XNA
 {
     public class SkyBox
     {

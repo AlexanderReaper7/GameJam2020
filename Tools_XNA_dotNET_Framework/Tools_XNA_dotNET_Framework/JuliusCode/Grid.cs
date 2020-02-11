@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Tools_XNA.OldTools;
 
-namespace Tools_XNA.OldCode
+namespace Tools_XNA
 {
     // A class that spawn a grid like platform, with an edge texture
     public class Grid

@@ -13,24 +13,6 @@ namespace Tools_XNA
         void Update(GameTime gameTime);
     }
 
-    class Air : IWorldSpot
-    {
-        /// <summary>
-        /// Does not draw anything
-        /// </summary>
-        /// <param name="gameTime"></param>
-        public void Draw(GameTime gameTime)
-        {
-        }
-
-        /// <summary>
-        /// Does not do anything
-        /// </summary>
-        /// <param name="gameTime"></param>
-        public void Update(GameTime gameTime)
-        {
-        }
-    }
 
     public class World
     {
