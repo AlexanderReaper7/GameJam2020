@@ -4,28 +4,67 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
+// Alexander Ö 200210
 namespace Tools_XNA
 {
-    class World
+    public interface IWorldSpot
     {
-        public static WorldSpot[,,] worldSpots;
+        void Draw(GameTime gameTime);
+        void Update(GameTime gameTime);
+    }
 
-        public World(int sizeX, int sizeY, int sizeZ)
+    class Air : IWorldSpot
+    {
+        /// <summary>
+        /// Does not draw anything
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Draw(GameTime gameTime)
         {
-            worldSpots = new WorldSpot[sizeX, sizeY, sizeZ];
+        }
+
+        /// <summary>
+        /// Does not do anything
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Update(GameTime gameTime)
+        {
         }
     }
 
-    class WorldSpot : IDrawable
+    public class World
     {
-        public void Draw(GameTime gameTime)
+        public static IWorldSpot[,,] worldSpots;
+
+        public World(int sizeX, int sizeY, int sizeZ)
         {
-            throw new NotImplementedException();
+            worldSpots = new IWorldSpot[sizeX, sizeY, sizeZ];
         }
 
-        public bool Visible { get; }
-        public int DrawOrder { get; }
-        public event EventHandler<EventArgs> VisibleChanged;
-        public event EventHandler<EventArgs> DrawOrderChanged;
+        /// <summary>
+        /// Updates all world spots
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Update(GameTime gameTime)
+        {
+            // For every dimension 
+            for (int i = 0; i < worldSpots.GetLength(0); i++)
+                for (int j = 0; j < worldSpots.GetLength(1); j++)
+                    for (int k = 0; i < worldSpots.GetLength(2); k++)
+                        worldSpots[i,j,k].Update(gameTime);
+        }
+
+        /// <summary>
+        /// Draws all world spot
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Draw(GameTime gameTime)
+        {
+            // For every dimension 
+            for (int i = 0; i < worldSpots.GetLength(0); i++)
+                for (int j = 0; j < worldSpots.GetLength(1); j++)
+                    for (int k = 0; i < worldSpots.GetLength(2); k++)
+                        worldSpots[i, j, k].Draw(gameTime);
+        }
     }
 }

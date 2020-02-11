@@ -86,6 +86,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Tools_XNA_dotNET_Framework\Tools_XNA_dotNET_Framework\Tools_XNA.csproj">
+      <Project>{268b980e-2c5d-4f8f-a578-18ffdf6fb1be}</Project>
+      <Name>Tools_XNA</Name>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ProjectReference>
     <ProjectReference Include="..\GameJam2020_3DContent\GameJam2020_3DContent.contentproj">
       <Name>GameJam2020_3DContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
