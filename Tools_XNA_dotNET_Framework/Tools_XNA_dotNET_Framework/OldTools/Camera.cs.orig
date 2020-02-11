@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ArcBallCamera
+namespace Tools_XNA
 {
     public abstract class Camera
     {
@@ -33,6 +30,8 @@ namespace ArcBallCamera
                 generateFrustrum();
             }
         }
+
+        public Vector3 Position { get; protected set; }
 
         public BoundingFrustum Frustum { get; private set; }
 
@@ -69,9 +68,13 @@ namespace ArcBallCamera
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 0.1f, 1000000.0f);
         }
 
+<<<<<<< HEAD
+            Matrix.CreateOrthographic();
+=======
         protected void GenerateOrthographicProjectionMatrix()
         {
             Projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0.1f, 1000000.0f);
+>>>>>>> upstream/master
         }
 
         public virtual void Update()

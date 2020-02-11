@@ -37,7 +37,7 @@ namespace GameJam2020_3D
         /// </summary>
         protected override void Initialize()
         {
-            
+            camera = new IsometricCamera(Vector3.Zero, 1000f, 1000f, 12000f, GraphicsDevice);
 
             base.Initialize();
         }
@@ -50,8 +50,8 @@ namespace GameJam2020_3D
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            // Load Models
+            // Load World
         }
 
         /// <summary>
@@ -60,7 +60,6 @@ namespace GameJam2020_3D
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -74,7 +73,8 @@ namespace GameJam2020_3D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            world.Update(gameTime);
+            camera.Update();
 
             base.Update(gameTime);
         }
@@ -88,8 +88,9 @@ namespace GameJam2020_3D
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // World
-            world.Draw(camera);
+            world.Draw(gameTime, camera);
             // UI
+
 
             base.Draw(gameTime);
         }

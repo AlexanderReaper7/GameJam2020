@@ -1,81 +1,94 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Tools_XNA
 {
     public abstract class Camera
     {
-        Matrix view;
-        Matrix projection;
-         
+        private Matrix view;
+        private Matrix projection;
+
         public Matrix Projection
         {
             get { return projection; }
+
             protected set
             {
                 projection = value;
-                generateFrustum();
+                generateFrustrum();
             }
         }
 
         public Matrix View
         {
             get { return view; }
-            protected set
+
+            set
             {
                 view = value;
-                generateFrustum();
+                generateFrustrum();
             }
         }
-        
-        // Create frustum
+
+        public Vector3 Position { get; protected set; }
+
         public BoundingFrustum Frustum { get; private set; }
 
         protected GraphicsDevice GraphicsDevice { get; set; }
 
-        // Constructor
-        public Camera(GraphicsDevice graphicsDevice)
+        public Camera(GraphicsDevice graphicsDevice, ProjectionMatrixType pmt)
         {
-            this.GraphicsDevice = graphicsDevice;
-
-            generatePerspectiveProjectionMatrix(MathHelper.PiOver4);
+            GraphicsDevice = graphicsDevice;
+            switch (pmt)
+            {
+                case ProjectionMatrixType.Perspective:
+                    GeneratePerspectiveProjectionMatrix();
+                    break;
+                case ProjectionMatrixType.Orthographic:
+                    GenerateOrthographicProjectionMatrix();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(pmt), pmt, null);
+            }
         }
 
-        // Converting the camera view to an 2D image
-        private void generatePerspectiveProjectionMatrix(float FieldOfView)
+        public enum ProjectionMatrixType
         {
-            // Load window (2D viewport) information
+            Perspective,
+            Orthographic
+        }
+
+        protected void GeneratePerspectiveProjectionMatrix()
+        {
             PresentationParameters pp = GraphicsDevice.PresentationParameters;
 
-            // Aspect ratio is width divided by height
-            float aspectRatio = (float)pp.BackBufferWidth / (float)pp.BackBufferHeight;
+            float aspectRatio = (float) pp.BackBufferWidth / (float) pp.BackBufferHeight;
 
-            // Projection takes in a predetermined value (of pi) degree field of view, aspect ratio, near plane and far plane.
-            this.projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView, aspectRatio, 0.1f, 1000000.0f);
-
-            Matrix.CreateOrthographic();
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 0.1f, 1000000.0f);
         }
 
-        // "Open" update method for any class to override
+        protected void GenerateOrthographicProjectionMatrix()
+        {
+            Projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0.1f, 1000000.0f);
+        }
+
         public virtual void Update()
         {
 
         }
 
-        // Generate frustum that acts as a "render frustum", everything within frustum will be rendered, which is based on view and projection
-        private void generateFrustum()
+        private void generateFrustrum()
         {
             Matrix viewProjection = View * Projection;
             Frustum = new BoundingFrustum(viewProjection);
         }
 
-        // Look if spheres is within frustum
         public bool BoundingVolumeIsInView(BoundingSphere sphere)
         {
             return (Frustum.Contains(sphere) != ContainmentType.Disjoint);
         }
 
-        // Look if boxes is within frustum
         public bool BoundingVolumeIsInView(BoundingBox box)
         {
             return (Frustum.Contains(box) != ContainmentType.Disjoint);
