@@ -125,5 +125,20 @@ namespace GameJam2020
                 //spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
             }
         }
+
+        public void Draw(Camera camera)
+        {
+            // Draw the bullet
+
+            if (is2D)
+            {
+                spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
+            }
+
+            else
+            {
+                //spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
+            }
+        }
     }
 }
