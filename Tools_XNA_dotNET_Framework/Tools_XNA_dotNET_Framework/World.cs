@@ -40,7 +40,7 @@ namespace Tools_XNA
         /// Draws all world spot
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Draw(GameTime gameTime)
+        public void Draw(Camera camera,GameTime gameTime)
         {
             // For every dimension 
             for (int i = 0; i < worldSpots.GetLength(0); i++)
