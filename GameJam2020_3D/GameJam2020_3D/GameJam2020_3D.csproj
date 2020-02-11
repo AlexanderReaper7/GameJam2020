@@ -75,7 +75,6 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Projectile.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="IsometricCamera.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
