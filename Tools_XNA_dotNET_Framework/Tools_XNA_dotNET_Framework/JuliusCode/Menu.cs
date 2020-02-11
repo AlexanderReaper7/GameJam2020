@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tools_XNA.OldCode
+namespace Tools_XNA
 {
     // A class that manages pages and buttons inside those pages
     public class Menu

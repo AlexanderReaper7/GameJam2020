@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tools_XNA.OldCode
+namespace Tools_XNA
 {
     // A class that update all the different bools from inputs, easily make a control scheme, also handles the mouse position/intersection on screen
     public class ControlScheme

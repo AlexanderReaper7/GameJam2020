@@ -57,6 +57,7 @@
     <Compile Include="GameStates.cs" />
     <Compile Include="JuliusCode\ControlScheme.cs" />
     <Compile Include="World.cs" />
+    <Compile Include="WorldObjects.cs" />
     <None Include="JuliusCode\Game1DrJekyll.cs" />
     <None Include="JuliusCode\Game1Python.cs" />
     <Compile Include="JuliusCode\Grid.cs" />
