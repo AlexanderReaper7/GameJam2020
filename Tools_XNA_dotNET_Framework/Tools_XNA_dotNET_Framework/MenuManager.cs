@@ -8,85 +8,50 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Tools_XNA
 {
-    class MenuManager
+    public class MenuManager
     {
+        public Menu menu = new Menu(8);
 
+        SpriteFont menuFont, textFont, scoreBoardFont;
+        Texture2D defaultBackground;
 
-        public enum Menues
+        int screenWidth;
+        int screenHeight;
+        Rectangle screenSize;
+
+        public void Screen(Rectangle ScreenSize)
         {
-            InsertName,
-            Main,
-            LevelSelcet,
-            Level,
-            HighScore,
-            GameOver,
-            Victory,
-            Credits
+            screenSize = ScreenSize;
+            screenWidth = ScreenSize.Width;
+            screenHeight = ScreenSize.Height;
         }
 
-        private Menues state = Menues.Main; // TODO: Change to InsertName Menu
 
-        public Menues State
-        {
-            get { return state; }
-            set
-            {
-                menu.CurrentPage = (int)value;
-                state = value;
-            }
-        }
-
-        public int MenuesAmount => Enum.GetNames(typeof(Menues)).Length;
-
-        // Create menu pages
-        Menu menu = new Menu(Enum.GetNames(typeof(Menues)).Length);
-        // Uneccerary?
-        Menu level = new Menu(10);
-
-        SpriteFont menuFont;
-        
 
         public void LoadMenues(ContentManager Content)
         {
 
-            // Color theme
-            Color primary = new Color(3, 169, 244), primaryLight = new Color(103, 218, 255), primaryDark = new Color(0, 122, 193);
-            Color backColor = primaryLight, highLightColor = primary;
-            Color logoBlue = new Color(24, 20, 111), logoYellow = new Color(88, 80, 161);
-            Rectangle mainRec = new Rectangle(4, 1080 - 82 * (MenuesAmount - 1), 712, 80);
-            Rectangle logoRect = new Rectangle(720 / 2 - (480 / 2), 20, 480, 480);
-            Vector2 padding = new Vector2(-20);
-            Texture2D logo = content.Load<Texture2D>(@"Images/logo");
-            Texture2D circle = content.Load<Texture2D>(@"Images/newcircle");
-
-
-
-
-
-
-            // Textures
-            //mouseTexture = Content.Load<Texture2D>(@"MousePointer");
-            //pauseButtonTexture = Content.Load<Texture2D>(@"PauseButton");
-            //defaultBackground = Content.Load<Texture2D>(@"Background");
-
             // Fonts
             menuFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
-            //textFont = Content.Load<SpriteFont>(@"Fonts/Text");
-            //scoreBoardFont = Content.Load<SpriteFont>(@"Fonts/Score");
+            textFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
+            scoreBoardFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
+
+            // Textures
+            defaultBackground = Content.Load<Texture2D>(@"Textures/TestTexture");
 
 
             // Menu Pages and buttons
             // All pages in the program, see MenuManager.cs for more info
             // Menu
-            menu.Pages[0].AddButtonList(menuFont, new Vector2(60), 100f, new[] { "Play", "Highscore", "Options", "How To Play", "Credits", "Exit" });
+            menu.Pages[0].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Highscore", "Options", "How To Play", "Credits", "Exit" });
 
             // HighScore
-            //menu.Pages[2].AddBackground(defaultBackground, 0.9f);
-            menu.Pages[2].AddButton(new Button(menuFont, new Rectangle(60, 560, 200, 60), "Back", Vector2.Zero, Color.White, Color.Cyan, ));
+            menu.Pages[2].AddBackground(defaultBackground, 0.9f);
+            menu.Pages[2].AddButton_Single(menuFont, new Vector2(60, 560), "Back");
 
             // Options
-            menu.Pages[3].AddButtonList_Multi(menuFont, new Vector2(60), 100f, new List<string[]>() { new[] { "Controls: Press", "Controls: Hold" }, new[] { "Speed: " + options.Speed.ToString() }, new[] { "Fullscreen" } });
-            menu.Pages[3].AddButton(menuFont, new Vector2(60, 560), "Back");
+            menu.Pages[3].AddButtonList_Multi(menuFont, new Vector2(60), 100f, new List<string[]>() { new[] { "Controls: Press", "Controls: Hold" }, new[] { "Speed: Sonic" }, new[] { "Fullscreen" } });
+            menu.Pages[3].AddButton_Single(menuFont, new Vector2(60, 560), "Back");
 
             // HowToPlay
             menu.Pages[4].AddBackground(defaultBackground, 0.8f);
@@ -111,9 +76,14 @@ namespace Tools_XNA
 
         }
 
+        public void Navigation(bool up, bool down, bool left, bool right)
+        {
+            menu.Navigation(up, down, left, right);
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            menu.Draw(spriteBatch);
+            menu.Draw(spriteBatch, screenSize);
         }
     }
 }

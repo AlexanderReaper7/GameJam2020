@@ -35,7 +35,7 @@ namespace Tools_XNA
 
         public void Draw(GameTime gameTime, Camera camera)
         {
-            model.Draw(camera.View, camera.Projection, camera.);
+            model.Draw(camera.View, camera.Projection, camera.Position);
         }
 
         public void Update(GameTime gameTime)

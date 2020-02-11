@@ -53,6 +53,11 @@ namespace Tools_XNA
             }
         }
 
+        public Camera(GraphicsDevice graphicsDevice)
+        {
+            GraphicsDevice = graphicsDevice;
+        }
+
         public enum ProjectionMatrixType
         {
             Perspective,
