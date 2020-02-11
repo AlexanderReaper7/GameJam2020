@@ -9,7 +9,7 @@ namespace Tools_XNA
 {
     public interface IWorldSpot
     {
-        void Draw(GameTime gameTime);
+        void Draw(GameTime gameTime, Camera camera);
         void Update(GameTime gameTime);
     }
 
@@ -40,13 +40,13 @@ namespace Tools_XNA
         /// Draws all world spot
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Draw(Camera camera,GameTime gameTime)
+        public void Draw(GameTime gameTime, Camera camera)
         {
             // For every dimension 
             for (int i = 0; i < worldSpots.GetLength(0); i++)
                 for (int j = 0; j < worldSpots.GetLength(1); j++)
                     for (int k = 0; i < worldSpots.GetLength(2); k++)
-                        worldSpots[i, j, k].Draw(gameTime);
+                        worldSpots[i, j, k].Draw(gameTime, camera);
         }
     }
 }

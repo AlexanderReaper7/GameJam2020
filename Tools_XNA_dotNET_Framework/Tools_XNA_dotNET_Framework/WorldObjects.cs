@@ -15,7 +15,8 @@ namespace Tools_XNA
         /// Does not draw anything
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Draw(GameTime gameTime)
+        /// <param name="camera"></param>
+        public void Draw(GameTime gameTime, Camera camera)
         {
         }
 
@@ -25,6 +26,21 @@ namespace Tools_XNA
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+        }
+    }
+
+    public class Ground : IWorldSpot
+    {
+        private CustomModel model;
+
+        public void Draw(GameTime gameTime, Camera camera)
+        {
+            model.Draw(camera.View, camera.Projection, camera.);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }
