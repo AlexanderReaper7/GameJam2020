@@ -17,9 +17,10 @@ namespace GameJam2020_3D
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
         private World world;
+        private Camera camera;
 
         public Game1()
         {
@@ -36,6 +37,7 @@ namespace GameJam2020_3D
         protected override void Initialize()
         {
             
+
             base.Initialize();
         }
 
@@ -84,7 +86,9 @@ namespace GameJam2020_3D
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            // World
+            world.Draw(camera);
+            // UI
 
             base.Draw(gameTime);
         }

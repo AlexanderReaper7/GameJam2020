@@ -55,6 +55,7 @@
     <Compile Include="AlexanderCode\ExtendedSpriteBatch.cs" />
     <Compile Include="AlexanderCode\MathHelperExtensions.cs" />
     <Compile Include="GameStates.cs" />
+    <Compile Include="IsometricCamera.cs" />
     <Compile Include="JuliusCode\ControlScheme.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldObjects.cs" />
