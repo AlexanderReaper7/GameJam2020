@@ -8,7 +8,6 @@ namespace Tools_XNA
 
 
         // Variables for camera and targeted position
-        public Vector3 Position { get; private set; }
         public Vector3 Target { get; set; }
 
         // Variables for camera position relative from targets position and where on target the camera shall focus on
@@ -32,7 +31,7 @@ namespace Tools_XNA
 
         // Constructor
         public ChaseCamera(Vector3 PositionOffset, Vector3 TargetOffset, Vector3 RelativeCameraRotation, GraphicsDevice graphicsDevice)
-            : base(graphicsDevice)
+            : base(graphicsDevice, ProjectionMatrixType.Perspective)
         {
             this.PositionOffset = PositionOffset;
             this.TargetOffset = TargetOffset;

@@ -70,7 +70,7 @@ namespace Tools_XNA
 
         protected void GenerateOrthographicProjectionMatrix()
         {
-            Projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0.1f, 1000000.0f);
+            Projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width * 4, GraphicsDevice.Viewport.Height * 4, 0.000001f, 100000000000.0f);
         }
 
         public virtual void Update()

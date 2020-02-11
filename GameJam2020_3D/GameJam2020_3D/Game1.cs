@@ -19,13 +19,23 @@ namespace GameJam2020_3D
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private World world;
-        private Camera camera;
 
+        private World world;
+        private IsometricCamera camera;
+#if DEBUG
+        private FreeCamera freeCamera;
+        private bool freeCameraActive = false;
+        private MouseState lastMouseState;
+#endif
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsFixedTimeStep = false;
+            graphics.PreferMultiSampling = true;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -36,8 +46,12 @@ namespace GameJam2020_3D
         /// </summary>
         protected override void Initialize()
         {
-            camera = new IsometricCamera(Vector3.Zero, 1000f, 1000f, 12000f, GraphicsDevice);
+            camera = new IsometricCamera(Vector3.Zero, 10000f, 1f, float.MaxValue, GraphicsDevice);
 
+#if DEBUG
+            lastMouseState = Mouse.GetState();
+            freeCamera = new FreeCamera(GraphicsDevice, MathHelper.ToRadians(153), MathHelper.ToRadians(5), new Vector3(1000, 1000, -2000));
+#endif
             base.Initialize();
         }
 
@@ -50,7 +64,32 @@ namespace GameJam2020_3D
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // Load Models
+            WorldObjects3D.Ground.LoadContent(Content, @"Models/GroundStandard");
             // Load World
+            LoadLevel(Level.CreateFilled(GraphicsDevice));
+        }
+
+        public void LoadLevel(Level level)
+        {
+            // Set world
+            world = level.World;
+            // Recalculate zoom level for isometric camera
+            ConfigureCamera();
+        }
+        /// <summary>
+        /// Size of sides in pixels
+        /// </summary>
+        private const float padding = 0f;
+        public void ConfigureCamera()
+        {
+            //TODO: move world -y to not block camera
+            // Zoom camera to fit world
+            // Get largest side
+            float largestSide = (float) Math.Sqrt(Math.Pow(world.RealSize.Z, 2) + Math.Pow(world.RealSize.X, 2));
+            // Get largest screen side
+            int lsg = Math.Min(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+
+            camera.Zoom = largestSide / lsg;
         }
 
         /// <summary>
@@ -74,9 +113,47 @@ namespace GameJam2020_3D
 
             world.Update(gameTime);
             camera.Update();
+#if DEBUG
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad1)) freeCameraActive = true;
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad2)) freeCameraActive = false;
+            UpdateFreeCamera(gameTime);
+#endif
 
             base.Update(gameTime);
         }
+
+#if DEBUG
+        private void UpdateFreeCamera(GameTime gameTime)
+        {
+            MouseState mouseState = Mouse.GetState();
+            KeyboardState keyState = Keyboard.GetState();
+
+            // Calculate how much the camera should rotate
+            float deltaX = lastMouseState.X - mouseState.X;
+            float deltaY = lastMouseState.Y - mouseState.Y;
+
+            // Rotate camera
+            freeCamera.Rotate(deltaX * 0.01f, deltaY * 0.01f);
+
+            Vector3 translation = Vector3.Zero;
+
+            if (keyState.IsKeyDown(Keys.W)) translation += Vector3.Forward * 10f;
+            if (keyState.IsKeyDown(Keys.S)) translation += Vector3.Backward * 10f;
+            if (keyState.IsKeyDown(Keys.A)) translation += Vector3.Left * 10f;
+            if (keyState.IsKeyDown(Keys.D)) translation += Vector3.Right * 10f;
+            if (keyState.IsKeyDown(Keys.Space)) translation += Vector3.Up * 10f;
+
+            // Move camera
+            freeCamera.Move(translation);
+
+            // Update camera
+            freeCamera.Update();
+
+            // Update lastMouseState
+            lastMouseState = mouseState;
+        }
+#endif
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -85,10 +162,22 @@ namespace GameJam2020_3D
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+#if DEBUG
+            if (freeCameraActive)
+            {
+                world.Draw(gameTime, freeCamera);
+            }
+            else
+            {
+                world.Draw(gameTime,camera);
+            }
+#endif
+#if !DEBUG
             // World
             world.Draw(gameTime, camera);
             // UI
+            
+#endif
 
 
             base.Draw(gameTime);
