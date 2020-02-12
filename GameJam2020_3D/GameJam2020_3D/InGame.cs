@@ -38,7 +38,6 @@ namespace GameJam2020_3D
             lastMouseState = Mouse.GetState();
             freeCamera = new FreeCamera(graphics.GraphicsDevice, MathHelper.ToRadians(153), MathHelper.ToRadians(5), new Vector3(1000, 1000, -2000));
 #endif
-
         }
 
         public void LoadContent(ContentManager content)
