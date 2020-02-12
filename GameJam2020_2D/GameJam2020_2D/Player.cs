@@ -62,6 +62,9 @@ namespace GameJam2020_2D
             this.textureLeft = textureLeft;
             this.textureRight = textureRight;
             this.tileMap = tileMap;
+
+            // Set position to start at // Olle A 200212
+            TilePosition = tileMap.StartingPosition;
         }
 
         public void Update(GameTime gameTime)
@@ -140,6 +143,12 @@ namespace GameJam2020_2D
                 if (tileMap.CollisionTiles[TilePosition + movement].Type == 0)
                 {
                     // TODO: Add death logic
+                }
+                // Move to next level if  end portal // Olle A 200212
+                else if (tileMap.CollisionTiles[TilePosition + movement].Type == 204 || tileMap.CollisionTiles[TilePosition + movement].Type == 104)
+                {
+                    InGame.Level++;
+                    TilePosition = tileMap.StartingPosition;
                 }
                 // Otherwise move // Olle A 200212
                 else

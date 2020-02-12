@@ -80,21 +80,128 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Tiles\Fantasy_Dispenser.png">
-      <Name>3</Name>
+      <Name>205</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Tiles\Fantasy_Ground.png">
-      <Name>1</Name>
+      <Name>201</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Tiles\Fantasy_Wall.png">
-      <Name>2</Name>
+      <Name>202</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Fantasy_Coin.png">
+      <Name>Fantasy_Coin</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_Door_Closed.png">
+      <Name>206</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_Door_Open.png">
+      <Name>207</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_End_Portal.png">
+      <Name>204</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_Portal.png">
+      <Name>208</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_TrapDoor_Closed.png">
+      <Name>209</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_TrapDoor_Open.png">
+      <Name>210</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_Wall_Mirrored.png">
+      <Name>203</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Coin.png">
+      <Name>Sci-Fi_Coin</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Door_Closed.png">
+      <Name>106</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Door_Open.png">
+      <Name>107</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Ground.png">
+      <Name>101</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_MicroChip.png">
+      <Name>Sci-Fi_MicroChip</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Portal.png">
+      <Name>108</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Down, Left.png">
+      <Name>Sci-Fi_Ramp_Down, Left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Down, Right.png">
+      <Name>Sci-Fi_Ramp_Down, Right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Up, Left.png">
+      <Name>Sci-Fi_Ramp_Up, Left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Up, Right.png">
+      <Name>Sci-Fi_Ramp_Up, Right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Wall.png">
+      <Name>102</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci-Fi_Wall_Mirrored.png">
+      <Name>103</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci_Fi_End_Portal.png">
+      <Name>104</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

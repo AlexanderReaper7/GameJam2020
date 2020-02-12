@@ -32,6 +32,7 @@ namespace Tools_XNA
         // Olle A 20-02-12
         public int TileMapWidth;
         public int Size;
+        public int StartingPosition;
 
         // En oanvänd construktor | Julius 18-11-26
         public TilesMap() { }
@@ -50,9 +51,10 @@ namespace Tools_XNA
         }
 
         // En kartgenererare där man bestämmer vart och vilken typ av tile som finns i en array (map) och pixelstorleken på tilens sida (size) | Julius 18-11-21
-        public void Generate(int[,] map, int tileMapWidth, int size, int xOffset, int yOffset)
+        public void Generate(int[,] map, int StartingPosition, int tileMapWidth, int size, int xOffset, int yOffset)
         {
             TileMapWidth = tileMapWidth;
+            this.StartingPosition = StartingPosition;
             Size = size;
 
             // Ändrade så att y räknas baklänges. Fixar så att tiles:en ritas ut i rätt ordning | Olle A 20-02-11
