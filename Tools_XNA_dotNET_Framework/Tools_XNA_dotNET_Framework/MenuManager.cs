@@ -19,7 +19,8 @@ namespace Tools_XNA
         private Game game;
         private GraphicsDeviceManager graphics;
 
-        GameStates gameStates;
+        public GameStates gameStates;
+        
 
         int screenWidth;
         int screenHeight;
@@ -29,7 +30,7 @@ namespace Tools_XNA
         {
             this.game = game;
             this.graphics = graphics;
-
+            gameStates = GameStates.Menu;
             screenSize = graphics.GraphicsDevice.Viewport.Bounds;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
