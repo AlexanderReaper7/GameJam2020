@@ -19,6 +19,9 @@ namespace Tools_XNA
         private Game game;
         private GraphicsDeviceManager graphics;
 
+        public GameStates gameStates;
+        
+
         int screenWidth;
         int screenHeight;
         Rectangle screenSize;
@@ -27,7 +30,7 @@ namespace Tools_XNA
         {
             this.game = game;
             this.graphics = graphics;
-
+            gameStates = GameStates.Menu;
             screenSize = graphics.GraphicsDevice.Viewport.Bounds;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
@@ -40,8 +43,14 @@ namespace Tools_XNA
             bool isKeyUp = input.IsKeyUp;
             // Update the variables in control scheme (input)
             input.Update();
-            // If player is not in play screen/page, make menu navigation possible
-            Navigation(input.Up, input.Down, input.Left, input.Right);
+            
+            // Navigationcode
+            if (isKeyUp && input.Up || isKeyUp && input.Down || isKeyUp && input.Left || isKeyUp && input.Right)
+            {
+                Navigation(input.Up, input.Down, input.Left, input.Right);
+                isKeyUp = false;
+            }
+                
 
             // Single activation on select key and mouse button
             if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
@@ -55,47 +64,50 @@ namespace Tools_XNA
         public void LoadMenues(ContentManager Content)
         {
             // Fonts
-            menuFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
+            menuFont = Content.Load<SpriteFont>(@"Fonts/Main");
             textFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
             scoreBoardFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
 
             // Textures
             defaultBackground = Content.Load<Texture2D>(@"Textures/TestTexture");
 
+            /// InsertName      0
+            /// MainMenu        1
+            /// LevelSelect     2
+            /// HighscoreBoard  3
+            /// GameOverScreen  4   
+            /// VictoryScreen   5
+            /// Credits         6
 
-            // Menu Pages and buttons
-            // All pages in the program, see MenuManager.cs for more info
-            // Menu
-            menu.Pages[0].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Level Select", "How To Play", "Highscore", "Credits", "Exit" });
+            // StartMenu
+            menu.PageSelection = 1;
 
-            // Level Select
-            menu.Pages[2].AddBackground(defaultBackground, 0.9f);
-            menu.Pages[2].AddButton_Single(menuFont, new Vector2(60, 560), "Back");
-
-            // HowToPlay
-            menu.Pages[3].AddBackground(defaultBackground, 0.8f);
-            menu.Pages[3].AddText(textFont, new Vector2(80), false, "BananPaj" + Environment.NewLine + "Do not touch the edge nor your body!", Color.White);
-            menu.Pages[3].AddText(textFont, new Vector2(80, 240), false, "Controls:" + Environment.NewLine + "Play with either A and d or" + Environment.NewLine + "Left and Right Keys on keyboard" + Environment.NewLine + Environment.NewLine + "You can also play with" + Environment.NewLine + "Left and Right Mouse buttons", Color.White);
-            menu.Pages[3].AddButton_Single(menuFont, new Vector2(80, 560), "Back");
-
-            // Highscore
-            menu.Pages[4].AddBackground(defaultBackground, 0.8f);
+            // All pages in the program, see Menu.cs for more info
+            // MainMenu
+            menu.Pages[1].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
+                new Action[] { () => gameStates = GameStates.Game, () => menu.PageSelection = 2, () => menu.PageSelection = 3, () => menu.PageSelection = 6, () => game.Exit() });
+            
+            menu.Pages[2].AddBackground(defaultBackground, 1f);
+            menu.Pages[2].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
+            
+            menu.Pages[3].AddBackground(defaultBackground, 1f);
+            menu.Pages[3].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => menu.PageSelection = 1);
+            
+            menu.Pages[4].AddBackground(defaultBackground, 1f);
             menu.Pages[4].AddText(textFont, new Vector2(80), false, "BananPaj" + Environment.NewLine + "Do not touch the edge nor your body!", Color.White);
             menu.Pages[4].AddText(textFont, new Vector2(80, 240), false, "Controls:" + Environment.NewLine + "Play with either A and d or" + Environment.NewLine + "Left and Right Keys on keyboard" + Environment.NewLine + Environment.NewLine + "You can also play with" + Environment.NewLine + "Left and Right Mouse buttons", Color.White);
-            menu.Pages[4].AddButton_Single(menuFont, new Vector2(80, 560), "Back");
+            menu.Pages[4].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => menu.PageSelection = 1);
 
-
-            // Credits
-            menu.Pages[5].AddBackground(defaultBackground, 0.9f);
+            
+            menu.Pages[5].AddBackground(defaultBackground, 1f);
             menu.Pages[5].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Credits", Color.White);
             menu.Pages[5].AddText(textFont, new Vector2(screenWidth / 2, screenHeight / 2), true, "Game made by Julius", Color.White);
-            menu.Pages[5].AddButton_Single(menuFont, new Vector2(60, 560), "Back");
-
-            // GameOver
+            menu.Pages[5].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
+            
             menu.Pages[6].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "GameOver", Color.Red);
             menu.Pages[6].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Score: ", Color.White);
-            menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 460), "Highscore");
-            menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 560), "Back");
+            menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 460), "Highscore", () => menu.PageSelection = 3);
+            menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
 
             //// Pause
             //menu.Pages[7].AddButtonList_Single(menuFont, new Vector2(60), 100f, new[] { "Resume", "Reset", "Back to Menu", "Exit" });

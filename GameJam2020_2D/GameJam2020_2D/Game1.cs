@@ -22,7 +22,7 @@ namespace GameJam2020_2D
 
         private MenuManager menuManager;
         private InGame inGame;
-        private GameStates gameState;
+        public static GameStates gameState;
 
         public Game1()
         {
@@ -77,9 +77,10 @@ namespace GameJam2020_2D
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
+            gameState = menuManager.gameStates;
             switch (gameState)
             {
                 case GameStates.Menu:
@@ -101,14 +102,13 @@ namespace GameJam2020_2D
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             switch (gameState)
             {
                 case GameStates.Menu:
-                    spriteBatch.Begin();
                     menuManager.Draw(spriteBatch);
-                    spriteBatch.End();
                     break;
                 case GameStates.Game:
                     inGame.Draw(spriteBatch, gameTime);
@@ -116,6 +116,7 @@ namespace GameJam2020_2D
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
