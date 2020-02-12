@@ -58,10 +58,13 @@
     <Compile Include="GameStates.cs" />
     <Compile Include="IsometricCamera.cs" />
     <Compile Include="JuliusCode\ControlScheme.cs" />
+<<<<<<< HEAD
     <Compile Include="Projectile.cs" />
+=======
     <Compile Include="JuliusCode\Menu.cs" />
     <Compile Include="MenuManager.cs" />
     <Compile Include="Level.cs" />
+>>>>>>> upstream/master
     <Compile Include="World.cs" />
     <Compile Include="WorldObjects.cs" />
     <None Include="JuliusCode\Game1DrJekyll.cs" />

@@ -104,21 +104,19 @@ namespace GameJam2020_2D
         {
             GraphicsDevice.Clear(Color.Black);
 
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             switch (gameState)
             {
                 case GameStates.Menu:
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
                     menuManager.Draw(spriteBatch);
-                    spriteBatch.End();
                     break;
                 case GameStates.Game:
-                    spriteBatch.Begin();
                     inGame.Draw(spriteBatch, gameTime);
-                    spriteBatch.End();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 

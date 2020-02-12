@@ -8,6 +8,13 @@ namespace Tools_XNA
 {
    public class Tiles
     {
+        // Bool that is used to know if the player has already walked on this tile // Olle A 20-02-11
+        public bool HasBeenWalkedOn = false;
+        // Bool that is used to know if the player is currently on this tile // Olle A, Emil C.A. 20-02-12
+        public bool IsOnTile = false;
+        // Type of tile, 0 is air // Olle A 20-02-11
+        public int Type;
+
         protected Texture2D texture;
 
         private Rectangle rectangle;
@@ -27,7 +34,7 @@ namespace Tools_XNA
         // Rita ut rektangelns textur | Julius 18-11-21
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, Color.White);
+            if (Type != 0)  spriteBatch.Draw(texture, rectangle, Color.White);
         }
 
         // En barnclass som används i "TilesMap.cs" | Julius 18-11-21
@@ -39,6 +46,9 @@ namespace Tools_XNA
                 // Laddar texturnamn efter "i" värdet, (kan ladda in Tile1.png och Tile2.png med en linje av kod) | Julius 18-11-21
                 texture = Content.Load<Texture2D>("Textures/Tiles/" + i);
                 this.Rectangle = newRectangle;
+
+                // Update type of tile // Olle A 20-02-11
+                Type = i;
             }
         }
 
