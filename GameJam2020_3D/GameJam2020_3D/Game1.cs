@@ -118,7 +118,9 @@ namespace GameJam2020_3D
             switch (gameState)
             {
                 case GameStates.Menu:
+                    spriteBatch.Begin();
                     menuManager.Draw(spriteBatch);
+                    spriteBatch.End();
                     break;
                 case GameStates.Game:
                     inGame.Draw(gameTime);
