@@ -64,12 +64,12 @@ namespace Tools_XNA
         public void LoadMenues(ContentManager Content)
         {
             // Fonts
-            menuFont = Content.Load<SpriteFont>(@"Fonts/Main");
-            textFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
-            scoreBoardFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
+            menuFont = Content.Load<SpriteFont>(@"Shared/Fonts/Main");
+            textFont = Content.Load<SpriteFont>(@"Shared/Fonts/TestFont");
+            scoreBoardFont = Content.Load<SpriteFont>(@"SHared/Fonts/TestFont");
 
             // Textures
-            defaultBackground = Content.Load<Texture2D>(@"Textures/TestTexture");
+            defaultBackground = Content.Load<Texture2D>(@"Shared/Menu/Background");
 
             // InsertName      0
             // MainMenu        1
@@ -85,16 +85,17 @@ namespace Tools_XNA
 
             // All pages in the program, see Menu.cs for more info
             // MainMenu
+            menu.Pages[1].AddBackground(defaultBackground);
             menu.Pages[1].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
                 new Action[] { () => gameStates = GameStates.Game, () => menu.PageSelection = 2, () => menu.PageSelection = 3, () => menu.PageSelection = 6, () => game.Exit() });
             
-            menu.Pages[2].AddBackground(defaultBackground, 1f);
+            menu.Pages[2].AddBackground(defaultBackground);
             menu.Pages[2].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
             
-            menu.Pages[3].AddBackground(defaultBackground, 1f);
+            menu.Pages[3].AddBackground(defaultBackground);
             menu.Pages[3].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => menu.PageSelection = 1);
             
-            menu.Pages[4].AddBackground(defaultBackground, 1f);
+            menu.Pages[4].AddBackground(defaultBackground);
             menu.Pages[4].AddText(textFont, new Vector2(80), false, "BananPaj" + Environment.NewLine + "Do not touch the edge nor your body!", Color.White);
             menu.Pages[4].AddText(textFont, new Vector2(80, 240), false, "Controls:" + Environment.NewLine + "Play with either A and d or" + Environment.NewLine + "Left and Right Keys on keyboard" + Environment.NewLine + Environment.NewLine + "You can also play with" + Environment.NewLine + "Left and Right Mouse buttons", Color.White);
             menu.Pages[4].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => menu.PageSelection = 1);

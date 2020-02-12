@@ -132,9 +132,14 @@ namespace Tools_XNA
                 Background = texture;
                 BackgroundTransparency = transparency;
             }
+        public void AddBackground(Texture2D texture)
+        {
+            Background = texture;
+            BackgroundTransparency = 1f;
+        }
 
-            // Add a text, which font it shall have, what position, if the position is centralized (origin based), what the text is and what color
-            public void AddText(SpriteFont font, Vector2 position, bool center, string newText, Color color)
+        // Add a text, which font it shall have, what position, if the position is centralized (origin based), what the text is and what color
+        public void AddText(SpriteFont font, Vector2 position, bool center, string newText, Color color)
             {
                 Text.Add(new Line(font, position, center, newText, color));
             }
