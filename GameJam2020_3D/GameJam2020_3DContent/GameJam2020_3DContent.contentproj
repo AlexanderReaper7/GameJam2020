@@ -31,18 +31,23 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Models\GrayTile.fbx">
+    <None Include="Models\GrayTile.fbx">
       <Name>GrayTile</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\GreenTile.fbx">
+    </None>
+    <None Include="Models\GreenTile.fbx">
       <Name>GreenTile</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\RedTile.fbx">
+    </None>
+    <None Include="Models\RedTile.fbx">
       <Name>RedTile</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </None>
+    <Compile Include="Models\GroundStandard.fbx">
+      <Name>GroundStandard</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
