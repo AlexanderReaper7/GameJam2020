@@ -71,13 +71,14 @@ namespace Tools_XNA
             // Textures
             defaultBackground = Content.Load<Texture2D>(@"Textures/TestTexture");
 
-            /// InsertName      0
-            /// MainMenu        1
-            /// LevelSelect     2
-            /// HighscoreBoard  3
-            /// GameOverScreen  4   
-            /// VictoryScreen   5
-            /// Credits         6
+            // InsertName      0
+            // MainMenu        1
+            // LevelSelect     2
+            // HighscoreBoard  3
+            // GameOverScreen  4   
+            // VictoryScreen   5
+            // Credits         6
+
 
             // StartMenu
             menu.PageSelection = 1;
