@@ -47,19 +47,7 @@ namespace Tools_XNA
             Distance = MathHelper.Clamp(Distance, MinDistance, MaxDistance);
         }
 
-        public void Rotate()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        enum Angles // TODO: rotation
-        {
-            UpLeft,
-            DownLeft
-        }
-
-        protected void GenerateOrthographicProjectionMatrix()
+        private new void GenerateOrthographicProjectionMatrix()
         {
             Projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width * Zoom, GraphicsDevice.Viewport.Height * Zoom, 0.00001f, 10000000.0f);
         }

@@ -9,13 +9,22 @@ namespace Tools_XNA
     public class Level
     {
         public readonly string Name;
-        public World World { get; private set; }
+        /// <summary>
+        /// Terrain
+        /// </summary>
+        public World World { get; set; }
+
+        //public Player player { get; set; }
+
 
         public Level(string name, World world)
         {
             Name = name;
             World = world;
         }
+
+        #region Create
+
 
         public static Level CreateDefault(GraphicsDevice graphicsDevice)
         {
@@ -44,6 +53,6 @@ namespace Tools_XNA
 
             return new Level("DefaultFilled", world);
         }
-
+        #endregion
     }
 }

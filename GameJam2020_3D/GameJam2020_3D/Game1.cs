@@ -19,9 +19,9 @@ namespace GameJam2020_3D
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
-        private World world;
+        private Level level;
         private IsometricCamera camera;
+
 #if DEBUG
         private FreeCamera freeCamera;
         private bool freeCameraActive = false;
@@ -72,20 +72,16 @@ namespace GameJam2020_3D
         public void LoadLevel(Level level)
         {
             // Set world
-            world = level.World;
+            this.level = level;
             // Recalculate zoom level for isometric camera
             ConfigureCamera();
         }
-        /// <summary>
-        /// Size of sides in pixels
-        /// </summary>
-        private const float padding = 0f;
         public void ConfigureCamera()
         {
             //TODO: move world -y to not block camera
             // Zoom camera to fit world
             // Get largest side
-            float largestSide = (float) Math.Sqrt(Math.Pow(world.RealSize.Z, 2) + Math.Pow(world.RealSize.X, 2));
+            float largestSide = (float) Math.Sqrt(Math.Pow(level.World.RealSize.Z, 2) + Math.Pow(level.World.RealSize.X, 2));
             // Get largest screen side
             int lsg = Math.Min(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -178,8 +174,6 @@ namespace GameJam2020_3D
             // UI
             
 #endif
-
-
             base.Draw(gameTime);
         }
     }
