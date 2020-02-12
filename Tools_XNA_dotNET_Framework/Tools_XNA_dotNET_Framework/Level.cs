@@ -42,7 +42,7 @@ namespace Tools_XNA
 
         public static Level CreateFilled(GraphicsDevice graphicsDevice)
         {
-            int x = 12, y = 4, z = 12;
+            int x = 12, y = 2, z = 12;
             World world = new World(x, y, z);
 
             // fill world with air and ground
