@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Tools_XNA;
 
 namespace GameJam2020_2D
 {
@@ -19,10 +20,17 @@ namespace GameJam2020_2D
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private MenuManager menuManager;
+        private InGame inGame;
+        private GameStates gameState;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -33,8 +41,10 @@ namespace GameJam2020_2D
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            gameState = GameStates.Menu;
+            menuManager = new MenuManager(this, graphics);
+            inGame = new InGame();
+            inGame.Initialize();
             base.Initialize();
         }
 
@@ -47,7 +57,8 @@ namespace GameJam2020_2D
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            menuManager.LoadMenues(Content);
+            inGame.LoadContent(Content);
         }
 
         /// <summary>
@@ -56,7 +67,6 @@ namespace GameJam2020_2D
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -70,7 +80,17 @@ namespace GameJam2020_2D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            switch (gameState)
+            {
+                case GameStates.Menu:
+                    menuManager.Update();
+                    break;
+                case GameStates.Game:
+                    inGame.Update(gameTime);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             base.Update(gameTime);
         }
@@ -82,6 +102,20 @@ namespace GameJam2020_2D
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            switch (gameState)
+            {
+                case GameStates.Menu:
+                    spriteBatch.Begin();
+                    menuManager.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameStates.Game:
+                    inGame.Draw(spriteBatch, gameTime);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             // TODO: Add your drawing code here
 

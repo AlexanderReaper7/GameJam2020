@@ -19,14 +19,18 @@ namespace GameJam2020_3D
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private World world;
-        private Camera camera;
-
-
+        private MenuManager menuManager;
+        private InGame inGame;
+        private GameStates gameState;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsFixedTimeStep = false;
+            graphics.PreferMultiSampling = true;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -37,8 +41,10 @@ namespace GameJam2020_3D
         /// </summary>
         protected override void Initialize()
         {
-            camera = new IsometricCamera(Vector3.Zero, 1000f, 1000f, 12000f, GraphicsDevice);
-
+            gameState = GameStates.Menu;
+            menuManager = new MenuManager(this, graphics);
+            inGame = new InGame(this, graphics);
+            inGame.Initialize();
             base.Initialize();
         }
 
@@ -50,9 +56,10 @@ namespace GameJam2020_3D
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            // Load Models
-            // Load World
+            menuManager.LoadMenues(Content);
+            inGame.LoadContent(Content);
         }
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -73,10 +80,31 @@ namespace GameJam2020_3D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            world.Update(gameTime);
-            camera.Update();
+            switch (gameState)
+            {
+                case GameStates.Menu:
+                    menuManager.Update();
+                    break;
+                case GameStates.Game:
+                    inGame.Update(gameTime);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+
 
             base.Update(gameTime);
+        }
+
+        public void OpenMainMenu()
+        {
+            
+        }
+
+        public void StartGame()
+        {
+            
         }
 
         /// <summary>
@@ -87,10 +115,19 @@ namespace GameJam2020_3D
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // World
-            world.Draw(gameTime, camera);
-            // UI
-
+            switch (gameState)
+            {
+                case GameStates.Menu:
+                    spriteBatch.Begin();
+                    menuManager.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameStates.Game:
+                    inGame.Draw(gameTime);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             base.Draw(gameTime);
         }

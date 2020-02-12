@@ -7,9 +7,7 @@ namespace Tools_XNA
 {
     public enum GameStates
     {
-        MainMenu,
-        LevelSelect,
-        HighScores,
-        InGame,
+        Menu,
+        Game,
     }
 }
