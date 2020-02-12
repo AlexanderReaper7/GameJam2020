@@ -107,6 +107,7 @@ namespace GameJam2020_3D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            Console.WriteLine("HELP!");
             level.World.Update(gameTime);
             camera.Update();
 #if DEBUG
