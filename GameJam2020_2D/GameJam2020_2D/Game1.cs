@@ -80,6 +80,7 @@ namespace GameJam2020_2D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
+            gameState = menuManager.gameStates;
             switch (gameState)
             {
                 case GameStates.Menu:
