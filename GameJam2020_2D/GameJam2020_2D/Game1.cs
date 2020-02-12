@@ -102,17 +102,19 @@ namespace GameJam2020_2D
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             switch (gameState)
             {
                 case GameStates.Menu:
-                    spriteBatch.Begin();
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
                     menuManager.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case GameStates.Game:
+                    spriteBatch.Begin();
                     inGame.Draw(spriteBatch, gameTime);
+                    spriteBatch.End();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
