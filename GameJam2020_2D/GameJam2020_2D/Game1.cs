@@ -20,8 +20,9 @@ namespace GameJam2020_2D
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        MenuManager menuManager = new MenuManager();
-        ControlScheme input = new ControlScheme();
+        private MenuManager menuManager;
+        private InGame inGame;
+        private GameStates gameState;
 
         public Game1()
         {
@@ -40,8 +41,10 @@ namespace GameJam2020_2D
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            menuManager.Screen(new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+            gameState = GameStates.Menu;
+            menuManager = new MenuManager(this, graphics);
+            inGame = new InGame();
+            inGame.Initialize();
             base.Initialize();
         }
 
@@ -55,8 +58,7 @@ namespace GameJam2020_2D
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             menuManager.LoadMenues(Content);
-
-            // TODO: use this.Content to load your game content here
+            inGame.LoadContent(Content);
         }
 
         /// <summary>
@@ -65,7 +67,6 @@ namespace GameJam2020_2D
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -79,288 +80,17 @@ namespace GameJam2020_2D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
-
-            // A small bool to make the full variable a bit smaller
-            bool isKeyUp = input.IsKeyUp;
-            // Update the variables in control scheme (input)
-            input.Update();
-            // If player is not in play screen/page, make menu navigation possible
-            if (isKeyUp && menuManager.menu.PageSelection != 1)
+            switch (gameState)
             {
-                menuManager.Navigation(input.Up, input.Down, input.Left, input.Right);
+                case GameStates.Menu:
+                    menuManager.Update();
+                    break;
+                case GameStates.Game:
+                    inGame.Update(gameTime);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-
-
-            // A region of all the pages and what each button do
-            #region All Menus
-            
-
-
-            // Main Menu
-            // Single activation on select key and mouse button
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
-            {
-                // Check if player select first button in main menu (play)
-                if (menuManager.menu.State(0, 0))
-                {
-                    // Change page to Play screen
-                    menuManager.menu.PageSelection = 1;
-                    // Start game
-                    //initializeGame = true;
-                    // Make single activation key reset
-                    isKeyUp = false;
-                }
-
-                // Highscore
-                if (menuManager.menu.State(0, 1))
-                {
-                    menuManager.menu.PageSelection = 2;
-                    isKeyUp = false;
-                }
-
-                // Options
-                if (menuManager.menu.State(0, 2))
-                {
-                    menuManager.menu.PageSelection = 3;
-                    isKeyUp = false;
-                }
-
-                // How to play
-                if (menuManager.menu.State(0, 3))
-                {
-                    menuManager.menu.PageSelection = 4;
-                    isKeyUp = false;
-                }
-
-                // Credits
-                if (menuManager.menu.State(0, 4))
-                {
-                    menuManager.menu.PageSelection = 5;
-                    isKeyUp = false;
-                }
-
-                // Exit
-                if (menuManager.menu.State(0, 5))
-                {
-                    // Exit the game
-                    this.Exit();
-                }
-
-            }
-
-            //// Play
-            //// If pause (Back) button is activated, or if mouse presses on pause button in the left top corner
-            //if (isKeyUp && input.Back || isKeyUp && input.SelectMouse && input.MousePointer.Intersects(pauseButton))
-            //{
-            //    //// Only if game is active (you cannot pause when the player see a countdown)
-            //    //if (game.GameActive)
-            //    //{
-            //    //    // Move to pause menu
-            //    //    menuManager.menu.PageSelection = 7;
-            //    //    // Pause game
-            //    //    game.PauseGame();
-            //    //    // Reset single activation key
-            //    //    isKeyUp = false;
-
-            //    //}
-
-            //}
-
-            // HighScore
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
-            {
-                // Back
-                if (menuManager.menu.State(2, 0))
-                {
-                    menuManager.menu.PageSelection = 0;
-                    isKeyUp = false;
-                }
-
-            }
-            // If Left shift and R is pressed while in Highscore page, clean/reset the score board
-            if (menuManager.menu.PageSelection == 2 && Keyboard.GetState().IsKeyDown(Keys.LeftShift) && Keyboard.GetState().IsKeyDown(Keys.R))
-            {
-                //saveFile.ResetHighScore();
-            }
-
-            // Options (Select with input.select)
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
-            {
-                // Controls
-                if (menuManager.menu.State(3, 0))
-                {
-                    // If button gets pressed (with selection key/mouse button), change button state, loop it so that it doesn't get stuck
-                    menuManager.menu.Pages[3].Buttons[0].SelectRight(true);
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-                // Speed
-                if (menuManager.menu.State(3, 1))
-                {
-                    // If button gets pressed (with selection key/mouse button), add 0.1f speed
-                    //options.Speed += 0.1f;
-                    //// If it gets over 2f, change it to 0.2f
-                    //if (options.Speed > 2.01f)
-                    //{
-                    //    options.Speed = 0.2f;
-                    //}
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-                // Fullscreen
-                if (menuManager.menu.State(3, 2))
-                {
-                    // Toggle fullscreen
-                    graphics.ToggleFullScreen();
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-                // Back
-                if (menuManager.menu.State(3, 3))
-                {
-                menuManager.menu.PageSelection = 0;
-                    isKeyUp = false;
-                }
-
-            }
-
-            // Options Change State with arrows
-            if (isKeyUp)
-            {
-                // Control Settings
-                // Checks what state the button is in (Switching button state with left/right keys is in menu.navigation method)
-                if (menuManager.menu.State(3, 0, 0))
-                {
-                    // If button state = 0, make options hold false
-                    //options.ControlsHold = false;
-                }
-                if (menuManager.menu.State(3, 0, 1))
-                {
-                    // If button state = 1, make options hold true
-                    //options.ControlsHold = true;
-                }
-
-                // Speed Settings
-                // Modified button
-                // Checks if button is selected
-                if (menuManager.menu.State(3, 1))
-                {
-                    // If left is pressed and is more than 0.2f
-                    //if (input.Left && options.Speed > 0.2f)
-                    //    // Subtract speed with 0.1f
-                    //    options.Speed -= 0.1f;
-
-                    // If right is pressed and is less than 2f
-                    //if (input.Right && options.Speed < 2f)
-                    //    // Add speed with 0.1f
-                    //    options.Speed += 0.1f;
-                }
-
-
-            }
-
-            // HowToPlay
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
-            {
-                // Back
-                if (menuManager.menu.State(4, 0))
-                {
-                    menuManager.menu.PageSelection = 0;
-                    isKeyUp = false;
-                }
-
-            }
-
-            // Credits
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
-            {
-                // Back
-                if (menuManager.menu.State(5, 0))
-                {
-                    menuManager.menu.PageSelection = 0;
-                    isKeyUp = false;
-                }
-
-            }
-
-            // GameOver
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
-            {
-                // Highscore
-                if (menuManager.menu.State(6, 0))
-                {
-                    // Move to highscore page
-                    menuManager.menu.PageSelection = 2;
-                    // Reset game after game over
-                    //game.ResetGame();
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-                // Back
-                if (menuManager.menu.State(6, 1))
-                {
-                    // Move to main menu
-                    menuManager.menu.PageSelection = 0;
-                    // Reset game after game over
-                    //game.ResetGame();
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-            }
-
-            // Pause
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
-            {
-                // Resume
-                if (menuManager.menu.State(7, 0))
-                {
-                    // Move back to play screen
-                    menuManager.menu.PageSelection = 1;
-                    // Start game again
-                    //initializeGame = true;
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-                // Reset
-                if (menuManager.menu.State(7, 1))
-                {
-                    // Move back to play screen
-                    menuManager.menu.PageSelection = 1;
-                    // Reset game
-                    //game.ResetGame();
-                    // Start game again
-                    //initializeGame = true;
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-                // Back to Menu
-                if (menuManager.menu.State(7, 2))
-                {
-                    // Move back to main menu
-                    menuManager.menu.PageSelection = 0;
-                    // Reset single activation key
-                    isKeyUp = false;
-                }
-
-                // Exit
-                if (menuManager.menu.State(7, 3))
-                {
-                    this.Exit();
-                }
-
-            }
-
-            #endregion
-
-
 
             base.Update(gameTime);
         }
@@ -373,12 +103,21 @@ namespace GameJam2020_2D
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            switch (gameState)
+            {
+                case GameStates.Menu:
+                    spriteBatch.Begin();
+                    menuManager.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameStates.Game:
+                    inGame.Draw(spriteBatch, gameTime);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-
-            menuManager.Draw(spriteBatch);
-
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }

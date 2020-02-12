@@ -14,16 +14,14 @@ namespace Tools_XNA
     {
         
             // List for all the pages in your desired menu
-            public List<Page> Pages = new List<Page>();
+            public List<Page> Pages;
             // A selection variable for pages
             public int PageSelection;
 
-            // Constructor
-            public Menu()
-            { }
             // Constructor with desired amount of pages
             public Menu(int amountOfPages)
             {
+                Pages = new List<Page>(amountOfPages);
                 for (int i = 0; i < amountOfPages; i++)
                 {
                     Pages.Add(new Page());
@@ -142,32 +140,32 @@ namespace Tools_XNA
             }
 
             // Add a button with no switching state, takes in font, position and text
-            public void AddButton_Single(SpriteFont font, Vector2 position, string text)
+            public void AddButton_Single(SpriteFont font, Vector2 position, string text, Action action)
             {
-                Buttons.Add(new Button(font, position, text));
+                Buttons.Add(new Button(font, position, text, action));
             }
 
             // Add a button with a switching state, takes in font, position and an array of text (each string in the array represent a state)
-            public void AddButton_Multi(SpriteFont font, Vector2 position, string[] text)
+            public void AddButton_Multi(SpriteFont font, Vector2 position, string[] text, Action action)
             {
-                Buttons.Add(new Button(font, position, text));
+                Buttons.Add(new Button(font, position, text, action));
             }
 
             // Add multiple buttons with no switching state, takes in font, position, the spacing between texts, and an array of text (each string in the array represent a state)
-            public void AddButtonList_Single(SpriteFont font, Vector2 startPosition, float spacing, string[] texts)
+            public void AddButtonList_Single(SpriteFont font, Vector2 startPosition, float spacing, string[] texts, Action[] actions)
             {
                 for (int i = 0; i < texts.Length; i++)
                 {
-                    Buttons.Add(new Button(font, new Vector2(startPosition.X, startPosition.Y + i * spacing), texts[i]));
+                    Buttons.Add(new Button(font, new Vector2(startPosition.X, startPosition.Y + i * spacing), texts[i], actions[i]));
                 }
             }
 
             // Add multiple buttons with a switching state, takes in font, position, the spacing between texts, and a list of an array of text (each string in the array represent a state, each array represent a button)
-            public void AddButtonList_Multi(SpriteFont font, Vector2 startPosition, float spacing, List<string[]> texts)
+            public void AddButtonList_Multi(SpriteFont font, Vector2 startPosition, float spacing, List<string[]> texts, Action action)
             {
                 for (int i = 0; i < texts.Count; i++)
                 {
-                    Buttons.Add(new Button(font, new Vector2(startPosition.X, startPosition.Y + i * spacing), texts[i]));
+                    Buttons.Add(new Button(font, new Vector2(startPosition.X, startPosition.Y + i * spacing), texts[i], action));
                 }
             }
 
@@ -295,6 +293,7 @@ namespace Tools_XNA
         // A class that simplifies a button with a font, position and what text
         public class Button
         {
+            private Action action;
             public SpriteFont Font;
             public Vector2 Position;
             // A rectangle for checking if it intersects with mouse
@@ -306,25 +305,27 @@ namespace Tools_XNA
             public bool HighLight;
 
             // Constructor for multi state buttons
-            public Button(SpriteFont font, Vector2 position, string[] text)
+            public Button(SpriteFont font, Vector2 position, string[] text, Action action)
             {
                 Font = font;
                 Position = position;
                 Text = text;
                 StateSelection = 0;
+                this.action = action;
             }
 
             // Constructor for single state buttons
-            public Button(SpriteFont font, Vector2 position, string text)
+            public Button(SpriteFont font, Vector2 position, string text, Action action)
             {
                 Font = font;
                 Position = position;
                 Text[0] = text;
                 StateSelection = 0;
+                this.action = action;
             }
 
-            // Navigation method, go right in button states (loop and get back to beginning when reaching the end)
-            public void SelectRight(bool loop)
+        // Navigation method, go right in button states (loop and get back to beginning when reaching the end)
+        public void SelectRight(bool loop)
             {
                 if (loop)
                 {
@@ -362,6 +363,11 @@ namespace Tools_XNA
                         StateSelection--;
                     }
                 }
+            }
+
+            public void Run()
+            {
+                action.Invoke();
             }
 
             // Draw
