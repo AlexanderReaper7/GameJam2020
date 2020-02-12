@@ -64,7 +64,7 @@ namespace Tools_XNA
         public void LoadMenues(ContentManager Content)
         {
             // Fonts
-            menuFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
+            menuFont = Content.Load<SpriteFont>(@"Fonts/Main");
             textFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
             scoreBoardFont = Content.Load<SpriteFont>(@"Fonts/TestFont");
 
@@ -99,7 +99,7 @@ namespace Tools_XNA
             menu.Pages[4].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => menu.PageSelection = 1);
 
             
-            menu.Pages[5].AddBackground(defaultBackground, 0.9f);
+            menu.Pages[5].AddBackground(defaultBackground, 1f);
             menu.Pages[5].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Credits", Color.White);
             menu.Pages[5].AddText(textFont, new Vector2(screenWidth / 2, screenHeight / 2), true, "Game made by Julius", Color.White);
             menu.Pages[5].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
