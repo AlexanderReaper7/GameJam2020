@@ -21,7 +21,6 @@ namespace GameJam2020_3D
         private SpriteBatch spriteBatch;
         private MenuManager menuManager;
         private InGame inGame;
-        private GameStates gameState;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,8 +40,8 @@ namespace GameJam2020_3D
         /// </summary>
         protected override void Initialize()
         {
-            gameState = GameStates.Menu;
             menuManager = new MenuManager(this, graphics);
+            menuManager.gameStates = GameStates.Game;
             inGame = new InGame(this, graphics);
             inGame.Initialize();
             base.Initialize();
@@ -80,7 +79,7 @@ namespace GameJam2020_3D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            switch (gameState)
+            switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
                     menuManager.Update();
@@ -97,28 +96,18 @@ namespace GameJam2020_3D
             base.Update(gameTime);
         }
 
-        public void OpenMainMenu()
-        {
-            
-        }
-
-        public void StartGame()
-        {
-            
-        }
-
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            switch (gameState)
+            switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
-                    spriteBatch.Begin();
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
                     menuManager.Draw(spriteBatch);
                     spriteBatch.End();
                     break;

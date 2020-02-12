@@ -41,7 +41,7 @@ namespace GameJam2020_2D
         /// </summary>
         protected override void Initialize()
         {
-            gameState = GameStates.Menu;
+            menuManager.gameStates = GameStates.Menu;
             menuManager = new MenuManager(this, graphics);
             inGame = new InGame();
             inGame.Initialize();
@@ -80,8 +80,7 @@ namespace GameJam2020_2D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            gameState = menuManager.gameStates;
-            switch (gameState)
+            switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
                     menuManager.Update();
@@ -105,7 +104,7 @@ namespace GameJam2020_2D
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            switch (gameState)
+            switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
                     menuManager.Draw(spriteBatch);

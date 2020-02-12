@@ -47,11 +47,12 @@ namespace GameJam2020_3D
             WorldObjects3D.Ground.LoadContent(content, @"Models/GroundStandard");
             Player.LoadContent(content);
             // Load World
-            LoadLevel(Level.CreateFilled(graphics.GraphicsDevice));
+            LoadLevel(Level.CreateDefault(graphics.GraphicsDevice));
         }
 
         public void LoadLevel(Level level)
         {
+            player = new PlayerManager(graphics.GraphicsDevice);
             // Set world
             world = level.World;
             // Recalculate zoom level for isometric camera
@@ -125,10 +126,12 @@ namespace GameJam2020_3D
             if (freeCameraActive)
             {
                 world.Draw(gameTime, freeCamera);
+                player.player.Draw(freeCamera);
             }
             else
             {
                 world.Draw(gameTime, camera);
+                player.player.Draw(camera);
             }
 #endif
 #if !DEBUG
