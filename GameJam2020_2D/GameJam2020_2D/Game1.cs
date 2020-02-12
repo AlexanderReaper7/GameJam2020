@@ -104,12 +104,11 @@ namespace GameJam2020_2D
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
             switch (gameState)
             {
                 case GameStates.Menu:
-                    spriteBatch.Begin();
                     menuManager.Draw(spriteBatch);
-                    spriteBatch.End();
                     break;
                 case GameStates.Game:
                     inGame.Draw(spriteBatch, gameTime);
@@ -117,6 +116,7 @@ namespace GameJam2020_2D
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
