@@ -12,7 +12,7 @@ namespace GameJam2020_3D
 {
     public class InGame
     {
-        Game1 game;
+        private Game1 game;
         private GraphicsDeviceManager graphics;
 
 #if DEBUG
@@ -22,6 +22,7 @@ namespace GameJam2020_3D
 #endif
         private World world;
         private IsometricCamera camera;
+        private PlayerManager player;
 
 
         public InGame(Game1 game, GraphicsDeviceManager graphics)
@@ -44,6 +45,7 @@ namespace GameJam2020_3D
         {
             // Load Models
             WorldObjects3D.Ground.LoadContent(content, @"Models/GroundStandard");
+            Player.LoadContent(content);
             // Load World
             LoadLevel(Level.CreateFilled(graphics.GraphicsDevice));
         }
@@ -74,22 +76,22 @@ namespace GameJam2020_3D
 
         public void Update(GameTime gameTime)
         {
+            player.Update(gameTime);
             world.Update(gameTime);
             camera.Update();
 #if DEBUG
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad1)) freeCameraActive = true;
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad2)) freeCameraActive = false;
-            UpdateFreeCamera(gameTime);
+            UpdateFreeCamera();
 #endif
-
         }
 
 #if DEBUG
-        private void UpdateFreeCamera(GameTime gameTime)
+        private void UpdateFreeCamera()
         {
             MouseState mouseState = Mouse.GetState();
             KeyboardState keyState = Keyboard.GetState();
 
+            if (keyState.IsKeyDown(Keys.NumPad1)) freeCameraActive = true;
+            if (keyState.IsKeyDown(Keys.NumPad2)) freeCameraActive = false;
             // Calculate how much the camera should rotate
             float deltaX = lastMouseState.X - mouseState.X;
             float deltaY = lastMouseState.Y - mouseState.Y;
