@@ -107,7 +107,7 @@ namespace GameJam2020_3D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            world.Update(gameTime);
+            level.World.Update(gameTime);
             camera.Update();
 #if DEBUG
             if (Keyboard.GetState().IsKeyDown(Keys.NumPad1)) freeCameraActive = true;
@@ -161,11 +161,11 @@ namespace GameJam2020_3D
 #if DEBUG
             if (freeCameraActive)
             {
-                world.Draw(gameTime, freeCamera);
+                level.World.Draw(gameTime, freeCamera);
             }
             else
             {
-                world.Draw(gameTime,camera);
+                level.World.Draw(gameTime,camera);
             }
 #endif
 #if !DEBUG

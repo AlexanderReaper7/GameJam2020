@@ -37,21 +37,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\GrayTile.fbx">
-      <Name>GrayTile</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <None Include="Models\GreenTile.fbx">
-      <Name>GreenTile</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <None Include="Models\RedTile.fbx">
-      <Name>RedTile</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <Compile Include="Models\GroundStandard.fbx">
       <Name>GroundStandard</Name>
       <Importer>FbxImporter</Importer>
