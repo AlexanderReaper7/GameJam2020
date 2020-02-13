@@ -86,7 +86,7 @@ namespace GameJam2020_2D
             switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
-                    menuManager.Update();
+                    menuManager.Update(gameTime);
                     break;
                 case GameStates.Game:
                     inGame.Update(gameTime);
