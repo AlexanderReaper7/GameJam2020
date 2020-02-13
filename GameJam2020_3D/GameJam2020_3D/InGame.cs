@@ -27,7 +27,6 @@ namespace GameJam2020_3D
         private IsometricCamera camera;
         private PlayerManager player;
 
-
         public InGame(Game1 game, GraphicsDeviceManager graphics)
         {
             this.game = game;
@@ -57,7 +56,9 @@ namespace GameJam2020_3D
         {
             // Set world
             world = level.World;
-            player = new PlayerManager(this, level.StartingPosition); // NOTE: player needs to be created after 
+            player = new PlayerManager(this, level.StartingPosition); // NOTE: player needs to be created after world
+            // Reset score
+            collect.timeScore = 0;
             // Recalculate zoom level for isometric camera
             ConfigureCamera();
         }
