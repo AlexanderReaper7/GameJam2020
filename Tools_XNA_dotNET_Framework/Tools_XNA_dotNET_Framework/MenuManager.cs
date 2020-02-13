@@ -60,7 +60,7 @@ namespace Tools_XNA
             // Update the variables in control scheme (input)
             input.Update();
 
-            if (menu.PageSelection == (int)MenuState.LevelSelect)
+            if (menu.PageSelection == (int)MenuState.InsertName)
             {
 
             }
