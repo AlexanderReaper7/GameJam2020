@@ -10,12 +10,9 @@ namespace Tools_XNA
 {
     public class WorldObjects3D
     {
-        public const float TileScalar = 200f;
-        public const float TileOffset = 20f;
-
         public abstract class WorldSpot
         {
-            protected Vector3 position;
+            public Vector3 position;
 
             public virtual void Draw(GameTime gameTime, Camera camera)
             {
@@ -23,11 +20,6 @@ namespace Tools_XNA
 
             public virtual void Update(GameTime gameTime)
             {
-            }
-
-            public void WorldPositionUpdate(int x, int y, int z, Vector3 realSize)
-            {
-                position = new Vector3(x,y,z) * (TileScalar+TileOffset) - new Vector3(realSize.X / 2f, 0, realSize.Z / 2f);
             }
         }
 

@@ -12,7 +12,7 @@ namespace GameJam2020_3D
 {
     public class InGame
     {
-        private Game1 game;
+        public Game1 game;
         private GraphicsDeviceManager graphics;
 
 #if DEBUG
@@ -20,7 +20,7 @@ namespace GameJam2020_3D
         private bool freeCameraActive = false;
         private MouseState lastMouseState;
 #endif
-        private World world;
+        public World world;
         private IsometricCamera camera;
         private PlayerManager player;
 
@@ -52,19 +52,15 @@ namespace GameJam2020_3D
 
         public void LoadLevel(Level level)
         {
-            player = new PlayerManager(graphics.GraphicsDevice);
             // Set world
             world = level.World;
+            player = new PlayerManager(this); // NOTE: player needs to be created after 
             // Recalculate zoom level for isometric camera
             ConfigureCamera();
         }
-        /// <summary>
-        /// Size of sides in pixels
-        /// </summary>
-        private const float padding = 0f;
+
         public void ConfigureCamera()
         {
-            //TODO: move world -y to not block camera
             // Zoom camera to fit world
             // Get largest side
             float largestSide = (float)Math.Sqrt(Math.Pow(world.RealSize.Z, 2) + Math.Pow(world.RealSize.X, 2));
