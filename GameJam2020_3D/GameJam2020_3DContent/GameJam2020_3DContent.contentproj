@@ -54,10 +54,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shared\Fonts\Tandysoft.ttf">
-      <Name>Tandysoft</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Compile Include="Textures\clouds.dds">
       <Name>clouds</Name>
       <Importer>TextureImporter</Importer>
@@ -84,6 +80,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Shared\Fonts\TestFont.spritefont">
       <Name>TestFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -93,6 +91,20 @@
   <ItemGroup>
     <Compile Include="Shared\Menu\Background.png">
       <Name>Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Shared\Menu\Credits.png">
+      <Name>Credits</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Shared\Menu\MainMenu.png">
+      <Name>MainMenu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
