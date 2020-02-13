@@ -41,8 +41,8 @@ namespace GameJam2020_2D
         /// </summary>
         protected override void Initialize()
         {
-            menuManager.gameStates = GameStates.Menu;
             menuManager = new MenuManager(this, graphics);
+            menuManager.gameStates = GameStates.Menu;
             inGame = new InGame();
             inGame.Initialize();
             base.Initialize();
