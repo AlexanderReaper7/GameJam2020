@@ -19,7 +19,7 @@ namespace Tools_XNA
         private Game game;
         private GraphicsDeviceManager graphics;
         private Highscore scoreBoard;
-        public int score;
+        public static float score;
         public static bool exclusiveBool = false;
 
         private Credits credits = new Credits();

@@ -134,6 +134,8 @@ namespace Tools_XNA
                 DoSave(data, Filename);
             }
 
+            MenuManager.score = data.Time[0];
+
         }
 
         //// Function for resetting the scoreboard | Julius 18-12-09
