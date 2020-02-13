@@ -36,6 +36,7 @@ namespace Tools_XNA
                 }
                 return new SaveData(arr);
             }
+            
         }
 
         [Serializable]
@@ -102,6 +103,29 @@ namespace Tools_XNA
                 stream.Close();
             }
         }
-}
+        
+
+        public void Draw(SpriteBatch spriteBatch, SpriteFont scoreFont, Vector2 scoreBoardPosition, Vector2 scoreFontSpacing, Color fontColor)
+        {
+            spriteBatch.DrawString(scoreFont, "HIGHSCORES:", scoreBoardPosition, fontColor);
+
+            //if (currentSaveData.entries[0].score == 0)
+            //{
+            //    spriteBatch.DrawString(scoreFont, "No score entries", scoreBoardPosition + scoreFontSpacing, fontColor);
+            //}
+            //else
+            {
+                for (int i = 0; i < MaxScores; i++)
+                    //if (currentSaveData.entries[0].score > 0)
+                    {
+                        spriteBatch.DrawString(scoreFont, 
+                            i + 1 + ": " + currentSaveData.entries[i].name + " timed at " + currentSaveData.entries[i].score + " seconds", 
+                            scoreBoardPosition + (i+2) * scoreFontSpacing, fontColor);
+                    }
+            }
+        }
+
+
+    }
 
 }

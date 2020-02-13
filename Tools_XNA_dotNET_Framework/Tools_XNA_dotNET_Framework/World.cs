@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 // Alexander Ö 200210
 namespace Tools_XNA
@@ -45,13 +46,13 @@ namespace Tools_XNA
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            // For every dimension 
+            // For every dimension
             for (int i = 0; i < worldSpots.GetLength(0); i++)
             for (int j = 0; j < worldSpots.GetLength(1); j++)
             for (int k = 0; k < worldSpots.GetLength(2); k++)
             {
-                worldSpots[i, j, k].Update(gameTime);
                 worldSpots[i, j, k].position = CalculateRealPosition(new Vector3(i, j, k));
+                worldSpots[i, j, k].Update(gameTime);
             }
         }
 
@@ -60,16 +61,19 @@ namespace Tools_XNA
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="camera"></param>
-        public void Draw(GameTime gameTime, Camera camera)
+        public void Draw(GameTime gameTime, Camera camera, int playerWorldY)
         {
             // For every dimension 
             for (int i = 0; i < worldSpots.GetLength(0); i++)
             for (int j = 0; j < worldSpots.GetLength(1); j++)
             for (int k = 0; k < worldSpots.GetLength(2); k++)
             {
-                worldSpots[i, j, k].Draw(gameTime, camera);
+                if (playerWorldY < j) worldSpots[i, j, k].Draw(gameTime, camera, 0.8f); // Draw objects above player with alpha
+                else worldSpots[i, j, k].Draw(gameTime, camera, 1f);
             }
         }
+
+
 
         public Vector3 CalculateRealPosition(Vector3 worldPosition)
         {

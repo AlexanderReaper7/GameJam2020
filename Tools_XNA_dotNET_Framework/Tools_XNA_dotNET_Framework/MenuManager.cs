@@ -18,8 +18,21 @@ namespace Tools_XNA
         private ControlScheme input;
         private Game game;
         private GraphicsDeviceManager graphics;
+        private Highscore scoreBoard = new Highscore();
 
         public GameStates gameStates;
+
+        public enum MenuState : byte
+        {
+            InsertName,
+            Main,
+            LevelSelect,
+            HighscoreBoard,
+            GameOver,
+            Victory,
+            Credits
+        }
+        MenuState menuState = MenuState.Main;
         
 
         int screenWidth;
@@ -79,9 +92,9 @@ namespace Tools_XNA
             // VictoryScreen   5
             // Credits         6
 
-
+            menuState = MenuState.Main;
             // StartMenu
-            menu.PageSelection = 1;
+            menu.PageSelection = (int)menuState;
 
             // All pages in the program, see Menu.cs for more info
             // MainMenu
@@ -124,6 +137,10 @@ namespace Tools_XNA
         public void Draw(SpriteBatch spriteBatch)
         {
             menu.Draw(spriteBatch, screenSize);
+            if(menu.PageSelection == (int)MenuState.HighscoreBoard)
+            {
+                scoreBoard.Draw(spriteBatch, menuFont, new Vector2(60), new Vector2(0, 60), Color.White);
+            }
         }
     }
 }

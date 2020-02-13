@@ -14,7 +14,7 @@ namespace Tools_XNA
         {
             public Vector3 position;
 
-            public virtual void Draw(GameTime gameTime, Camera camera)
+            public virtual void Draw(GameTime gameTime, Camera camera, float alpha)
             {
             }
 
@@ -24,10 +24,10 @@ namespace Tools_XNA
         }
 
 
-    /// <summary>
-    /// Standard ground
-    /// </summary>
-    public class Ground : WorldSpot
+        /// <summary>
+        /// Standard ground
+        /// </summary>
+        public class Ground : WorldSpot
         {
             private static Model model;
             public CustomModel customModel;
@@ -37,9 +37,9 @@ namespace Tools_XNA
                 customModel = new CustomModel(model, Vector3.Zero, Vector3.Zero, Vector3.One, graphicsDevice);
             }
 
-            public override void Draw(GameTime gameTime, Camera camera)
+            public override void Draw(GameTime gameTime, Camera camera, float alpha)
             {
-                customModel.Draw(camera.View, camera.Projection, camera.Position);
+                customModel.Draw(camera.View, camera.Projection, camera.Position, alpha);
             }
 
             public override void Update(GameTime gameTime)
@@ -53,24 +53,47 @@ namespace Tools_XNA
             }
         }
 
+        public class FallingGround : Ground
+        {
+            /// <summary>
+            /// LERP amount
+            /// </summary>
+            private const float fallspeed = 0.1f;
+
+            private const float fallTo = -4000f;
+
+            public bool falling;
+            private float lastY;
+
+            public FallingGround(GraphicsDevice graphicsDevice) : base(graphicsDevice)
+            {
+                falling = false;
+            }
+
+            public override void Update(GameTime gameTime)
+            {
+                if (falling) Fall();
+                base.Update(gameTime);
+            }
+
+            private void Fall()
+            {
+                position.Y = MathHelper.SmoothStep(lastY, -4000f, fallspeed);
+                lastY = position.Y;
+            }
+        }
+
+
+
         /// <summary>
         /// An empty space in the world
         /// </summary>
         public class Air : WorldSpot
         {
-            /// <summary>
-            /// Does not draw anything
-            /// </summary>
-            /// <param name="gameTime"></param>
-            /// <param name="camera"></param>
-            public override void Draw(GameTime gameTime, Camera camera)
+            public override void Draw(GameTime gameTime, Camera camera, float alpha)
             {
             }
 
-            /// <summary>
-            /// Does not do anything
-            /// </summary>
-            /// <param name="gameTime"></param>
             public override void Update(GameTime gameTime)
             {
             }
