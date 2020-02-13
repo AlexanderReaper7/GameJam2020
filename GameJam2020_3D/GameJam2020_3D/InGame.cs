@@ -20,6 +20,9 @@ namespace GameJam2020_3D
         private bool freeCameraActive = false;
         private MouseState lastMouseState;
 #endif
+
+        public Collect collect = new Collect(0, false); 
+
         public World world;
         private IsometricCamera camera;
         private PlayerManager player;
@@ -47,6 +50,7 @@ namespace GameJam2020_3D
             Player.LoadContent(content);
             // Load World
             //LoadLevel(Level.CreateDefaultFalling(graphics.GraphicsDevice));
+            collect.LoadContent(content);
         }
 
         public void LoadLevel(Level level)
@@ -76,15 +80,16 @@ namespace GameJam2020_3D
         {
             world.Update(gameTime);
             player.Update(gameTime);
+            collect.Update(gameTime);
             camera.Update();
 #if DEBUG
             UpdateFreeCamera();
 #endif
 
-            if (player?.spotsLeft == 1)
+            if (player?.spotsLeft == 1 || Keyboard.GetState().IsKeyDown(Keys.Home))
             {
                 // Win
-                Victory();
+                Victory(collect.timeScore);
             }
 
         }
@@ -125,7 +130,7 @@ namespace GameJam2020_3D
         /// <summary>
         /// Kills player and opens gameover screen
         /// </summary>
-        public void GameOver()
+        public void GameOver(int score)
         {
             world = null;
             player = null;
@@ -136,7 +141,7 @@ namespace GameJam2020_3D
         /// <summary>
         /// Clears level and opens victory screen
         /// </summary>
-        public void Victory()
+        public void Victory(int score)
         {
             world = null;
             player = null;
@@ -147,7 +152,7 @@ namespace GameJam2020_3D
 #endif
 
 
-        public void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 #if DEBUG
             if (world != null && player != null)
@@ -162,6 +167,7 @@ namespace GameJam2020_3D
                 {
                     world.Draw(gameTime, camera, (int)player.WorldPosition.Y);
                     player.player.Draw(camera);
+                    collect.Draw(spriteBatch);
                 }
 #endif
 #if !DEBUG

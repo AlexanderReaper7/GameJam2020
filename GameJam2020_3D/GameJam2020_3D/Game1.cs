@@ -124,7 +124,7 @@ namespace GameJam2020_3D
                     spriteBatch.End();
                     break;
                 case GameStates.Game:
-                    inGame.Draw(gameTime);
+                    inGame.Draw(gameTime, spriteBatch);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
