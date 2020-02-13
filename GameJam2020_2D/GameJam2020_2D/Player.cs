@@ -151,6 +151,11 @@ namespace GameJam2020_2D
             doCollisionAndMove(movement);
         }
 
+        public void ResetGame()
+        {
+            InGame.Level = InGame.Levels.preLevel1;
+        }
+
         /// <summary>
         /// Draw
         /// </summary>
