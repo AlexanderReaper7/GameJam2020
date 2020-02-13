@@ -178,8 +178,20 @@ namespace GameJam2020_2D
                         // TODO: Add death logic // Olle A 200212
                         break;
 
-                    // Wall 
-                    case 102: case 202: case 103: case 203:
+                    // Ground, open door and walkable tiles // Olle A 200213
+                    case 101: case 201: case 107: case 207:
+                        // Update bool in prev tile // Olle A 200212
+                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
+                        prevTilePosition = TilePosition;
+
+                        TilePosition += movement;
+                        // Update bools in new tile // Olle A 200212
+                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
+                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+                        break;
+
+                    // Wall, closed door, dispenser, unwalkable tiles 
+                    case 102: case 202: case 103: case 203: case 105: case 205: case 106: case 206:
                         // Do nothing // Olle A 200213
                         break;
 
@@ -189,17 +201,13 @@ namespace GameJam2020_2D
                         TilePosition = tileMap.StartingPosition;
                         break;
 
+                    // Trap door
+                    case 109:
+                        // TODO: Add death logic // Olle A 200212
+                        break;
 
-                    // Ground and any unspecified tiles // Olle A 200213
+                    // Unspecified tiles do nothing // Olle A 200213
                     default:
-                        // Update bool in prev tile // Olle A 200212
-                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
-                        prevTilePosition = TilePosition;
-
-                        TilePosition += movement;
-                        // Update bools in new tile // Olle A 200212
-                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
-                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
                         break;
                 }
             }
