@@ -14,7 +14,7 @@ namespace Tools_XNA
         public Menu menu = new Menu(8);
 
         SpriteFont menuFont, textFont, scoreBoardFont;
-        Texture2D defaultBackground;
+        Texture2D defaultBackground, mainMenu;
         private ControlScheme input;
         private Game game;
         private GraphicsDeviceManager graphics;
@@ -89,7 +89,8 @@ namespace Tools_XNA
 
             // Textures
             defaultBackground = Content.Load<Texture2D>(@"Shared/Menu/Background");
-            
+            mainMenu = Content.Load<Texture2D>(@"Shared/Menu/MainMenu");
+
 
             // StartMenu
             menuState = MenuState.Main;
@@ -99,7 +100,7 @@ namespace Tools_XNA
 
             menu.Pages[(int)MenuState.InsertName].AddBackground(defaultBackground);
 
-            menu.Pages[(int)MenuState.Main].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.Main].AddBackground(mainMenu);
             menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth/10, screenHeight/5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
                 new Action[] { () => gameStates = GameStates.Game, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
             
