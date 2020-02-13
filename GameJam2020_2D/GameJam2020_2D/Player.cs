@@ -24,6 +24,7 @@ namespace GameJam2020_2D
         public int TilePosition = 1;
         // Previous position // Olle A 20-02-12
         private int prevTilePosition;
+
         KeyboardState keyboardState, lastKeyboardState;
 
         /// <summary>
@@ -136,36 +137,7 @@ namespace GameJam2020_2D
             }
 
 
-            // Do movement // Olle A 200212
-            try
-            {
-                // Fail if tile is air // Olle A 200212
-                if (tileMap.CollisionTiles[TilePosition + movement].Type == 0)
-                {
-                    // TODO: Add death logic
-                }
-                // Move to next level if  end portal // Olle A 200212
-                else if (tileMap.CollisionTiles[TilePosition + movement].Type == 204 || tileMap.CollisionTiles[TilePosition + movement].Type == 104)
-                {
-                    InGame.Level++;
-                    TilePosition = tileMap.StartingPosition;
-                }
-                // Otherwise move // Olle A 200212
-                else
-                {
-                    // Update bool in prev tile // Olle A 200212
-                    tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
-                    prevTilePosition = TilePosition;
-
-                    TilePosition += movement;
-                    // Update bools in new tile // Olle A 200212
-                    tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
-                    tileMap.CollisionTiles[TilePosition].IsOnTile = true;
-                    
-                }
-            }
-            catch { }
-
+            doCollisionAndMove(movement);
         }
 
         /// <summary>
@@ -175,6 +147,53 @@ namespace GameJam2020_2D
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, tileMap.CollisionTiles[TilePosition].Rectangle, Color.White);
+        }
+
+
+        /// <summary>
+        /// Method that handles collisions and moving the player // Olle A 200213
+        /// </summary>
+        /// <param name="movement">Movemet to attempt in number of tiles</param>
+        private void doCollisionAndMove(int movement)
+        {
+            
+            // Wrap in try statement so game doesn't crash in case of attempting illegal move // Olle A 200213
+            try
+            {
+                // Code specific to type of tile // Olle A 200213
+                switch (tileMap.CollisionTiles[TilePosition + movement].Type)
+                {
+                    // Air (no tile)
+                    case 0:
+                        // TODO: Add death logic // Olle A 200212
+                        break;
+
+                    // Wall 
+                    case 102: case 202: case 103: case 203:
+                        // Do nothing // Olle A 200213
+                        break;
+
+                    // End portal
+                    case 104: case 204:
+                        InGame.Level++;
+                        TilePosition = tileMap.StartingPosition;
+                        break;
+
+
+                    // Ground and any unspecified tiles // Olle A 200213
+                    default:
+                        // Update bool in prev tile // Olle A 200212
+                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
+                        prevTilePosition = TilePosition;
+
+                        TilePosition += movement;
+                        // Update bools in new tile // Olle A 200212
+                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
+                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+                        break;
+                }
+            }
+            catch { }
         }
     }
 }
