@@ -76,6 +76,8 @@ namespace GameJam2020_2D
             // Load the textures for the Tiles // Olle A 20-02-11
             Tiles.Content = content;
 
+            // Set font for timer. Static so only needs to be set for one level
+            TilesMap.LoadContent(content);
 
             // Olle A 20-02-13
             /// HOW TILE IDS WORK:
@@ -163,7 +165,7 @@ namespace GameJam2020_2D
                 case Levels.Level1:
                     // Update // Olle A 200212
                     player.Update(gameTime);
-                    level1.Update();
+                    level1.Update(gameTime);
                     break;
 
                 case Levels.preLevel2:
@@ -177,7 +179,7 @@ namespace GameJam2020_2D
                 case Levels.Level2:
                     // Update // Olle A 200212
                     player.Update(gameTime);
-                    level2.Update();
+                    level2.Update(gameTime);
                     break;
 
                 case Levels.preLevel3:
@@ -191,7 +193,7 @@ namespace GameJam2020_2D
                 case Levels.Level3:
                     // Update // Olle A 200212
                     player.Update(gameTime);
-                    level3.Update();
+                    level3.Update(gameTime);
                     break;
 
                 case Levels.preLevel4:
@@ -205,7 +207,7 @@ namespace GameJam2020_2D
                 case Levels.Level4:
                     // Update // Olle A 200213
                     player.Update(gameTime);
-                    level4.Update();
+                    level4.Update(gameTime);
                     break;
 
                 case Levels.preLevel5:
@@ -219,7 +221,7 @@ namespace GameJam2020_2D
                 case Levels.Level5:
                     // Update // Olle A 200252
                     player.Update(gameTime);
-                    level5.Update();
+                    level5.Update(gameTime);
                     break;
 
                 case Levels.preLevel6:
@@ -233,7 +235,7 @@ namespace GameJam2020_2D
                 case Levels.Level6:
                     // Update // Olle A 200213
                     player.Update(gameTime);
-                    level6.Update();
+                    level6.Update(gameTime);
                     break;
 
                 case Levels.preLevel7:
@@ -247,7 +249,7 @@ namespace GameJam2020_2D
                 case Levels.Level7:
                     // Update // Olle A 200213
                     player.Update(gameTime);
-                    level7.Update();
+                    level7.Update(gameTime);
                     break;
 
                 case Levels.preLevel8:
@@ -261,7 +263,7 @@ namespace GameJam2020_2D
                 case Levels.Level8:
                     // Update // Olle A 200213
                     player.Update(gameTime);
-                    level8.Update();
+                    level8.Update(gameTime);
                     break;
 
                 default:
