@@ -100,6 +100,7 @@ namespace GameJam2020_2D
             ///     X08: Portal
             ///     X09: Trap door closed
             ///     X10: Trap door open
+            ///     X11: Keys
             ///     
             /// Air (no tile) is "000" regardless of theme.
             /// 

@@ -28,6 +28,9 @@ namespace GameJam2020_2D
         Highscore scoreboard;
         string playerName;
 
+        public bool key = false;
+        public bool doorOpen = false;
+
         KeyboardState keyboardState, lastKeyboardState;
 
         // bool for player death
@@ -200,9 +203,32 @@ namespace GameJam2020_2D
                         break;
 
                     // Wall, closed door, dispenser, unwalkable tiles 
-                    case 102: case 202: case 103: case 203: case 105: case 205: case 106: case 206:
+                    case 102: case 202: case 103: case 203: case 105: case 205: case 206:
                         // Do nothing // Olle A 200213
                         break;
+
+                    // Door
+                    case 106:
+                        if (doorOpen == false && doorOpen == true)
+                        {
+                            doorOpen = true;
+                        }
+
+                        tileMap.CollisionTiles[TilePosition + movement].ChangeType(107);
+                        break;
+
+
+                    // keys
+                    case 111:
+                        if (key == false)
+                        {
+                            key = true;
+                        }
+
+                        tileMap.CollisionTiles[TilePosition + movement].ChangeType(101);
+                        TilePosition = TilePosition + movement;
+                        break;
+
 
                     // End portal
                     case 104: case 204:

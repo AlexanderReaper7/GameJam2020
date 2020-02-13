@@ -50,6 +50,16 @@ namespace Tools_XNA
                 // Update type of tile // Olle A 20-02-11
                 Type = i;
             }
+
+
+            public void ChangeType(int newType)
+            {
+
+                Type = newType;
+                texture = Content.Load<Texture2D>("Textures/Tiles/" + newType);
+            }
+
+
         }
 
 
