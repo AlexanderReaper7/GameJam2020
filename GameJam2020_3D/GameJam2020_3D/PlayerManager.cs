@@ -20,6 +20,8 @@ namespace GameJam2020_3D
         public Player player;
         public InGame game;
 
+        public int spotsLeft;
+
         public Vector3 RealPosition
         {
             get { return player.customModel.Position; }
@@ -44,6 +46,7 @@ namespace GameJam2020_3D
             this.game = game;
             player = new Player(Vector3.Zero, Vector3.Zero, game.game.GraphicsDevice);
             WorldPosition = startingPosition;
+            spotsLeft = 12 * 12;
         }
 
 
@@ -69,6 +72,8 @@ namespace GameJam2020_3D
 
         public bool Move(Vector3 change)
         {
+            // NOTE: is temp (bajskod)
+            spotsLeft--;
             // Calculate next position
             Vector3 p = worldPosition;
             p.X += change.X;

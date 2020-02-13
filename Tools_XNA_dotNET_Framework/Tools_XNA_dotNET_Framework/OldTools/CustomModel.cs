@@ -72,11 +72,11 @@ namespace Tools_XNA
                         ((BasicEffect)effect).View = View;
                         ((BasicEffect)effect).Projection = Projection;
                         ((BasicEffect)effect).EnableDefaultLighting();
-                        //((BasicEffect)effect).Alpha = alpha;
-                        //if (alpha != 1f) // TODO: draw with alpha
-                        //{
-                        //    graphicsDevice.BlendState = BlendState.AlphaBlend;
-                        //}
+                        ((BasicEffect)effect).Alpha = alpha;
+                        if (alpha != 1f) // TODO: draw with alpha
+                        {
+                            graphicsDevice.BlendState = BlendState.AlphaBlend;
+                        }
 
                     }
                     else

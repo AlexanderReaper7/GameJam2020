@@ -33,7 +33,6 @@ namespace GameJam2020_3D
 
         public void Initialize()
         {
-            camera = new IsometricCamera(Vector3.Zero, 10000f, 1f, float.MaxValue, graphics.GraphicsDevice);
 
 #if DEBUG
             lastMouseState = Mouse.GetState();
@@ -61,6 +60,8 @@ namespace GameJam2020_3D
 
         public void ConfigureCamera()
         {
+            camera = null;
+            camera = new IsometricCamera(Vector3.Zero, 10000f, 1f, float.MaxValue, graphics.GraphicsDevice);
             // Zoom camera to fit world
             // Get largest side
             float largestSide = (float)Math.Sqrt(Math.Pow(world.RealSize.Z, 2) + Math.Pow(world.RealSize.X, 2));
@@ -79,6 +80,13 @@ namespace GameJam2020_3D
 #if DEBUG
             UpdateFreeCamera();
 #endif
+
+            if (player?.spotsLeft == 1)
+            {
+                // Win
+                Victory();
+            }
+
         }
 
 #if DEBUG
@@ -125,14 +133,26 @@ namespace GameJam2020_3D
             game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.GameOver;
         }
 
+        /// <summary>
+        /// Clears level and opens victory screen
+        /// </summary>
+        public void Victory()
+        {
+            world = null;
+            player = null;
+            game.menuManager.gameStates = GameStates.Menu;
+            game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.Victory;
+        }
+
 #endif
 
 
         public void Draw(GameTime gameTime)
         {
-            try
-            {
 #if DEBUG
+            if (world != null && player != null)
+            {
+                
                 if (freeCameraActive)
                 {
                     world.Draw(gameTime, freeCamera, (int)player.WorldPosition.Y);
@@ -150,10 +170,6 @@ namespace GameJam2020_3D
             // UI
             
 #endif
-
-            }
-            catch (Exception e)
-            {
             }
         }
     }

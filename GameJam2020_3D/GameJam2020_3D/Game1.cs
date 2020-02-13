@@ -114,8 +114,8 @@ namespace GameJam2020_3D
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            graphics.GraphicsDevice.Reset();
             GraphicsDevice.Clear(Color.Black);
-
             switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
