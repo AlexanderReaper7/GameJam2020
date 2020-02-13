@@ -103,7 +103,7 @@ namespace Tools_XNA
 
             menu.Pages[(int)MenuState.Main].AddBackground(mainMenu);
             menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth / 10, screenHeight / 5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
-                new Action[] { () => { gameStates = GameStates.Game; exclusiveBool = true; }, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
+                new Action[] { () => { gameStates = GameStates.Game; exclusiveBool = true; }, () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
             
             menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.LevelSelect].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));

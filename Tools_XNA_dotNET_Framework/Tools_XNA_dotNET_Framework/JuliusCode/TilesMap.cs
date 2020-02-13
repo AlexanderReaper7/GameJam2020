@@ -101,7 +101,7 @@ namespace Tools_XNA
                 tile.Draw(spriteBatch);
 
             // Draw time
-            spriteBatch.DrawString(font, timer.ToString(), new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(font, "Elapsed time: " + timer.ToString(), new Vector2(0, 0), Color.White);
         }
 
         /// <summary>

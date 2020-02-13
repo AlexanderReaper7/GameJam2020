@@ -192,13 +192,11 @@ namespace GameJam2020_2D
 
                     // Ground, open door and walkable tiles // Olle A 200213
                     case 101: case 201: case 107:
-                    case 207: case 106:
-                    case 206:
+                    case 207: 
                     case 211:
                     case 212:
                     case 213:
                     case 214:
-                    case 111:
                     case 112:
                     case 113:
                     case 114:
@@ -212,8 +210,8 @@ namespace GameJam2020_2D
                         tileMap.CollisionTiles[TilePosition].IsOnTile = true;
                         break;
 
-                    // Wall, closed door, dispenser, unwalkable tiles 
-                    case 102: case 202: case 103: case 203: case 105: case 205: case 206:
+                    // Wall, , dispenser, unwalkable tiles 
+                    case 102: case 202: case 103: case 203: case 105: case 205: 
                         // Do nothing // Olle A 200213
                         break;
 
@@ -225,6 +223,15 @@ namespace GameJam2020_2D
                         }
 
                         tileMap.CollisionTiles[TilePosition + movement].ChangeType(107);
+                        break;
+                    // Door
+                    case 206:
+                        if (doorOpen == false && doorOpen == true)
+                        {
+                            doorOpen = true;
+                        }
+
+                        tileMap.CollisionTiles[TilePosition + movement].ChangeType(207);
                         break;
 
 
