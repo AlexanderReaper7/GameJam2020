@@ -47,7 +47,7 @@ namespace GameJam2020_3D
             WorldObjects3D.LoadContent(content);
             Player.LoadContent(content);
             // Load World
-            LoadLevel(Level.CreateDefaultFalling(graphics.GraphicsDevice));
+            //LoadLevel(Level.CreateDefaultFalling(graphics.GraphicsDevice));
         }
 
         public void LoadLevel(Level level)
@@ -122,7 +122,7 @@ namespace GameJam2020_3D
             world = null;
             player = null;
             game.menuManager.gameStates = GameStates.Menu;
-            game.menuManager.menuState = MenuManager.MenuState.GameOver;
+            game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.GameOver;
         }
 
 #endif
@@ -130,17 +130,19 @@ namespace GameJam2020_3D
 
         public void Draw(GameTime gameTime)
         {
+            try
+            {
 #if DEBUG
-            if (freeCameraActive)
-            {
-                world.Draw(gameTime, freeCamera, (int)player.WorldPosition.Y);
-                player.player.Draw(freeCamera);
-            }
-            else
-            {
-                world.Draw(gameTime, camera, (int)player.WorldPosition.Y);
-                player.player.Draw(camera);
-            }
+                if (freeCameraActive)
+                {
+                    world.Draw(gameTime, freeCamera, (int)player.WorldPosition.Y);
+                    player.player.Draw(freeCamera);
+                }
+                else
+                {
+                    world.Draw(gameTime, camera, (int)player.WorldPosition.Y);
+                    player.player.Draw(camera);
+                }
 #endif
 #if !DEBUG
             // World
@@ -149,6 +151,10 @@ namespace GameJam2020_3D
             
 #endif
 
+            }
+            catch (Exception e)
+            {
+            }
         }
     }
 }

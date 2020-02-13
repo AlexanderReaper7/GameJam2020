@@ -1,0 +1,141 @@
+//Maya ASCII 2018 scene
+//Name: newgroundfantasy.fbx
+//Last modified: Thu, Feb 13, 2020 12:24:01 PM
+//Codeset: 1252
+requires maya "2018";
+currentUnit -l meter -a degree -t film;
+fileInfo "application" "maya";
+fileInfo "product" "Maya 2018";
+fileInfo "version" "2018";
+fileInfo "cutIdentifier" "201706261615-f9658c4cfc";
+fileInfo "osv" "Microsoft Windows 8 , 64-bit  (Build 9200)\n";
+fileInfo "license" "education";
+createNode transform -n "newgroundfantasy";
+	rename -uid "5B7076D2-4933-7B52-5F76-E88FB3C518BD";
+createNode mesh -n "newgroundfantasyShape" -p "newgroundfantasy";
+	rename -uid "3D09988B-4701-2596-C301-9F8526899FCB";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.25 0.75 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 24 ".uvst[0].uvsp[0:23]" -type "float2" 0.99955714 0.00050468836
+		 0.99955714 0.00050468836 0.99955714 0.49877155 0.99955714 0.49877155 0.50129014 0.00050468836
+		 0.99955708 0.00050468836 0.50129014 0.49877155 0.99955708 0.49877155 0.00098633766
+		 0.99901378 0.49901366 0.99901378 0.99955708 0.00050468836 0.99955708 0.49877155 0.5012902
+		 0.00050468836 0.5012902 0.49877155 0.50044298 0.00050468836 0.99870992 0.00050468836
+		 0.99870992 0.49877155 0.50044298 0.49877155 0.00098633766 0.50098622 0.49901366 0.50098622
+		 0.50129014 0.00050468836 0.50129014 0.49877155 0.50129014 0.00050468836 0.50129014
+		 0.49877155;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 8 ".pt[0:7]" -type "float3"  -0.5 -0.5 0.5 0.5 -0.5 0.5 
+		-0.5 0.5 0.5 0.5 0.5 0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 -0.5;
+	setAttr -s 8 ".vt[0:7]"  -0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 0.5 0.5 0.5 0.5 0.5
+		 -0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 -0.5;
+	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
+		 3 5 0 4 6 0 5 7 0 6 0 0 7 1 0;
+	setAttr -s 6 -ch 24 ".fc[0:5]" -type "polyFaces" 
+		f 4 0 5 -2 -5
+		mu 0 4 22 1 3 23
+		f 4 1 7 -3 -7
+		mu 0 4 14 15 16 17
+		f 4 2 9 -4 -9
+		mu 0 4 4 5 7 6
+		f 4 3 11 -1 -11
+		mu 0 4 18 19 9 8
+		f 4 -12 -10 -8 -6
+		mu 0 4 20 10 11 21
+		f 4 10 4 6 8
+		mu 0 4 12 0 2 13;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode materialInfo -n "materialInfo1";
+	rename -uid "D0C23737-4C4F-3CEF-DFD4-7FA61036CE62";
+createNode shadingEngine -n "lambert2SG";
+	rename -uid "AB37E14B-4BFD-A104-4BE8-58A1ABACD16F";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode lambert -n "newgroundfantasy_texture";
+	rename -uid "D66485B7-4566-5CBB-E38F-3FB54166EC67";
+createNode file -n "file1";
+	rename -uid "53A6FD80-4C15-8160-7954-DABBD3057D39";
+	setAttr ".ftn" -type "string" "C:/Users/arvid.lindvall/Desktop/ALmayagameproject/newfantasyground//sourceimages/ground_texture.png";
+	setAttr ".cs" -type "string" "sRGB";
+createNode place2dTexture -n "place2dTexture1";
+	rename -uid "7FCE616C-4290-F513-F79A-16A48D334974";
+createNode lightLinker -s -n "lightLinker1";
+	rename -uid "97F7796F-46E2-F042-C588-80AA996CA371";
+	setAttr -s 3 ".lnk";
+	setAttr -s 3 ".slnk";
+select -ne :time1;
+	setAttr ".o" 1;
+	setAttr ".unw" 1;
+select -ne :hardwareRenderingGlobals;
+	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
+	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
+		 1 1 1 0 0 0 0 0 0 0 0 0
+		 0 0 0 0 ;
+	setAttr ".fprt" yes;
+select -ne :renderPartition;
+	setAttr -s 3 ".st";
+select -ne :renderGlobalsList1;
+select -ne :defaultShaderList1;
+	setAttr -s 5 ".s";
+select -ne :postProcessList1;
+	setAttr -s 2 ".p";
+select -ne :defaultRenderUtilityList1;
+select -ne :defaultRenderingList1;
+select -ne :defaultTextureList1;
+select -ne :initialShadingGroup;
+	setAttr ".ro" yes;
+select -ne :initialParticleSE;
+	setAttr ".ro" yes;
+select -ne :defaultResolution;
+	setAttr ".pa" 1;
+select -ne :hardwareRenderGlobals;
+	setAttr ".ctrs" 256;
+	setAttr ".btrs" 512;
+connectAttr "lambert2SG.msg" "materialInfo1.sg";
+connectAttr "newgroundfantasy_texture.msg" "materialInfo1.m";
+connectAttr "file1.msg" "materialInfo1.t" -na;
+connectAttr "newgroundfantasy_texture.oc" "lambert2SG.ss";
+connectAttr "newgroundfantasyShape.iog" "lambert2SG.dsm" -na;
+connectAttr "file1.oc" "newgroundfantasy_texture.c";
+connectAttr ":defaultColorMgtGlobals.cme" "file1.cme";
+connectAttr ":defaultColorMgtGlobals.cfe" "file1.cmcf";
+connectAttr ":defaultColorMgtGlobals.cfp" "file1.cmcp";
+connectAttr ":defaultColorMgtGlobals.wsn" "file1.ws";
+connectAttr "place2dTexture1.c" "file1.c";
+connectAttr "place2dTexture1.tf" "file1.tf";
+connectAttr "place2dTexture1.rf" "file1.rf";
+connectAttr "place2dTexture1.mu" "file1.mu";
+connectAttr "place2dTexture1.mv" "file1.mv";
+connectAttr "place2dTexture1.s" "file1.s";
+connectAttr "place2dTexture1.wu" "file1.wu";
+connectAttr "place2dTexture1.wv" "file1.wv";
+connectAttr "place2dTexture1.re" "file1.re";
+connectAttr "place2dTexture1.of" "file1.of";
+connectAttr "place2dTexture1.r" "file1.ro";
+connectAttr "place2dTexture1.n" "file1.n";
+connectAttr "place2dTexture1.vt1" "file1.vt1";
+connectAttr "place2dTexture1.vt2" "file1.vt2";
+connectAttr "place2dTexture1.vt3" "file1.vt3";
+connectAttr "place2dTexture1.vc1" "file1.vc1";
+connectAttr "place2dTexture1.o" "file1.uv";
+connectAttr "place2dTexture1.ofs" "file1.fs";
+relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
+connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
+connectAttr "newgroundfantasy_texture.msg" ":defaultShaderList1.s" -na;
+connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
+// End of newgroundfantasy.fbx

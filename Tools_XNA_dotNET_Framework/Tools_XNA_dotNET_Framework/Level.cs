@@ -24,6 +24,15 @@ namespace Tools_XNA
             World = world;
         }
 
+        #region Levels
+
+        public static Level StartingLevel(GraphicsDevice graphicsDevice)
+        {
+            return CreateDefaultFalling(graphicsDevice); // TODO: create levels
+        }
+
+        #endregion
+
         #region Create
 
 

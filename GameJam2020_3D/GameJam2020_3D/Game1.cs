@@ -85,7 +85,19 @@ namespace GameJam2020_3D
                     menuManager.Update();
                     break;
                 case GameStates.Game:
-                    inGame.Update(gameTime);
+                    // Check if a level is loaded
+                    if (inGame.game.inGame.world != null)
+                    {
+                        inGame.Update(gameTime);
+                        break;
+                    }
+                    else
+                    {
+                        inGame.LoadLevel(Level.StartingLevel(GraphicsDevice));
+                    }
+                    
+
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -98,7 +98,11 @@ namespace Tools_XNA
             // MainMenu
             menu.Pages[1].AddBackground(defaultBackground);
             menu.Pages[1].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
-                new Action[] { () => gameStates = GameStates.Game, () => menu.PageSelection = 2, () => menu.PageSelection = 3, () => menu.PageSelection = 6, () => game.Exit() });
+                new Action[] { () =>
+                {
+                    gameStates = GameStates.Game;
+                    
+                }, () => menu.PageSelection = 2, () => menu.PageSelection = 3, () => menu.PageSelection = 6, () => game.Exit() });
             
             menu.Pages[2].AddBackground(defaultBackground);
             menu.Pages[2].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
@@ -113,12 +117,12 @@ namespace Tools_XNA
 
             
             menu.Pages[5].AddBackground(defaultBackground, 1f);
-            menu.Pages[5].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Credits", Color.White);
-            menu.Pages[5].AddText(textFont, new Vector2(screenWidth / 2, screenHeight / 2), true, "Game made by Julius", Color.White);
+            menu.Pages[5].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "GameOver", Color.White);
             menu.Pages[5].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
             
-            menu.Pages[6].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "GameOver", Color.Red);
-            menu.Pages[6].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Score: ", Color.White);
+            menu.Pages[6].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Lol, just changed the name of GAMEOVER to credits", Color.Red);
+
+            menu.Pages[5].AddText(textFont, new Vector2(screenWidth / 2, screenHeight / 2), true, "Game made by Julius", Color.White);
             menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 460), "Highscore", () => menu.PageSelection = 3);
             menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
 
