@@ -86,7 +86,8 @@ namespace Tools_XNA
             // Fonts
             menuFont = Content.Load<SpriteFont>(@"Shared/Fonts/Main");
             textFont = Content.Load<SpriteFont>(@"Shared/Fonts/TestFont");
-            scoreBoardFont = Content.Load<SpriteFont>(@"SHared/Fonts/TestFont");
+            scoreBoardFont = Content.Load<SpriteFont>(@"Shared/Fonts/TestFont");
+            SpriteFont titleFont = Content.Load<SpriteFont>(@"Shared/Fonts/Title");
 
             // Textures
             defaultBackground = Content.Load<Texture2D>(@"Shared/Menu/Background");
@@ -102,8 +103,9 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.InsertName].AddBackground(defaultBackground);
 
             menu.Pages[(int)MenuState.Main].AddBackground(mainMenu);
-            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth / 10, screenHeight / 5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
-                new Action[] { () => { gameStates = GameStates.Game; exclusiveBool = true; }, () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
+            menu.Pages[(int)MenuState.Main].AddText(titleFont, new Vector2(60, 20), false, "WEIRD TILES IN SPACE", Color.White);
+            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth/10, screenHeight/5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
+                new Action[] { () => gameStates = GameStates.Game, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
             
             menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.LevelSelect].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
@@ -134,7 +136,7 @@ namespace Tools_XNA
 
         public void ButtonSelect()
         {
-            if (input.PrevIsKeyUp && input.Select || input.PrevIsKeyUp && input.SelectMouse)
+            if (input.PrevIsKeyUp && input.Select)
                 // Activate button
                 menu.Pages[menu.PageSelection].Buttons[menu.Pages[menu.PageSelection].ButtonSelection].Run();
         }
@@ -162,7 +164,6 @@ namespace Tools_XNA
             else menu.Draw(spriteBatch, screenSize);
             if(menu.PageSelection == (int)MenuState.HighscoreBoard)
             {
-                scoreBoard.Draw(spriteBatch, menuFont);
             }
         }
     }

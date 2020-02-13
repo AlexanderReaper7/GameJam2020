@@ -110,6 +110,8 @@ namespace GameJam2020_2D
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            //if (menuManager.menuState == MenuManager.MenuState.GameOver || menuManager.menuState == MenuManager.MenuState.Victory)
+            //    inGame.player.ResetGame();
 
             base.Update(gameTime);
         }
