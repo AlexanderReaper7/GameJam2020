@@ -9,7 +9,7 @@ using Tools_XNA;
 
 namespace GameJam2020_2D
 {
-    class Player
+    public class Player
     {
         public TilesMap tileMap;
         // Texture currently in use // Olle A 20-02-12
@@ -25,7 +25,13 @@ namespace GameJam2020_2D
         // Previous position // Olle A 20-02-12
         private int prevTilePosition;
 
+        Highscore scoreboard;
+        string playerName;
+
         KeyboardState keyboardState, lastKeyboardState;
+
+        // bool for player death
+        public bool playerAlive = true;
 
         /// <summary>
         /// Sets the last key to pressed to enable the repeat function // Emil C.A. 200212
@@ -55,7 +61,7 @@ namespace GameJam2020_2D
         /// <param name="textureLeft"></param>
         /// <param name="textureRight"></param>
         /// <param name="tileMap"></param>
-        public Player(Texture2D textureUp, Texture2D textureDown, Texture2D textureLeft, Texture2D textureRight, TilesMap tileMap)
+        public Player(Texture2D textureUp, Texture2D textureDown, Texture2D textureLeft, Texture2D textureRight, TilesMap tileMap, Highscore scoreboard, string playerName)
         {
             texture = textureDown;
             this.textureUp = textureUp;
@@ -63,6 +69,8 @@ namespace GameJam2020_2D
             this.textureLeft = textureLeft;
             this.textureRight = textureRight;
             this.tileMap = tileMap;
+            this.scoreboard = scoreboard;
+            this.playerName = playerName;
 
             // Set position to start at // Olle A 200212
             TilePosition = tileMap.StartingPosition;
@@ -167,8 +175,8 @@ namespace GameJam2020_2D
         private void doCollisionAndMove(int movement)
         {
 
-                // Wrap in try statement so game doesn't crash in case of attempting illegal move // Olle A 200213
-                try
+            // Wrap in try statement so game doesn't crash in case of attempting illegal move // Olle A 200213
+            try
             {
                 // Code specific to type of tile // Olle A 200213
                 switch (tileMap.CollisionTiles[TilePosition + movement].Type)
@@ -176,22 +184,11 @@ namespace GameJam2020_2D
                     // Air (no tile)
                     case 0:
                         // TODO: Add death logic // Olle A 200212
+                        playerAlive = false;
                         break;
 
-                    // Wall 
-                    case 102: case 202: case 103: case 203:
-                        // Do nothing // Olle A 200213
-                        break;
-
-                    // End portal
-                    case 104: case 204:
-                        InGame.Level++;
-                        TilePosition = tileMap.StartingPosition;
-                        break;
-
-
-                    // Ground and any unspecified tiles // Olle A 200213
-                    default:
+                    // Ground, open door and walkable tiles // Olle A 200213
+                    case 101: case 201: case 107: case 207:
                         // Update bool in prev tile // Olle A 200212
                         tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
                         prevTilePosition = TilePosition;
@@ -200,6 +197,29 @@ namespace GameJam2020_2D
                         // Update bools in new tile // Olle A 200212
                         tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
                         tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+                        break;
+
+                    // Wall, closed door, dispenser, unwalkable tiles 
+                    case 102: case 202: case 103: case 203: case 105: case 205: case 106: case 206:
+                        // Do nothing // Olle A 200213
+                        break;
+
+                    // End portal
+                    case 104: case 204:
+                        // Save score
+                        scoreboard.SaveHighScore(tileMap.LevelNumber, playerName, tileMap.timer);
+                        // Change level
+                        InGame.Level++;
+                        TilePosition = tileMap.StartingPosition;
+                        break;
+
+                    // Trap door
+                    case 109:
+                        // TODO: Add death logic // Olle A 200212
+                        break;
+
+                    // Unspecified tiles do nothing // Olle A 200213
+                    default:
                         break;
                 }
             }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using static Tools_XNA.Tiles;
+using Microsoft.Xna.Framework.Content;
 
 namespace Tools_XNA
 {
@@ -31,6 +32,10 @@ namespace Tools_XNA
             get { return height; }
         }
 
+        static SpriteFont font;
+        public float timer;
+        public int LevelNumber;
+
         // Olle A 20-02-12
         public int TileMapWidth;
         public int Size;
@@ -39,8 +44,14 @@ namespace Tools_XNA
         // En oanvänd construktor | Julius 18-11-26
         public TilesMap() { }
 
+        //Load Content
+        public static void LoadContent(ContentManager Content)
+        {
+            font = Content.Load<SpriteFont>(@"Shared/Fonts/testfont");
+        }
+
         // Update
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             // Remove tile (make it air) if player has walked on it but is no longer standing on it // Olle A 200212
             for (int i = 0; i < collisionTiles.Count; i++)
@@ -50,10 +61,13 @@ namespace Tools_XNA
                     collisionTiles[i].Type = 0;
                 }
             }
+
+            // Count up
+            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         // En kartgenererare där man bestämmer vart och vilken typ av tile som finns i en array (map) och pixelstorleken på tilens sida (size) | Julius 18-11-21
-        public void Generate(int[,] map, int StartingPosition, int tileMapWidth, int size, int xOffset, int yOffset)
+        public void Generate(int[,] map, int StartingPosition, int tileMapWidth, int size, int xOffset, int yOffset, int LevelNumber)
         {
             TileMapWidth = tileMapWidth;
             this.StartingPosition = StartingPosition;
@@ -85,6 +99,9 @@ namespace Tools_XNA
 
             foreach (CollisionTiles tile in collisionTiles)
                 tile.Draw(spriteBatch);
+
+            // Draw time
+            spriteBatch.DrawString(font, timer.ToString(), new Vector2(0, 0), Color.White);
         }
 
         /// <summary>

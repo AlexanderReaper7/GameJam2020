@@ -32,14 +32,16 @@ namespace Tools_XNA.OldCode
         [Serializable]
         public struct SaveData
         {
-            public string[] Date;
+            public int[] Level;
+            public string[] Name;
             public float[] Score;
             // Count = Total amount of Arrays | Julius 18-12-09
             public int Count;
 
             public SaveData(int count)
             {
-                Date = new string[count];
+                Level = new int[count];
+                Name = new string[count];
                 Score = new float[count];
 
                 Count = count;
@@ -155,7 +157,8 @@ namespace Tools_XNA.OldCode
                 SaveData data = new SaveData(5);
                 for (int i = 0; i < arrayLeangth; i++)
                 {
-                    data.Date[i] = "empty";
+                    data.Level[i] = 1;
+                    data.Name[i] = "   ";
                     data.Score[i] = 0;
                 }
 

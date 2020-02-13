@@ -23,6 +23,7 @@ namespace GameJam2020_2D
         private MenuManager menuManager;
         private InGame inGame;
         public static GameStates gameState;
+        Highscore scoreBoard;
 
         public Game1()
         {
@@ -42,10 +43,12 @@ namespace GameJam2020_2D
         /// </summary>
         protected override void Initialize()
         {
-            menuManager = new MenuManager(this, graphics);
-            menuManager.gameStates = GameStates.Menu;
-            inGame = new InGame();
+            scoreBoard = new Highscore();
+            scoreBoard.Initialize();
+            inGame = new InGame(scoreBoard);
             inGame.Initialize();
+            menuManager = new MenuManager(this, graphics, scoreBoard);
+            menuManager.gameStates = GameStates.Menu;
             base.Initialize();
         }
 
@@ -88,6 +91,12 @@ namespace GameJam2020_2D
                     break;
                 case GameStates.Game:
                     inGame.Update(gameTime);
+                    if(!inGame.player.playerAlive)
+                    {
+                        menuManager.menuState = MenuManager.MenuState.Victory;
+                        menuManager.gameStates = GameStates.Menu;
+                        inGame.player.playerAlive = true;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

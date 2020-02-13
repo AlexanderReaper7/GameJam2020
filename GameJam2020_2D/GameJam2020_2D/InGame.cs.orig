@@ -18,7 +18,10 @@ namespace GameJam2020_2D
     public class InGame
     {
         public Player player;
+<<<<<<< HEAD
         string playerName = "AAA";
+=======
+>>>>>>> cce0ec08176258cebade199d4a7ef5000636ec7d
 
         TilesMap level1;
         TilesMap level2;

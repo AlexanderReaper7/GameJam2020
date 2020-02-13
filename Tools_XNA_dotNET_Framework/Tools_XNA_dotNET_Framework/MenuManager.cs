@@ -19,6 +19,7 @@ namespace Tools_XNA
         private Game game;
         private GraphicsDeviceManager graphics;
         private Highscore scoreBoard = new Highscore();
+        public int score;
 
         public GameStates gameStates;
 
@@ -39,10 +40,11 @@ namespace Tools_XNA
         int screenHeight;
         Rectangle screenSize;
 
-        public MenuManager(Game game, GraphicsDeviceManager graphics)
+        public MenuManager(Game game, GraphicsDeviceManager graphics, Highscore scoreBoard)
         {
             this.game = game;
             this.graphics = graphics;
+            this.scoreBoard = scoreBoard;
             gameStates = GameStates.Menu;
             screenSize = graphics.GraphicsDevice.Viewport.Bounds;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
@@ -92,7 +94,7 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.InsertName].AddBackground(defaultBackground);
 
             menu.Pages[(int)MenuState.Main].AddBackground(defaultBackground);
-            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
+            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth/10, screenHeight/5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
                 new Action[] { () => gameStates = GameStates.Game, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
             
             menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
@@ -103,12 +105,13 @@ namespace Tools_XNA
             
             menu.Pages[(int)MenuState.GameOver].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.GameOver].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Game Over", Color.Red);
-
+            menu.Pages[(int)MenuState.GameOver].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Score: " + score.ToString(), Color.White);
             menu.Pages[(int)MenuState.GameOver].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => ChangePage(MenuState.Main));
 
             
             menu.Pages[(int)MenuState.Victory].AddBackground(defaultBackground);
-            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Victory", Color.Yellow);
+            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Victory", Color.Yellow);
+            menu.Pages[(int)MenuState.GameOver].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Score: " + score.ToString(), Color.White);
             menu.Pages[(int)MenuState.Victory].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.Credits].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Credits", Color.White);
@@ -145,7 +148,7 @@ namespace Tools_XNA
             else menu.Draw(spriteBatch, screenSize);
             if(menu.PageSelection == (int)MenuState.HighscoreBoard)
             {
-                scoreBoard.Draw(spriteBatch, menuFont, new Vector2(60), new Vector2(0, 60), Color.White);
+                scoreBoard.Draw(spriteBatch, menuFont);
             }
         }
     }
