@@ -136,6 +136,7 @@ namespace GameJam2020_3D
             player = null;
             game.menuManager.gameStates = GameStates.Menu;
             game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.GameOver;
+            game.menuManager.score = score;
         }
 
         /// <summary>
@@ -147,6 +148,7 @@ namespace GameJam2020_3D
             player = null;
             game.menuManager.gameStates = GameStates.Menu;
             game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.Victory;
+            game.menuManager.score = score;
         }
 
 #endif
