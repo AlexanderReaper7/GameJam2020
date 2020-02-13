@@ -164,22 +164,22 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Down, Left.png">
-      <Name>Sci-Fi_Ramp_Down, Left</Name>
+      <Name>111</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Down, Right.png">
-      <Name>Sci-Fi_Ramp_Down, Right</Name>
+      <Name>112</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Up, Left.png">
-      <Name>Sci-Fi_Ramp_Up, Left</Name>
+      <Name>113</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Textures\Tiles\Sci-Fi_Ramp_Up, Right.png">
-      <Name>Sci-Fi_Ramp_Up, Right</Name>
+      <Name>114</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -209,6 +209,33 @@
   <ItemGroup>
     <Compile Include="Shared\Menu\Background.png">
       <Name>Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Fantasy_Ramp_Down, Left.png">
+      <Name>211</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_Ramp_Down, Right.png">
+      <Name>212</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_Ramp_Up, Left.png">
+      <Name>213</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Fantasy_Ramp_Up, Right.png">
+      <Name>214</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Tiles\Sci_Fi_Dispenser.png">
+      <Name>105</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
