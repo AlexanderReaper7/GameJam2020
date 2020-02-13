@@ -52,26 +52,24 @@ namespace Tools_XNA
 
         public void Update()
         {
-            // A small bool to make the full variable a bit smaller
-            bool isKeyUp = input.IsKeyUp;
             // Update the variables in control scheme (input)
             input.Update();
-            
-            // Navigationcode
-            if (isKeyUp && input.Up || isKeyUp && input.Down || isKeyUp && input.Left || isKeyUp && input.Right)
-            {
-                Navigation(input.Up, input.Down, input.Left, input.Right);
-                isKeyUp = false;
-            }
-                
 
-            // Single activation on select key and mouse button
-            if (isKeyUp && input.Select || isKeyUp && input.SelectMouse)
+            if (menuState == MenuState.LevelSelect)
             {
-                // Activate button
-                menu.Pages[menu.PageSelection].Buttons[menu.Pages[menu.PageSelection].ButtonSelection].Run();
-                isKeyUp = false;
+
             }
+            else if (menuState == MenuState.Credits)
+            {
+
+            }
+            else
+            {
+                ButtonNavigation();
+                ButtonSelect();
+            }
+            
+            
         }
 
         public void LoadMenues(ContentManager Content)
@@ -129,9 +127,17 @@ namespace Tools_XNA
 
         }
 
-        public void Navigation(bool up, bool down, bool left, bool right)
+        public void ButtonNavigation()
         {
-            menu.Navigation(up, down, left, right);
+            if (input.PrevIsKeyUp && input.Up || input.PrevIsKeyUp && input.Down || input.PrevIsKeyUp && input.Left || input.PrevIsKeyUp && input.Right)
+            menu.Navigation(input.Up, input.Down, input.Left, input.Right);
+        }
+
+        public void ButtonSelect()
+        {
+            if (input.PrevIsKeyUp && input.Select || input.PrevIsKeyUp && input.SelectMouse)
+                // Activate button
+                menu.Pages[menu.PageSelection].Buttons[menu.Pages[menu.PageSelection].ButtonSelection].Run();
         }
 
         public void Draw(SpriteBatch spriteBatch)
