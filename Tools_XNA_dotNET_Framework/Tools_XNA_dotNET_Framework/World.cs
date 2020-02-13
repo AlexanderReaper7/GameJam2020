@@ -9,6 +9,10 @@ namespace Tools_XNA
 {
     public class World
     {
+        public const float TileScalar = 200f;
+        public const float TileOffset = 20f;
+
+
         public WorldObjects3D.WorldSpot[,,] worldSpots;
 
         public Tuple<int, int, int> WorldSize
@@ -24,9 +28,11 @@ namespace Tools_XNA
             get
             {
                 var size = WorldSize;
-                return (WorldObjects3D.TileScalar + WorldObjects3D.TileOffset) * new Vector3(size.Item1, size.Item2, size.Item3);
+                return (TileScalar + TileOffset) * new Vector3(size.Item1, size.Item2, size.Item3);
             }
         }
+
+        public Vector3 WorldOffset => new Vector3(RealSize.X / 2f, 0, RealSize.Z /2f);
 
         public World(int sizeX, int sizeY, int sizeZ)
         {
@@ -45,7 +51,7 @@ namespace Tools_XNA
             for (int k = 0; k < worldSpots.GetLength(2); k++)
             {
                 worldSpots[i, j, k].Update(gameTime);
-                worldSpots[i, j, k].WorldPositionUpdate(i,j,k, RealSize);
+                worldSpots[i, j, k].position = CalculateRealPosition(new Vector3(i, j, k));
             }
         }
 
@@ -63,6 +69,11 @@ namespace Tools_XNA
             {
                 worldSpots[i, j, k].Draw(gameTime, camera);
             }
+        }
+
+        public Vector3 CalculateRealPosition(Vector3 worldPosition)
+        {
+            return (worldPosition * (TileScalar + TileOffset)) - WorldOffset;
         }
 
     }
