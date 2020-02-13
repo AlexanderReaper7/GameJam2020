@@ -81,54 +81,41 @@ namespace Tools_XNA
 
             // Textures
             defaultBackground = Content.Load<Texture2D>(@"Shared/Menu/Background");
+            
 
-            // InsertName      0
-            // MainMenu        1
-            // LevelSelect     2
-            // HighscoreBoard  3
-            // GameOverScreen  4   
-            // VictoryScreen   5
-            // Credits         6
-
-            menuState = MenuState.Main;
             // StartMenu
+            menuState = MenuState.Main;
             menu.PageSelection = (int)menuState;
 
             // All pages in the program, see Menu.cs for more info
-            // MainMenu
-            menu.Pages[1].AddBackground(defaultBackground);
-            menu.Pages[1].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
-                new Action[] { () =>
-                {
-                    gameStates = GameStates.Game;
-                    
-                }, () => menu.PageSelection = 2, () => menu.PageSelection = 3, () => menu.PageSelection = 6, () => game.Exit() });
+
+            menu.Pages[(int)MenuState.InsertName].AddBackground(defaultBackground);
+
+            menu.Pages[(int)MenuState.Main].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(60), 60f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
+                new Action[] { () => gameStates = GameStates.Game, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
             
-            menu.Pages[2].AddBackground(defaultBackground);
-            menu.Pages[2].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
+            menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.LevelSelect].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
-            menu.Pages[3].AddBackground(defaultBackground);
-            menu.Pages[3].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => menu.PageSelection = 1);
+            menu.Pages[(int)MenuState.HighscoreBoard].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.HighscoreBoard].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => ChangePage(MenuState.Main));
             
-            menu.Pages[4].AddBackground(defaultBackground);
-            menu.Pages[4].AddText(textFont, new Vector2(80), false, "BananPaj" + Environment.NewLine + "Do not touch the edge nor your body!", Color.White);
-            menu.Pages[4].AddText(textFont, new Vector2(80, 240), false, "Controls:" + Environment.NewLine + "Play with either A and d or" + Environment.NewLine + "Left and Right Keys on keyboard" + Environment.NewLine + Environment.NewLine + "You can also play with" + Environment.NewLine + "Left and Right Mouse buttons", Color.White);
-            menu.Pages[4].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => menu.PageSelection = 1);
+            menu.Pages[(int)MenuState.GameOver].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.GameOver].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Game Over", Color.Red);
+
+            menu.Pages[(int)MenuState.GameOver].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => ChangePage(MenuState.Main));
 
             
-            menu.Pages[5].AddBackground(defaultBackground, 1f);
-            menu.Pages[5].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "GameOver", Color.White);
-            menu.Pages[5].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
+            menu.Pages[(int)MenuState.Victory].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Victory", Color.Yellow);
+            menu.Pages[(int)MenuState.Victory].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
-            menu.Pages[6].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Lol, just changed the name of GAMEOVER to credits", Color.Red);
-
-            menu.Pages[5].AddText(textFont, new Vector2(screenWidth / 2, screenHeight / 2), true, "Game made by Julius", Color.White);
-            menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 460), "Highscore", () => menu.PageSelection = 3);
-            menu.Pages[6].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => menu.PageSelection = 1);
-
-            //// Pause
-            //menu.Pages[7].AddButtonList_Single(menuFont, new Vector2(60), 100f, new[] { "Resume", "Reset", "Back to Menu", "Exit" });
-
+            menu.Pages[(int)MenuState.Credits].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Credits", Color.White);
+            menu.Pages[(int)MenuState.Credits].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "(To be implemented)", Color.White);
+            menu.Pages[(int)MenuState.Credits].AddButton_Single(menuFont, new Vector2(60, 460), "Highscore", () => ChangePage(MenuState.HighscoreBoard));
+            menu.Pages[(int)MenuState.Credits].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
+            
         }
 
         public void ButtonNavigation()
@@ -144,9 +131,18 @@ namespace Tools_XNA
                 menu.Pages[menu.PageSelection].Buttons[menu.Pages[menu.PageSelection].ButtonSelection].Run();
         }
 
+        public void ChangePage(MenuState page)
+        {
+            menu.PageSelection = (int)page;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            menu.Draw(spriteBatch, screenSize);
+            if(menuState == MenuState.InsertName)
+            {
+
+            }
+            else menu.Draw(spriteBatch, screenSize);
             if(menu.PageSelection == (int)MenuState.HighscoreBoard)
             {
                 scoreBoard.Draw(spriteBatch, menuFont, new Vector2(60), new Vector2(0, 60), Color.White);
