@@ -109,29 +109,31 @@ namespace GameJam2020_3D
 
         public void Update(GameTime gameTime)
         {
+            GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
+
             KeyboardState keyState = Keyboard.GetState(); // TODO: change movement directions to correct ones
-            if ((keyState.IsKeyDown(Keys.A)) && walk == false)
+            if ((keyState.IsKeyDown(Keys.A) || gamePad.DPad.Left == ButtonState.Pressed) && walk == false)
             {
                 if (!Move(Vector3.Right)) game.GameOver(game.collect.timeScore); // TODO: die on return false
                 walk = true;
                 walkTime = 200;
             }
 
-            if ((keyState.IsKeyDown(Keys.D)) && walk == false)
+            if ((keyState.IsKeyDown(Keys.D) || gamePad.DPad.Right == ButtonState.Pressed) && walk == false)
             {
                 if (!Move(Vector3.Left)) game.GameOver(game.collect.timeScore);
                 walk = true;
                 walkTime = 200;
             }
 
-            if ((keyState.IsKeyDown(Keys.W)) && walk == false)
+            if ((keyState.IsKeyDown(Keys.W) || gamePad.DPad.Up == ButtonState.Pressed) && walk == false)
             {
                 if (!Move(Vector3.Backward)) game.GameOver(game.collect.timeScore);
                 walk = true;
                 walkTime = 200;
             }
 
-            if ((keyState.IsKeyDown(Keys.S)) && walk == false)
+            if ((keyState.IsKeyDown(Keys.S) || gamePad.DPad.Down == ButtonState.Pressed) && walk == false)
             {
                 if (!Move(Vector3.Forward)) game.GameOver(game.collect.timeScore);
                 walk = true;
