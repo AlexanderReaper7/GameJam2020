@@ -18,7 +18,7 @@ namespace Tools_XNA
         private ControlScheme input;
         private Game game;
         private GraphicsDeviceManager graphics;
-        private Highscore scoreBoard = new Highscore();
+        private Highscore scoreBoard;
 
         public GameStates gameStates;
 
@@ -39,10 +39,11 @@ namespace Tools_XNA
         int screenHeight;
         Rectangle screenSize;
 
-        public MenuManager(Game game, GraphicsDeviceManager graphics)
+        public MenuManager(Game game, GraphicsDeviceManager graphics, Highscore scoreBoard)
         {
             this.game = game;
             this.graphics = graphics;
+            this.scoreBoard = scoreBoard;
             gameStates = GameStates.Menu;
             screenSize = graphics.GraphicsDevice.Viewport.Bounds;
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
@@ -139,7 +140,7 @@ namespace Tools_XNA
             menu.Draw(spriteBatch, screenSize);
             if(menu.PageSelection == (int)MenuState.HighscoreBoard)
             {
-                scoreBoard.Draw(spriteBatch, menuFont, new Vector2(60), new Vector2(0, 60), Color.White);
+                scoreBoard.Draw(spriteBatch, menuFont);
             }
         }
     }

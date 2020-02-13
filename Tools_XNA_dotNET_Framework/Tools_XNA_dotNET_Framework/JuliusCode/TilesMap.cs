@@ -33,7 +33,8 @@ namespace Tools_XNA
         }
 
         static SpriteFont font;
-        private float timer;
+        public float timer;
+        public int LevelNumber;
 
         // Olle A 20-02-12
         public int TileMapWidth;
@@ -66,7 +67,7 @@ namespace Tools_XNA
         }
 
         // En kartgenererare där man bestämmer vart och vilken typ av tile som finns i en array (map) och pixelstorleken på tilens sida (size) | Julius 18-11-21
-        public void Generate(int[,] map, int StartingPosition, int tileMapWidth, int size, int xOffset, int yOffset)
+        public void Generate(int[,] map, int StartingPosition, int tileMapWidth, int size, int xOffset, int yOffset, int LevelNumber)
         {
             TileMapWidth = tileMapWidth;
             this.StartingPosition = StartingPosition;
