@@ -18,6 +18,8 @@ namespace Tools_XNA
         {
             get { return collisionTiles; }
         }
+        // List without any tiles removed. Used to reset the level // Olle A 200213
+        private List<CollisionTiles> collisionTilesUntouched = new List<CollisionTiles>();
 
         private int width, height;
         public int Width
@@ -71,6 +73,9 @@ namespace Tools_XNA
 
             // Vänder håll på listan så att tiles:en ritas ut korrekt | Olle A 20-02-11
             collisionTiles.Reverse();
+
+            // Save a backup of the list so that it can be restored later // Olle A 200212
+            collisionTilesUntouched = collisionTiles;
         }
 
         // Ritar ut alla rektanglar | Julius 18-11-21
@@ -80,6 +85,14 @@ namespace Tools_XNA
 
             foreach (CollisionTiles tile in collisionTiles)
                 tile.Draw(spriteBatch);
+        }
+
+        /// <summary>
+        /// Resets the tile map to an unedited state // Olle A 200212
+        /// </summary>
+        public void Reset()
+        {
+            collisionTiles = collisionTilesUntouched;
         }
 
     }

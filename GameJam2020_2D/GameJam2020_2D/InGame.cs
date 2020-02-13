@@ -35,13 +35,21 @@ namespace GameJam2020_2D
         // The different game states // Olle A 200212
         public enum Levels
         {
+            preLevel1,
             Level1,
+            preLevel2,
             Level2,
+            preLevel3,
             Level3,
+            preLevel4,
             Level4,
+            preLevel5,
             Level5,
+            preLevel6,
             Level6,
+            preLevel7,
             Level7,
+            preLevel8,
             Level8,
         };
 
@@ -115,22 +123,42 @@ namespace GameJam2020_2D
             // Level specific code // Olle A 200212
             switch (Level)
             {
-                case Levels.Level1:
+                case Levels.preLevel1:
+                    // Reset level // Olle A 200213
+                    level1.Reset();
                     // Change level // Olle A 200212
                     player.tileMap = level1;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
+                case Levels.Level1:
                     // Update // Olle A 200212
                     player.Update(gameTime);
                     level1.Update();
                     break;
 
-                case Levels.Level2:
+                case Levels.preLevel2:
+                    // Reset level // Olle A 200213
+                    level2.Reset();
                     // Change level // Olle A 200212
                     player.tileMap = level2;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
+                case Levels.Level2:
                     // Update // Olle A 200212
                     player.Update(gameTime);
                     level2.Update();
                     break;
 
+                case Levels.preLevel3:
+                    // Reset level // Olle A 200213
+                    level3.Reset();
+                    // Change level // Olle A 200212
+                    player.tileMap = level3;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
                 case Levels.Level3:
                     // Change level // Olle A 200212
                     player.tileMap = level3;
@@ -139,6 +167,14 @@ namespace GameJam2020_2D
                     level3.Update();
                     break;
 
+                case Levels.preLevel4:
+                    // Reset level // Olle A 200213
+                    level4.Reset();
+                    // Change level // Olle A 200212
+                    player.tileMap = level4;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
                 case Levels.Level4:
                     // Change level // Olle A 200212
                     player.tileMap = level4;
@@ -147,6 +183,14 @@ namespace GameJam2020_2D
                     level4.Update();
                     break;
 
+                case Levels.preLevel5:
+                    // Reset level // Olle A 200213
+                    level5.Reset();
+                    // Change level // Olle A 200212
+                    player.tileMap = level5;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
                 case Levels.Level5:
                     // Change level // Olle A 200212
                     player.tileMap = level5;
@@ -155,6 +199,14 @@ namespace GameJam2020_2D
                     level5.Update();
                     break;
 
+                case Levels.preLevel6:
+                    // Reset level // Olle A 200213
+                    level6.Reset();
+                    // Change level // Olle A 200212
+                    player.tileMap = level6;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
                 case Levels.Level6:
                     // Change level // Olle A 200212
                     player.tileMap = level6;
@@ -163,6 +215,14 @@ namespace GameJam2020_2D
                     level6.Update();
                     break;
 
+                case Levels.preLevel7:
+                    // Reset level // Olle A 200213
+                    level7.Reset();
+                    // Change level // Olle A 200212
+                    player.tileMap = level7;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
                 case Levels.Level7:
                     // Change level // Olle A 200212
                     player.tileMap = level7;
@@ -171,6 +231,14 @@ namespace GameJam2020_2D
                     level7.Update();
                     break;
 
+                case Levels.preLevel8:
+                    // Reset level // Olle A 200213
+                    level8.Reset();
+                    // Change level // Olle A 200212
+                    player.tileMap = level8;
+                    // Move to next gamestate // Olle A 200213
+                    Level++;
+                    break;
                 case Levels.Level8:
                     // Change level // Olle A 200212
                     player.tileMap = level8;
@@ -240,7 +308,8 @@ namespace GameJam2020_2D
 
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    //throw new ArgumentOutOfRangeException();
+                    break;
             }
         }
     }
