@@ -76,8 +76,37 @@ namespace GameJam2020_2D
             // Load the textures for the Tiles // Olle A 20-02-11
             Tiles.Content = content;
 
+
+            // Olle A 20-02-13
+            /// HOW TILE IDS WORK:
+            /// IDs consist of 3 numbers "XXX"
+            /// 
+            /// First number designates theme.
+            ///     1XX: Sci-fi
+            ///     2XX: Fantasy
+            /// 
+            /// The other two numbers represent the type of tile:
+            ///     X01: Ground
+            ///     X02: Wall
+            ///     X03: Wall Mirrored
+            ///     X04: End portal
+            ///     X05: Dispenser
+            ///     X06: Door open
+            ///     X07: Door closed
+            ///     X08: Portal
+            ///     X09: Trap door closed
+            ///     X10: Trap door open
+            ///     
+            /// Air (no tile) is "000" regardless of theme.
+            /// 
+            /// Examples:
+            /// 101 = Ground tile in sci-fi theme
+            /// 201 = Ground tile in fantasy theme
+            /// 104 = End portal in sci-fi theme
+            /// 204 = End portal in fantasy theme
+
             // Generate levels // Olle A 20-02-11
-           level1.Generate(new int[,] {
+            level1.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
                 {101,101,101,101,101,101,101,101,101,101,101,101,101,101,101},
                 {101,101,101,101,101,101,101,101,101,101,101,101,101,101,101},
