@@ -136,7 +136,7 @@ namespace GameJam2020_2D
                     keyRepeatTime -= seconds;
             }
 
-
+            if (keyboardState.IsKeyDown(Keys.A)) if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0) InGame.Level = InGame.Levels.preLevel1;
             doCollisionAndMove(movement);
         }
 
@@ -149,6 +149,16 @@ namespace GameJam2020_2D
             spriteBatch.Draw(texture, tileMap.CollisionTiles[TilePosition].Rectangle, Color.White);
         }
 
+        /// <summary>
+        /// Sets a new level and moves to player to the level's starting position // Olle A 200213
+        /// </summary>
+        /// <param name="tileMap"></param>
+        public void NewLevel(TilesMap tileMap)
+        {
+            this.tileMap = tileMap;
+            TilePosition = tileMap.StartingPosition;
+        }
+
 
         /// <summary>
         /// Method that handles collisions and moving the player // Olle A 200213
@@ -156,9 +166,9 @@ namespace GameJam2020_2D
         /// <param name="movement">Movemet to attempt in number of tiles</param>
         private void doCollisionAndMove(int movement)
         {
-            
-            // Wrap in try statement so game doesn't crash in case of attempting illegal move // Olle A 200213
-            try
+
+                // Wrap in try statement so game doesn't crash in case of attempting illegal move // Olle A 200213
+                try
             {
                 // Code specific to type of tile // Olle A 200213
                 switch (tileMap.CollisionTiles[TilePosition + movement].Type)

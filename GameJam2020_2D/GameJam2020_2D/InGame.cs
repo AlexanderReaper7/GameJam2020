@@ -120,7 +120,7 @@ namespace GameJam2020_2D
                 {000,101,000,102,000,000,000,000,000,101,000,000,000,000,000},
                 {000,101,000,102,102,000,000,000,101,102,102,102,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
-            }, 1, 12, 50, 100, 200);
+            }, 0, 12, 50, 100, 200);
 
             level2.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
@@ -136,7 +136,7 @@ namespace GameJam2020_2D
                 {000,201,000,202,000,000,000,000,000,201,000,000,000,000,000},
                 {000,201,000,202,202,000,000,000,201,202,202,202,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
-            }, 200, 12, 50, 100, 200);
+            }, 2, 12, 50, 100, 200);
 
             // Load player // Olle A 20-02-11
             player = new Player(
@@ -155,8 +155,8 @@ namespace GameJam2020_2D
                 case Levels.preLevel1:
                     // Reset level // Olle A 200213
                     level1.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level1;
+                    // Update player's level // Olle A 200212
+                    player.NewLevel(level1);
                     // Move to next gamestate // Olle A 200213
                     Level++;
                     break;
@@ -169,8 +169,8 @@ namespace GameJam2020_2D
                 case Levels.preLevel2:
                     // Reset level // Olle A 200213
                     level2.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level2;
+                    // Update player's level // Olle A 200212
+                    player.NewLevel(level2);
                     // Move to next gamestate // Olle A 200213
                     Level++;
                     break;
@@ -183,100 +183,87 @@ namespace GameJam2020_2D
                 case Levels.preLevel3:
                     // Reset level // Olle A 200213
                     level3.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level3;
+                    // Update player's level // Olle A 200212
+                    player.NewLevel(level3);
                     // Move to next gamestate // Olle A 200213
                     Level++;
                     break;
                 case Levels.Level3:
-                    // Change level // Olle A 200212
-                    player.tileMap = level3;
                     // Update // Olle A 200212
                     player.Update(gameTime);
                     level3.Update();
                     break;
 
                 case Levels.preLevel4:
-                    // Reset level // Olle A 200213
+                    // Reset level // Olle A 200243
                     level4.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level4;
-                    // Move to next gamestate // Olle A 200213
+                    // Update player's level // Olle A 200242
+                    player.NewLevel(level4);
+                    // Move to next gamestate // Olle A 200243
                     Level++;
                     break;
                 case Levels.Level4:
-                    // Change level // Olle A 200212
-                    player.tileMap = level4;
-                    // Update // Olle A 200212
+                    // Update // Olle A 200242
                     player.Update(gameTime);
                     level4.Update();
                     break;
 
                 case Levels.preLevel5:
-                    // Reset level // Olle A 200213
+                    // Reset level // Olle A 200253
                     level5.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level5;
-                    // Move to next gamestate // Olle A 200213
+                    // Update player's level // Olle A 200252
+                    player.NewLevel(level5);
+                    // Move to next gamestate // Olle A 200253
                     Level++;
                     break;
                 case Levels.Level5:
-                    // Change level // Olle A 200212
-                    player.tileMap = level5;
-                    // Update // Olle A 200212
+                    // Update // Olle A 200252
                     player.Update(gameTime);
                     level5.Update();
                     break;
 
                 case Levels.preLevel6:
-                    // Reset level // Olle A 200213
+                    // Reset level // Olle A 200263
                     level6.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level6;
-                    // Move to next gamestate // Olle A 200213
+                    // Update player's level // Olle A 200262
+                    player.NewLevel(level6);
+                    // Move to next gamestate // Olle A 200263
                     Level++;
                     break;
                 case Levels.Level6:
-                    // Change level // Olle A 200212
-                    player.tileMap = level6;
-                    // Update // Olle A 200212
+                    // Update // Olle A 200262
                     player.Update(gameTime);
                     level6.Update();
                     break;
 
                 case Levels.preLevel7:
-                    // Reset level // Olle A 200213
+                    // Reset level // Olle A 200273
                     level7.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level7;
-                    // Move to next gamestate // Olle A 200213
+                    // Update player's level // Olle A 200272
+                    player.NewLevel(level7);
+                    // Move to next gamestate // Olle A 200273
                     Level++;
                     break;
                 case Levels.Level7:
-                    // Change level // Olle A 200212
-                    player.tileMap = level7;
-                    // Update // Olle A 200212
+                    // Update // Olle A 200272
                     player.Update(gameTime);
                     level7.Update();
                     break;
 
                 case Levels.preLevel8:
-                    // Reset level // Olle A 200213
+                    // Reset level // Olle A 200283
                     level8.Reset();
-                    // Change level // Olle A 200212
-                    player.tileMap = level8;
-                    // Move to next gamestate // Olle A 200213
+                    // Update player's level // Olle A 200282
+                    player.NewLevel(level8);
+                    // Move to next gamestate // Olle A 200283
                     Level++;
                     break;
                 case Levels.Level8:
-                    // Change level // Olle A 200212
-                    player.tileMap = level8;
-                    // Update // Olle A 200212
+                    // Update // Olle A 200282
                     player.Update(gameTime);
                     level8.Update();
                     break;
 
-                    
                 default:
                     throw new ArgumentOutOfRangeException();
             }
