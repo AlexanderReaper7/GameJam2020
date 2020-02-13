@@ -24,6 +24,15 @@ namespace Tools_XNA
             World = world;
         }
 
+        #region Levels
+
+        public static Level StartingLevel(GraphicsDevice graphicsDevice)
+        {
+            return CreateDefaultFalling(graphicsDevice); // TODO: create levels
+        }
+
+        #endregion
+
         #region Create
 
 
@@ -93,7 +102,7 @@ namespace Tools_XNA
             for (int i = 0; i < x; i++)
             for (int j = 0; j < y; j++)
             for (int k = 0; k < z; k++)
-                world.worldSpots[i, j, k] = j > 0 ? (WorldObjects3D.WorldSpot)new WorldObjects3D.Air() : new WorldObjects3D.FallingGround(graphicsDevice);
+                world.worldSpots[i, j, k] = j > 0 ? (WorldObjects3D.WorldSpot)new WorldObjects3D.Air() : new WorldObjects3D.ScifiGround(graphicsDevice);
 
             return new Level("DefaultFalling", world, Vector3.Zero);
         }

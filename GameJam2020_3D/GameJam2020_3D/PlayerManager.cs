@@ -20,6 +20,8 @@ namespace GameJam2020_3D
         public Player player;
         public InGame game;
 
+        public int spotsLeft;
+
         public Vector3 RealPosition
         {
             get { return player.customModel.Position; }
@@ -44,6 +46,7 @@ namespace GameJam2020_3D
             this.game = game;
             player = new Player(Vector3.Zero, Vector3.Zero, game.game.GraphicsDevice);
             WorldPosition = startingPosition;
+            spotsLeft = 12 * 12;
         }
 
 
@@ -59,7 +62,7 @@ namespace GameJam2020_3D
             try
             {
                 Type t = game.world.worldSpots[x, y, z].GetType();
-                return t == type;
+                return t.IsSubclassOf(type) || t == type;
             }
             catch (IndexOutOfRangeException)
             {
@@ -67,8 +70,10 @@ namespace GameJam2020_3D
             }
         }
 
-        public void Move(Vector3 change)
+        public bool Move(Vector3 change)
         {
+            // NOTE: is temp (bajskod)
+            spotsLeft--;
             // Calculate next position
             Vector3 p = worldPosition;
             p.X += change.X;
@@ -79,19 +84,26 @@ namespace GameJam2020_3D
             {
                 if (CheckType((int)p.X, (int)p.Y, (int)p.Z, typeof(WorldObjects3D.Ground)))
                 {
+                    // Check new for not falling
+                    if (CheckType((int) p.X, (int) p.Y, (int) p.Z, typeof(WorldObjects3D.FallingGround)))
+                    {
+                        if (((WorldObjects3D.FallingGround)game.world.worldSpots[(int)p.X, (int)p.Y, (int)p.Z]).falling)
+                        {
+                            return false;
+                        }
+                    }
+                    // Check if last position is falling ground
+                    if (CheckType((int)worldPosition.X, (int)worldPosition.Y, (int)worldPosition.Z, typeof(WorldObjects3D.FallingGround)))
+                    {
+                        ((WorldObjects3D.FallingGround)game.world.worldSpots[(int) worldPosition.X, (int) worldPosition.Y, (int) worldPosition.Z]).falling = true;
+                    }
                     // move
                     WorldPosition = p;
-                    return;
-                }
-                else if (CheckType((int)p.X, (int)p.Y, (int)p.Z, typeof(WorldObjects3D.FallingGround)))
-                {
-                    ((WorldObjects3D.FallingGround)game.world.worldSpots[(int) worldPosition.X, (int) worldPosition.Y, (int) worldPosition.Z]).falling = true;
-                    // move
-                    WorldPosition = p;
-                    return;
+                    return true;
                 }
             }
 
+            return false;
             // TODO: Die
         }
 
@@ -100,28 +112,28 @@ namespace GameJam2020_3D
             KeyboardState keyState = Keyboard.GetState(); // TODO: change movement directions to correct ones
             if ((keyState.IsKeyDown(Keys.A)) && walk == false)
             {
-                Move(Vector3.Right);
+                if (!Move(Vector3.Right)) game.GameOver(game.collect.timeScore); // TODO: die on return false
                 walk = true;
                 walkTime = 200;
             }
 
             if ((keyState.IsKeyDown(Keys.D)) && walk == false)
             {
-                Move(Vector3.Left);
+                if (!Move(Vector3.Left)) game.GameOver(game.collect.timeScore);
                 walk = true;
                 walkTime = 200;
             }
 
             if ((keyState.IsKeyDown(Keys.W)) && walk == false)
             {
-                Move(Vector3.Backward);
+                if (!Move(Vector3.Backward)) game.GameOver(game.collect.timeScore);
                 walk = true;
                 walkTime = 200;
             }
 
             if ((keyState.IsKeyDown(Keys.S)) && walk == false)
             {
-                Move(Vector3.Forward);
+                if (!Move(Vector3.Forward)) game.GameOver(game.collect.timeScore);
                 walk = true;
                 walkTime = 200;
             }

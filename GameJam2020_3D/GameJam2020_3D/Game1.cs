@@ -19,8 +19,8 @@ namespace GameJam2020_3D
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private MenuManager menuManager;
-        private InGame inGame;
+        public MenuManager menuManager;
+        public InGame inGame;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -85,7 +85,19 @@ namespace GameJam2020_3D
                     menuManager.Update();
                     break;
                 case GameStates.Game:
-                    inGame.Update(gameTime);
+                    // Check if a level is loaded
+                    if (inGame.game.inGame.world != null)
+                    {
+                        inGame.Update(gameTime);
+                        break;
+                    }
+                    else
+                    {
+                        inGame.LoadLevel(Level.StartingLevel(GraphicsDevice));
+                    }
+                    
+
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -102,8 +114,8 @@ namespace GameJam2020_3D
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            graphics.GraphicsDevice.Reset();
             GraphicsDevice.Clear(Color.Black);
-
             switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
@@ -112,7 +124,7 @@ namespace GameJam2020_3D
                     spriteBatch.End();
                     break;
                 case GameStates.Game:
-                    inGame.Draw(gameTime);
+                    inGame.Draw(gameTime, spriteBatch);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

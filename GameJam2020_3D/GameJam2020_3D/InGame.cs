@@ -20,6 +20,9 @@ namespace GameJam2020_3D
         private bool freeCameraActive = false;
         private MouseState lastMouseState;
 #endif
+
+        public Collect collect = new Collect(0, false); 
+
         public World world;
         private IsometricCamera camera;
         private PlayerManager player;
@@ -33,7 +36,6 @@ namespace GameJam2020_3D
 
         public void Initialize()
         {
-            camera = new IsometricCamera(Vector3.Zero, 10000f, 1f, float.MaxValue, graphics.GraphicsDevice);
 
 #if DEBUG
             lastMouseState = Mouse.GetState();
@@ -44,10 +46,11 @@ namespace GameJam2020_3D
         public void LoadContent(ContentManager content)
         {
             // Load Models
-            WorldObjects3D.Ground.LoadContent(content, @"Models/GroundStandard");
+            WorldObjects3D.LoadContent(content);
             Player.LoadContent(content);
             // Load World
-            LoadLevel(Level.CreateDefaultFalling(graphics.GraphicsDevice));
+            //LoadLevel(Level.CreateDefaultFalling(graphics.GraphicsDevice));
+            collect.LoadContent(content);
         }
 
         public void LoadLevel(Level level)
@@ -61,6 +64,8 @@ namespace GameJam2020_3D
 
         public void ConfigureCamera()
         {
+            camera = null;
+            camera = new IsometricCamera(Vector3.Zero, 10000f, 1f, float.MaxValue, graphics.GraphicsDevice);
             // Zoom camera to fit world
             // Get largest side
             float largestSide = (float)Math.Sqrt(Math.Pow(world.RealSize.Z, 2) + Math.Pow(world.RealSize.X, 2));
@@ -73,12 +78,20 @@ namespace GameJam2020_3D
 
         public void Update(GameTime gameTime)
         {
-            player.Update(gameTime);
             world.Update(gameTime);
+            player.Update(gameTime);
+            collect.Update(gameTime);
             camera.Update();
 #if DEBUG
             UpdateFreeCamera();
 #endif
+
+            if (player?.spotsLeft == 1 || Keyboard.GetState().IsKeyDown(Keys.Home))
+            {
+                // Win
+                Victory(collect.timeScore);
+            }
+
         }
 
 #if DEBUG
@@ -113,22 +126,49 @@ namespace GameJam2020_3D
             // Update lastMouseState
             lastMouseState = mouseState;
         }
+
+        /// <summary>
+        /// Kills player and opens gameover screen
+        /// </summary>
+        public void GameOver(int score)
+        {
+            world = null;
+            player = null;
+            game.menuManager.gameStates = GameStates.Menu;
+            game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.GameOver;
+        }
+
+        /// <summary>
+        /// Clears level and opens victory screen
+        /// </summary>
+        public void Victory(int score)
+        {
+            world = null;
+            player = null;
+            game.menuManager.gameStates = GameStates.Menu;
+            game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.Victory;
+        }
+
 #endif
 
 
-        public void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 #if DEBUG
-            if (freeCameraActive)
+            if (world != null && player != null)
             {
-                world.Draw(gameTime, freeCamera, (int)player.WorldPosition.Y);
-                player.player.Draw(freeCamera);
-            }
-            else
-            {
-                world.Draw(gameTime, camera, (int)player.WorldPosition.Y);
-                player.player.Draw(camera);
-            }
+                
+                if (freeCameraActive)
+                {
+                    world.Draw(gameTime, freeCamera, (int)player.WorldPosition.Y);
+                    player.player.Draw(freeCamera);
+                }
+                else
+                {
+                    world.Draw(gameTime, camera, (int)player.WorldPosition.Y);
+                    player.player.Draw(camera);
+                    collect.Draw(spriteBatch);
+                }
 #endif
 #if !DEBUG
             // World
@@ -136,7 +176,7 @@ namespace GameJam2020_3D
             // UI
             
 #endif
-
+            }
         }
     }
 }

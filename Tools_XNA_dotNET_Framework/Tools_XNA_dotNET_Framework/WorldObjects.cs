@@ -10,6 +10,20 @@ namespace Tools_XNA
 {
     public class WorldObjects3D
     {
+        private static Model standardGroundModel;
+        private static Model fantasyGroundModel;
+        private static Model scifiGroundModel;
+
+
+        public static void LoadContent(ContentManager content)
+        {
+            // = content.Load<Model>(@"Models/");
+            standardGroundModel = content.Load<Model>(@"Models/GroundStandard");
+            //fantasyGroundModel = content.Load<Model>(@"Models/GroundFantasy");
+            scifiGroundModel = content.Load<Model>(@"Models/GroundScifi");
+        }
+
+
         public abstract class WorldSpot
         {
             public Vector3 position;
@@ -29,12 +43,11 @@ namespace Tools_XNA
         /// </summary>
         public class Ground : WorldSpot
         {
-            private static Model model;
             public CustomModel customModel;
 
             public Ground(GraphicsDevice graphicsDevice)
             {
-                customModel = new CustomModel(model, Vector3.Zero, Vector3.Zero, Vector3.One, graphicsDevice);
+                customModel = new CustomModel(standardGroundModel, Vector3.Zero, Vector3.Zero, Vector3.One, graphicsDevice);
             }
 
             public override void Draw(GameTime gameTime, Camera camera, float alpha)
@@ -46,11 +59,6 @@ namespace Tools_XNA
             {
                 customModel.Position = position;
             }
-
-            public static void LoadContent(ContentManager content, string path)
-            {
-                if (model == null) model = content.Load<Model>(path);
-            }
         }
 
         public class FallingGround : Ground
@@ -59,7 +67,6 @@ namespace Tools_XNA
             /// LERP amount
             /// </summary>
             private const float fallspeed = 0.1f;
-
             private const float fallTo = -4000f;
 
             public bool falling;
@@ -78,12 +85,26 @@ namespace Tools_XNA
 
             private void Fall()
             {
-                position.Y = MathHelper.SmoothStep(lastY, -4000f, fallspeed);
+                position.Y = MathHelper.SmoothStep(lastY, fallTo, fallspeed);
                 lastY = position.Y;
             }
         }
 
+        public class FantasyGround : FallingGround
+        {
+            public FantasyGround(GraphicsDevice graphicsDevice) : base(graphicsDevice)
+            {
+                customModel.Model = fantasyGroundModel;
+            }
+        }
 
+        public class ScifiGround : FallingGround
+        {
+            public ScifiGround(GraphicsDevice graphicsDevice) : base(graphicsDevice)
+            {
+                customModel.Model = scifiGroundModel;
+            }
+        }
 
         /// <summary>
         /// An empty space in the world

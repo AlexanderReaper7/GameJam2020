@@ -20,6 +20,7 @@ namespace Tools_XNA
         public bool Back { get; set; }
 
         public bool IsKeyUp { get; set; }
+        public bool PrevIsKeyUp { get; set; }
 
         public Rectangle MousePointer { get; set; }
         public Rectangle PreviousMousePosition { get; set; }
@@ -85,6 +86,7 @@ namespace Tools_XNA
                 Back = true;
             else Back = false;
 
+            PrevIsKeyUp = IsKeyUp;
             // Looks if any of the navigation keys are up, this can be used as a single activation key
             if (!Up && !Down && !Left && !Right && !Select && !SelectMouse)
             {
