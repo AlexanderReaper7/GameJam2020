@@ -131,25 +131,25 @@ namespace GameJam2020_3D
         /// <summary>
         /// Kills player and opens gameover screen
         /// </summary>
-        public void GameOver(int score)
+        public void GameOver(float score)
         {
             world = null;
             player = null;
             game.menuManager.gameStates = GameStates.Menu;
             game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.GameOver;
-            game.menuManager.score = score;
+            MenuManager.score = score;
         }
 
         /// <summary>
         /// Clears level and opens victory screen
         /// </summary>
-        public void Victory(int score)
+        public void Victory(float score)
         {
             world = null;
             player = null;
             game.menuManager.gameStates = GameStates.Menu;
             game.menuManager.menu.PageSelection = (int)MenuManager.MenuState.Victory;
-            game.menuManager.score = score;
+            MenuManager.score = score;
         }
 
 #endif

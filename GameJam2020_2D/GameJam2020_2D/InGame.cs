@@ -56,10 +56,12 @@ namespace GameJam2020_2D
         };
 
         Highscore scoreboard;
+        MenuManager menu;
 
-        public InGame(Highscore scoreboard)
+        public InGame(Highscore scoreboard, MenuManager menu)
         {
             this.scoreboard = scoreboard;
+            this.menu = menu;
         }
 
         public void Initialize()
@@ -251,6 +253,7 @@ namespace GameJam2020_2D
 
         public void Update(GameTime gameTime)
         {
+
             // Level specific code // Olle A 200212
             switch (Level)
             {
@@ -366,8 +369,9 @@ namespace GameJam2020_2D
                     level8.Update(gameTime);
                     break;
                 case Levels.Win:
-                    MenuManager.menuState = MenuManager.MenuState.Victory;
-                    Game1.gameState = GameStates.Menu;
+                    menu.gameStates = GameStates.Menu;
+                    menu.menu.PageSelection = (int)MenuManager.MenuState.Victory;
+                    player.ResetGame();
                     break;
 
                 default:

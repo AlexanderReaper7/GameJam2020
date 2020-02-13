@@ -49,10 +49,11 @@ namespace GameJam2020_2D
         {
             scoreBoard = new Highscore();
             scoreBoard.Initialize();
-            inGame = new InGame(scoreBoard);
-            inGame.Initialize();
             menuManager = new MenuManager(this, graphics, scoreBoard);
             menuManager.gameStates = GameStates.Menu;
+            inGame = new InGame(scoreBoard, menuManager);
+            inGame.Initialize();
+
             base.Initialize();
         }
 
@@ -96,11 +97,12 @@ namespace GameJam2020_2D
                     break;
                 case GameStates.Game:
                     inGame.Update(gameTime);
-                    if(!inGame.player.playerAlive)
+                    if (inGame.player.playerAlive == false)
                     {
-                        MenuManager.menuState = MenuManager.MenuState.Victory;
+                        menuManager.ChangePage(MenuManager.MenuState.GameOver);
                         menuManager.gameStates = GameStates.Menu;
                         inGame.player.playerAlive = true;
+                        inGame.player.ResetGame();
                     }
                     break;
                 //case GameStates.InsertName:
