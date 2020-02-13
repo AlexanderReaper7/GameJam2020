@@ -63,30 +63,35 @@ namespace Tools_XNA
 
             }
 
-            // Easy navigation of buttons and button states, takes in an input of up, down, left and right
-            public void Navigation(bool up, bool down, bool left, bool right)
+        // Easy navigation of buttons and button states, takes in an input of up, down, left and right
+        public bool Navigation(bool up, bool down, bool left, bool right)
+        {
+            if (up)
             {
-                if (up)
-                {
-                    // Make the selection go up in current page
-                    Pages[PageSelection].SelectUp(false);
-                }
-                else if (down)
-                {
-                    // Make the selection go down in current page
-                    Pages[PageSelection].SelectDown(false);
-                }
-                else if (left)
-                {
-                    // Make the selection change to left in current page's current button
-                    Pages[PageSelection].Buttons[Pages[PageSelection].ButtonSelection].SelectLeft(false);
-                }
-                else if (right)
-                {
-                    // Make the selection change to right in current page's current button
-                    Pages[PageSelection].Buttons[Pages[PageSelection].ButtonSelection].SelectRight(false);
-                }
+                // Make the selection go up in current page
+                Pages[PageSelection].SelectUp(false);
+                return false;
             }
+            else if (down)
+            {
+                // Make the selection go down in current page
+                Pages[PageSelection].SelectDown(false);
+                return false;
+            }
+            else if (left)
+            {
+                // Make the selection change to left in current page's current button
+                Pages[PageSelection].Buttons[Pages[PageSelection].ButtonSelection].SelectLeft(false);
+                return false;
+            }
+            else if (right)
+            {
+                // Make the selection change to right in current page's current button
+                Pages[PageSelection].Buttons[Pages[PageSelection].ButtonSelection].SelectRight(false);
+                return false;
+            }
+            else return true;
+        }
 
             // Update mouse collision with all buttons
             public void UpdateMouse(Rectangle mousePointer)
