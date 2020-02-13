@@ -37,6 +37,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\GroundScifi.fbx">
+      <Name>GroundScifi</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Models\GroundStandard.fbx">
       <Name>GroundStandard</Name>
       <Importer>FbxImporter</Importer>

@@ -59,7 +59,7 @@ namespace GameJam2020_3D
             try
             {
                 Type t = game.world.worldSpots[x, y, z].GetType();
-                return t == type;
+                return t.IsSubclassOf(type) || t == type;
             }
             catch (IndexOutOfRangeException)
             {
@@ -67,7 +67,7 @@ namespace GameJam2020_3D
             }
         }
 
-        public void Move(Vector3 change)
+        public bool Move(Vector3 change)
         {
             // Calculate next position
             Vector3 p = worldPosition;
@@ -79,19 +79,26 @@ namespace GameJam2020_3D
             {
                 if (CheckType((int)p.X, (int)p.Y, (int)p.Z, typeof(WorldObjects3D.Ground)))
                 {
+                    // Check new for not falling
+                    if (CheckType((int) p.X, (int) p.Y, (int) p.Z, typeof(WorldObjects3D.FallingGround)))
+                    {
+                        if (((WorldObjects3D.FallingGround)game.world.worldSpots[(int)p.X, (int)p.Y, (int)p.Z]).falling)
+                        {
+                            return false;
+                        }
+                    }
+                    // Check if last position is falling ground
+                    if (CheckType((int)worldPosition.X, (int)worldPosition.Y, (int)worldPosition.Z, typeof(WorldObjects3D.FallingGround)))
+                    {
+                        ((WorldObjects3D.FallingGround)game.world.worldSpots[(int) worldPosition.X, (int) worldPosition.Y, (int) worldPosition.Z]).falling = true;
+                    }
                     // move
                     WorldPosition = p;
-                    return;
-                }
-                else if (CheckType((int)p.X, (int)p.Y, (int)p.Z, typeof(WorldObjects3D.FallingGround)))
-                {
-                    ((WorldObjects3D.FallingGround)game.world.worldSpots[(int) worldPosition.X, (int) worldPosition.Y, (int) worldPosition.Z]).falling = true;
-                    // move
-                    WorldPosition = p;
-                    return;
+                    return true;
                 }
             }
 
+            return false;
             // TODO: Die
         }
 
@@ -100,7 +107,7 @@ namespace GameJam2020_3D
             KeyboardState keyState = Keyboard.GetState(); // TODO: change movement directions to correct ones
             if ((keyState.IsKeyDown(Keys.A)) && walk == false)
             {
-                Move(Vector3.Right);
+                Move(Vector3.Right); // TODO: die on return false
                 walk = true;
                 walkTime = 200;
             }

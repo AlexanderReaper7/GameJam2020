@@ -44,7 +44,7 @@ namespace GameJam2020_3D
         public void LoadContent(ContentManager content)
         {
             // Load Models
-            WorldObjects3D.Ground.LoadContent(content, @"Models/GroundStandard");
+            WorldObjects3D.LoadContent(content);
             Player.LoadContent(content);
             // Load World
             LoadLevel(Level.CreateDefaultFalling(graphics.GraphicsDevice));
