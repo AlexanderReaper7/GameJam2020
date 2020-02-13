@@ -104,7 +104,6 @@ namespace GameJam2020_3D
             }
 
             return false;
-            // TODO: Die
         }
 
         public void Update(GameTime gameTime)
@@ -114,7 +113,7 @@ namespace GameJam2020_3D
             KeyboardState keyState = Keyboard.GetState(); // TODO: change movement directions to correct ones
             if ((keyState.IsKeyDown(Keys.A) || gamePad.DPad.Left == ButtonState.Pressed) && walk == false)
             {
-                if (!Move(Vector3.Right)) game.GameOver(game.collect.timeScore); // TODO: die on return false
+                if (!Move(Vector3.Right)) game.GameOver(game.collect.timeScore); 
                 walk = true;
                 walkTime = 200;
             }
