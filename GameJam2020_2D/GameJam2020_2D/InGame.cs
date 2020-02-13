@@ -18,7 +18,7 @@ namespace GameJam2020_2D
     public class InGame
     {
         public Player player;
-        string playerName = "AAA";
+        public static string playerName = "AAA";
 
         TilesMap level1;
         TilesMap level2;
@@ -52,6 +52,7 @@ namespace GameJam2020_2D
             Level7,
             preLevel8,
             Level8,
+            Win,
         };
 
         Highscore scoreboard;
@@ -362,6 +363,10 @@ namespace GameJam2020_2D
                     // Update // Olle A 200213
                     player.Update(gameTime);
                     level8.Update(gameTime);
+                    break;
+                case Levels.Win:
+                    MenuManager.menuState = MenuManager.MenuState.Victory;
+                    Game1.gameState = GameStates.Menu;
                     break;
 
                 default:

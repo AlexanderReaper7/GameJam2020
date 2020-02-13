@@ -19,6 +19,7 @@ namespace Tools_XNA
         private Game game;
         private GraphicsDeviceManager graphics;
         private Highscore scoreBoard;
+        public static bool exclusiveBool = false;
 
         public GameStates gameStates;
 
@@ -32,7 +33,7 @@ namespace Tools_XNA
             Victory,
             Credits
         }
-        public MenuState menuState = MenuState.Main;
+        public static MenuState menuState = MenuState.Main;
         
 
         int screenWidth;
@@ -93,8 +94,8 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.InsertName].AddBackground(defaultBackground);
 
             menu.Pages[(int)MenuState.Main].AddBackground(defaultBackground);
-            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth/10, screenHeight/5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
-                new Action[] { () => gameStates = GameStates.Game, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
+            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth / 10, screenHeight / 5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
+                new Action[] { () => { gameStates = GameStates.Game; exclusiveBool = true; }, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
             
             menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.LevelSelect].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));

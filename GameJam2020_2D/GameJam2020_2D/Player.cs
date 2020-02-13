@@ -144,7 +144,7 @@ namespace GameJam2020_2D
                     keyRepeatTime -= seconds;
             }
 
-            if (keyboardState.IsKeyDown(Keys.A)) if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0) InGame.Level = InGame.Levels.preLevel1;
+            if (keyboardState.IsKeyDown(Keys.A)) if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0) InGame.Level = InGame.Levels.Win;
             doCollisionAndMove(movement);
         }
 
@@ -188,7 +188,17 @@ namespace GameJam2020_2D
                         break;
 
                     // Ground, open door and walkable tiles // Olle A 200213
-                    case 101: case 201: case 107: case 207:
+                    case 101: case 201: case 107:
+                    case 207: case 106:
+                    case 206:
+                    case 211:
+                    case 212:
+                    case 213:
+                    case 214:
+                    case 111:
+                    case 112:
+                    case 113:
+                    case 114:
                         // Update bool in prev tile // Olle A 200212
                         tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
                         prevTilePosition = TilePosition;
@@ -200,7 +210,7 @@ namespace GameJam2020_2D
                         break;
 
                     // Wall, closed door, dispenser, unwalkable tiles 
-                    case 102: case 202: case 103: case 203: case 105: case 205: case 106: case 206:
+                    case 102: case 202: case 103: case 203: case 105: case 205:
                         // Do nothing // Olle A 200213
                         break;
 
@@ -216,6 +226,36 @@ namespace GameJam2020_2D
                     // Trap door
                     case 109:
                         // TODO: Add death logic // Olle A 200212
+                        break;
+
+                    // Portal
+                    case 108:
+                    case 208:
+                        if (InGame.Level == InGame.Levels.Level4)
+                        {
+                            if (TilePosition == 158) TilePosition = 111;
+                            if (TilePosition == 114) TilePosition = 61;
+                        }
+                        if (InGame.Level == InGame.Levels.Level5)
+                        {
+                            if (TilePosition == 170) TilePosition = 132;
+                            if (TilePosition == 61) TilePosition = 174;
+                            if (TilePosition == 172) TilePosition = 78;
+                            if (TilePosition == 137) TilePosition = 176;
+                        }
+
+                        if (InGame.Level == InGame.Levels.Level6)
+                        {
+                            if (TilePosition == 160) TilePosition = 114;
+                            if (TilePosition == 74 || TilePosition == 63) TilePosition = 78;
+                        }
+
+                        if (InGame.Level == InGame.Levels.Level7)
+                        {
+                            if (TilePosition == 162) TilePosition = 146;
+                            if (TilePosition == 86) TilePosition = 63;
+                            if (TilePosition == 45) TilePosition = 176;
+                        }
                         break;
 
                     // Unspecified tiles do nothing // Olle A 200213

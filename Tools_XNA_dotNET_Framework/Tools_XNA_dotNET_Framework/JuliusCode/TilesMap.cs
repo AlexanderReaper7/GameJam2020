@@ -110,6 +110,7 @@ namespace Tools_XNA
         public void Reset()
         {
             collisionTiles = collisionTilesUntouched.ConvertAll(x => new CollisionTiles(x.Type, x.Rectangle));
+            timer = 0;
         }
 
     }

@@ -20,10 +20,14 @@ namespace GameJam2020_2D
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private MenuManager menuManager;
+        public static MenuManager menuManager;
         private InGame inGame;
         public static GameStates gameState;
         Highscore scoreBoard;
+        /// <summary>
+        /// The nameselect class used to allow a player to create their own name and then store it for use regarding the high score 
+        /// </summary>
+        NameSelect nameSelect = new NameSelect();
 
         public Game1()
         {
@@ -62,6 +66,7 @@ namespace GameJam2020_2D
 
             menuManager.LoadMenues(Content);
             inGame.LoadContent(Content);
+            nameSelect.LoadContent(Content);
         }
 
         /// <summary>
@@ -92,11 +97,15 @@ namespace GameJam2020_2D
                     inGame.Update(gameTime);
                     if(!inGame.player.playerAlive)
                     {
-                        menuManager.menuState = MenuManager.MenuState.Victory;
+                        MenuManager.menuState = MenuManager.MenuState.Victory;
                         menuManager.gameStates = GameStates.Menu;
                         inGame.player.playerAlive = true;
                     }
                     break;
+                //case GameStates.InsertName:
+                //    // Updates the various code in the nameselect class 
+                //    nameSelect.Update(gameTime);
+                //    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -120,7 +129,12 @@ namespace GameJam2020_2D
                     break;
                 case GameStates.Game:
                     inGame.Draw(spriteBatch, gameTime);
+                    if (MenuManager.exclusiveBool) InGame.Level = InGame.Levels.preLevel1;
+                    MenuManager.exclusiveBool = false;
                     break;
+                //case GameStates.InsertName:
+                //    nameSelect.Draw(spriteBatch);
+                //    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
