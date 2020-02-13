@@ -30,6 +30,9 @@ namespace GameJam2020_2D
 
         KeyboardState keyboardState, lastKeyboardState;
 
+        // bool for player death
+        public bool playerAlive = true;
+
         /// <summary>
         /// Sets the last key to pressed to enable the repeat function // Emil C.A. 200212
         /// </summary>
@@ -181,6 +184,7 @@ namespace GameJam2020_2D
                     // Air (no tile)
                     case 0:
                         // TODO: Add death logic // Olle A 200212
+                        playerAlive = false;
                         break;
 
                     // Ground, open door and walkable tiles // Olle A 200213

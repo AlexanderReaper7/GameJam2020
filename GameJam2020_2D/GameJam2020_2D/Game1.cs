@@ -90,6 +90,12 @@ namespace GameJam2020_2D
                     break;
                 case GameStates.Game:
                     inGame.Update(gameTime);
+                    if(!inGame.player.playerAlive)
+                    {
+                        menuManager.menuState = MenuManager.MenuState.Victory;
+                        menuManager.gameStates = GameStates.Menu;
+                        inGame.player.playerAlive = true;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
