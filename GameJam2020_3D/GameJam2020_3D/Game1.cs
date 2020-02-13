@@ -21,6 +21,7 @@ namespace GameJam2020_3D
         private SpriteBatch spriteBatch;
         public MenuManager menuManager;
         public InGame inGame;
+        public Highscore highScore;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,7 +41,7 @@ namespace GameJam2020_3D
         /// </summary>
         protected override void Initialize()
         {
-            menuManager = new MenuManager(this, graphics);
+            menuManager = new MenuManager(this, graphics, highScore);
             menuManager.gameStates = GameStates.Menu;
             inGame = new InGame(this, graphics);
             inGame.Initialize();
@@ -82,7 +83,7 @@ namespace GameJam2020_3D
             switch (menuManager.gameStates)
             {
                 case GameStates.Menu:
-                    menuManager.Update();
+                    menuManager.Update(gameTime);
                     break;
                 case GameStates.Game:
                     // Check if a level is loaded

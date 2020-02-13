@@ -54,6 +54,7 @@
     <Compile Include="AlexanderCode\ColorHelper.cs" />
     <Compile Include="AlexanderCode\ExtendedSpriteBatch.cs" />
     <Compile Include="AlexanderCode\MathHelperExtensions.cs" />
+    <Compile Include="Credits.cs" />
     <Compile Include="FreeCamera.cs" />
     <Compile Include="GameStates.cs" />
     <Compile Include="AlexanderCode\Highscore.cs" />
