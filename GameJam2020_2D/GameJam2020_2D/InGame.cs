@@ -17,7 +17,7 @@ namespace GameJam2020_2D
 {
     public class InGame
     {
-        Player player;
+        public Player player;
 
         TilesMap level1;
         TilesMap level2;

@@ -9,7 +9,7 @@ using Tools_XNA;
 
 namespace GameJam2020_2D
 {
-    class Player
+    public class Player
     {
         public TilesMap tileMap;
         // Texture currently in use // Olle A 20-02-12
@@ -26,6 +26,9 @@ namespace GameJam2020_2D
         private int prevTilePosition;
 
         KeyboardState keyboardState, lastKeyboardState;
+
+        // bool for player death
+        public bool playerAlive = true;
 
         /// <summary>
         /// Sets the last key to pressed to enable the repeat function // Emil C.A. 200212
@@ -176,6 +179,7 @@ namespace GameJam2020_2D
                     // Air (no tile)
                     case 0:
                         // TODO: Add death logic // Olle A 200212
+                        playerAlive = false;
                         break;
 
                     // Wall 
