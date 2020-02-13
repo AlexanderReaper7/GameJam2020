@@ -48,7 +48,7 @@ namespace Tools_XNA
 
 
         // Draw method
-        public void Draw(Matrix View, Matrix Projection, Vector3 CameraPosition)
+        public void Draw(Matrix View, Matrix Projection, Vector3 CameraPosition, float alpha = 0.9f)
         {
             // Create a new matrix based on the matrices Scale, Rotation and Translation
             Matrix baseWorld = Matrix.CreateScale(Scale) *
@@ -72,6 +72,12 @@ namespace Tools_XNA
                         ((BasicEffect)effect).View = View;
                         ((BasicEffect)effect).Projection = Projection;
                         ((BasicEffect)effect).EnableDefaultLighting();
+                        //((BasicEffect)effect).Alpha = alpha;
+                        //if (alpha != 1f) // TODO: draw with alpha
+                        //{
+                        //    graphicsDevice.BlendState = BlendState.AlphaBlend;
+                        //}
+
                     }
                     else
                     {
@@ -86,6 +92,11 @@ namespace Tools_XNA
 
                 // Draw all the meshes
                 mesh.Draw();
+
+                //if (alpha != 1f)
+                //{
+                //    graphicsDevice.BlendState = BlendState.Opaque;
+                //}
             }
         }
 

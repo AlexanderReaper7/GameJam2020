@@ -29,7 +29,7 @@ namespace GameJam2020_3D
         public Vector3 WorldPosition
         {
             get { return worldPosition; }
-            set {
+            private set {
                 worldPosition = value;
                 RealPosition = game.world.CalculateRealPosition(value);
             }
@@ -39,11 +39,11 @@ namespace GameJam2020_3D
         private int walkTime = 0;
         private Vector3 worldPosition;
 
-        public PlayerManager(InGame game)
+        public PlayerManager(InGame game, Vector3 startingPosition)
         {
             this.game = game;
-            player = new Player(new Vector3(0, 200, 0), Vector3.Zero, game.game.GraphicsDevice);
-            WorldPosition = new Vector3(0,0,0); // NOTE: starting position
+            player = new Player(Vector3.Zero, Vector3.Zero, game.game.GraphicsDevice);
+            WorldPosition = startingPosition;
         }
 
 
@@ -53,13 +53,13 @@ namespace GameJam2020_3D
         /// <param name="worldPosition"></param>
         /// <param name="world"></param>
         /// <returns></returns>
-        private bool CheckGround(int x, int y, int z)
+        private bool CheckType(int x, int y, int z, Type type)
         {
             //  get type in position
             try
             {
                 Type t = game.world.worldSpots[x, y, z].GetType();
-                return t == typeof(WorldObjects3D.Ground);
+                return t == type;
             }
             catch (IndexOutOfRangeException)
             {
@@ -74,12 +74,25 @@ namespace GameJam2020_3D
             p.X += change.X;
             p.Y += change.Y;
             p.Z += change.Z;
-            // Check if next position is valid ground
-            if (CheckGround((int) p.X, (int) p.Y, (int) p.Z))
+            // Check if next position is valid
+            if (CheckType((int)p.X, (int)p.Y +1, (int)p.Z, typeof(WorldObjects3D.Air)))
             {
-                // move
-                WorldPosition = p;
+                if (CheckType((int)p.X, (int)p.Y, (int)p.Z, typeof(WorldObjects3D.Ground)))
+                {
+                    // move
+                    WorldPosition = p;
+                    return;
+                }
+                else if (CheckType((int)p.X, (int)p.Y, (int)p.Z, typeof(WorldObjects3D.FallingGround)))
+                {
+                    ((WorldObjects3D.FallingGround)game.world.worldSpots[(int) worldPosition.X, (int) worldPosition.Y, (int) worldPosition.Z]).falling = true;
+                    // move
+                    WorldPosition = p;
+                    return;
+                }
             }
+
+            // TODO: Die
         }
 
         public void Update(GameTime gameTime)
