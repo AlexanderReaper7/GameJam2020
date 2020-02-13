@@ -107,28 +107,28 @@ namespace GameJam2020_3D
             KeyboardState keyState = Keyboard.GetState(); // TODO: change movement directions to correct ones
             if ((keyState.IsKeyDown(Keys.A)) && walk == false)
             {
-                Move(Vector3.Right); // TODO: die on return false
+                if (!Move(Vector3.Right)) game.GameOver(); // TODO: die on return false
                 walk = true;
                 walkTime = 200;
             }
 
             if ((keyState.IsKeyDown(Keys.D)) && walk == false)
             {
-                Move(Vector3.Left);
+                if (!Move(Vector3.Left)) game.GameOver();
                 walk = true;
                 walkTime = 200;
             }
 
             if ((keyState.IsKeyDown(Keys.W)) && walk == false)
             {
-                Move(Vector3.Backward);
+                if (!Move(Vector3.Backward)) game.GameOver();
                 walk = true;
                 walkTime = 200;
             }
 
             if ((keyState.IsKeyDown(Keys.S)) && walk == false)
             {
-                Move(Vector3.Forward);
+                if (!Move(Vector3.Forward)) game.GameOver();
                 walk = true;
                 walkTime = 200;
             }

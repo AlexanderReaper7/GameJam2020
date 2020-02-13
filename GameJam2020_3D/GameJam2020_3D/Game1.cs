@@ -19,8 +19,8 @@ namespace GameJam2020_3D
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private MenuManager menuManager;
-        private InGame inGame;
+        public MenuManager menuManager;
+        public InGame inGame;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);

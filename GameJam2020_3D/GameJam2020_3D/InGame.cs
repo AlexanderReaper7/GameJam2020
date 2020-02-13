@@ -73,8 +73,8 @@ namespace GameJam2020_3D
 
         public void Update(GameTime gameTime)
         {
-            player.Update(gameTime);
             world.Update(gameTime);
+            player.Update(gameTime);
             camera.Update();
 #if DEBUG
             UpdateFreeCamera();
@@ -113,6 +113,18 @@ namespace GameJam2020_3D
             // Update lastMouseState
             lastMouseState = mouseState;
         }
+
+        /// <summary>
+        /// Kills player and opens gameover screen
+        /// </summary>
+        public void GameOver()
+        {
+            world = null;
+            player = null;
+            game.menuManager.gameStates = GameStates.Menu;
+            game.menuManager.menuState = MenuManager.MenuState.GameOver;
+        }
+
 #endif
 
 

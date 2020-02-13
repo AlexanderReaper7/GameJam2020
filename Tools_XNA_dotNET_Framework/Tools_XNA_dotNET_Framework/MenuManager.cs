@@ -32,7 +32,7 @@ namespace Tools_XNA
             Victory,
             Credits
         }
-        MenuState menuState = MenuState.Main;
+        public MenuState menuState = MenuState.Main;
         
 
         int screenWidth;
