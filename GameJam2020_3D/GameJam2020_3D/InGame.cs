@@ -160,7 +160,7 @@ namespace GameJam2020_3D
 #if DEBUG
             if (world != null && player != null)
             {
-                
+
                 if (freeCameraActive)
                 {
                     world.Draw(gameTime, freeCamera, (int)player.WorldPosition.Y);
@@ -177,7 +177,7 @@ namespace GameJam2020_3D
             // World
             world.Draw(gameTime, camera);
             // UI
-            
+          
 #endif
             }
         }
