@@ -169,8 +169,9 @@ namespace Tools_XNA
             else menu.Draw(spriteBatch, screenSize);
             if(menu.PageSelection == (int)MenuState.HighscoreBoard)
             {
-                scoreBoard.Draw(spriteBatch, scoreBoardFont);
-            }
+                try { scoreBoard.Draw(spriteBatch, scoreBoardFont); }
+                catch { }
+                }
         }
     }
 }
