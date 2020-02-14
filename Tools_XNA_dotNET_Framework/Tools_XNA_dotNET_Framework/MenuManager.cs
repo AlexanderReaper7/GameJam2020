@@ -11,7 +11,7 @@ namespace Tools_XNA
 {
     public class MenuManager
     {
-        public Menu menu = new Menu(8);
+        public Menu menu = new Menu(9);
 
         SpriteFont menuFont, textFont, scoreBoardFont;
         Texture2D defaultBackground, mainMenu;
@@ -34,7 +34,8 @@ namespace Tools_XNA
             HighscoreBoard,
             GameOver,
             Victory,
-            Credits
+            Credits, 
+            Instructions
         }
         public static MenuState menuState = MenuState.Main;
         
@@ -92,6 +93,7 @@ namespace Tools_XNA
             // Textures
             defaultBackground = Content.Load<Texture2D>(@"Shared/Menu/Background");
             mainMenu = Content.Load<Texture2D>(@"Shared/Menu/MainMenu");
+            Texture2D instructionsMenu = Content.Load<Texture2D>(@"Shared/Menu/Instructions");
 
 
             // StartMenu
@@ -104,8 +106,8 @@ namespace Tools_XNA
 
             menu.Pages[(int)MenuState.Main].AddBackground(mainMenu);
             menu.Pages[(int)MenuState.Main].AddText(titleFont, new Vector2(60, 20), false, "WEIRD TILES IN SPACE", Color.White);
-            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth/10, screenHeight/5), 80f, new[] { "Play", "Level Select", "Highscore", "Credits", "Exit" },
-                new Action[] { () => gameStates = GameStates.Game, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
+            menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth/10, screenHeight/5), 80f, new[] { "Play", "Level Select", "Instructions", "Highscore", "Credits", "Exit" },
+                new Action[] { () => gameStates = GameStates.Game, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.Instructions), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
             
             menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.LevelSelect].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
@@ -125,7 +127,10 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.Victory].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.Credits].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
-            
+
+            menu.Pages[(int)MenuState.Instructions].AddBackground(instructionsMenu);
+            menu.Pages[(int)MenuState.Instructions].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
+
         }
 
         public void ButtonNavigation()
