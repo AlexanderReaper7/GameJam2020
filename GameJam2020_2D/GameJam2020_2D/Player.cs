@@ -32,6 +32,7 @@ namespace GameJam2020_2D
         public bool doorOpen = false;
 
         KeyboardState keyboardState, lastKeyboardState;
+        GamePadState gamePadState, lastGamePadState;
 
         // bool for player death
         public bool playerAlive = true;
@@ -83,14 +84,16 @@ namespace GameJam2020_2D
         {
             lastKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
+            lastGamePadState = gamePadState;
+            gamePadState = GamePad.GetState(PlayerIndex.One);
             // Movement to do this update // Olle A 200212
             int movement = 0;
 
             float seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (keyboardState.IsKeyDown(Keys.Right))
+            if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight))
             {
-                if (lastKeyboardState.IsKeyUp(Keys.Right) || keyRepeatTime < 0)
+                if (lastKeyboardState.IsKeyUp(Keys.Right) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadRight))
                 {
                     keyRepeatTime = keyRepeatDelay;
                     //do key logic // Emil C.A. 200212
@@ -102,9 +105,9 @@ namespace GameJam2020_2D
                 else
                     keyRepeatTime -= seconds;
             }
-            if (keyboardState.IsKeyDown(Keys.Left))
+            if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft))
             {
-                if (lastKeyboardState.IsKeyUp(Keys.Left) || keyRepeatTime < 0)
+                if (lastKeyboardState.IsKeyUp(Keys.Left) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadLeft))
                 {
                     keyRepeatTime = keyRepeatDelay;
                     //do key logic // Emil C.A. 200212
@@ -117,9 +120,9 @@ namespace GameJam2020_2D
                 else
                     keyRepeatTime -= seconds;
             }
-            if (keyboardState.IsKeyDown(Keys.Up))
+            if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp))
             {
-                if (lastKeyboardState.IsKeyUp(Keys.Up) || keyRepeatTime < 0)
+                if (lastKeyboardState.IsKeyUp(Keys.Up) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadUp))
                 {
                     keyRepeatTime = keyRepeatDelay;
                     //do key logic // Emil C.A. 200212
@@ -131,7 +134,7 @@ namespace GameJam2020_2D
                 else
                     keyRepeatTime -= seconds;
             }
-            if (keyboardState.IsKeyDown(Keys.Down))
+            if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown))
             {
                 if (lastKeyboardState.IsKeyUp(Keys.Down) || keyRepeatTime < 0)
                 {
@@ -143,11 +146,20 @@ namespace GameJam2020_2D
 
 
                 }
+
+                else if (lastGamePadState.IsButtonDown(Buttons.DPadDown) || keyRepeatTime < 0)
+                {
+                    keyRepeatTime = keyRepeatDelay;
+                    //do key logic // Emil C.A. 200212
+                    movement += 1;
+                    // Change texture // Olle A 200212
+                    texture = textureDown;
+                }
                 else
                     keyRepeatTime -= seconds;
             }
 
-            if (keyboardState.IsKeyDown(Keys.A)) if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0) InGame.Level = InGame.Levels.Win;
+            //if (keyboardState.IsKeyDown(Keys.A)) if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0) InGame.Level = InGame.Levels.Win;
             doCollisionAndMove(movement);
         }
 
