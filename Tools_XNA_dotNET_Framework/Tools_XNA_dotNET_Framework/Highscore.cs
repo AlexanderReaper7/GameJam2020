@@ -181,7 +181,7 @@ namespace Tools_XNA
             // Draw date and score on highscore list | Julius 18-12-09
 
 
-            if (LoadData(Filename).Time[0] == 100000)
+            if (LoadData(Filename).Time[0] == 100009)
             {
                 spriteBatch.DrawString(scoreFont, "Play to get a score", scorePosition + scoreFontSpace, Color.White);
             }
@@ -191,9 +191,21 @@ namespace Tools_XNA
                 for (int i = 0; i < arrayLeangth; i++)
                 {
                     // if score is more than 0 blobs, then draw the score on screen | Julius 18-12-09
-                    spriteBatch.DrawString(scoreFont, "Level: " + (LoadData(Filename).Level[i]+1), scorePosition + (3 * i + 1) * scoreFontSpace, Color.White);
+                    spriteBatch.DrawString(scoreFont, "Level: " + (LoadData(Filename).Level[i] + 1), scorePosition + (3 * i + 1) * scoreFontSpace, Color.White);
                     spriteBatch.DrawString(scoreFont, "Time: " + LoadData(Filename).Time[i] + " Seconds", scorePosition + (3 * i) * scoreFontSpace, Color.White);
                 }
+
+                //for (int i = 0; i < arrayLeangth; i++)
+                //{
+                //    spriteBatch.DrawString(scoreFont, "Level: " + (LoadData(Filename).Level[i] + 1), scorePosition + (3 * i + 1) * scoreFontSpace, Color.White);
+
+                //    for (int j = 0; j < arrayLeangth; i++)
+                //    {
+                //        // if score is more than 0 blobs, then draw the score on screen | Julius 18-12-09
+
+                //        spriteBatch.DrawString(scoreFont, "Time: " + LoadData(Filename).Time[j] + " Seconds", scorePosition + (3 * i) * scoreFontSpace, Color.White);
+                //    }
+                //}
             }
         }
 

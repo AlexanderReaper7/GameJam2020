@@ -113,7 +113,7 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.LevelSelect].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.HighscoreBoard].AddBackground(defaultBackground);
-            menu.Pages[(int)MenuState.HighscoreBoard].AddButton_Single(menuFont, new Vector2(80, 560), "Back", () => ChangePage(MenuState.Main));
+            menu.Pages[(int)MenuState.HighscoreBoard].AddButton_Single(menuFont, new Vector2(80, 660), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.GameOver].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.GameOver].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Game Over", Color.Red);
@@ -169,6 +169,7 @@ namespace Tools_XNA
             else menu.Draw(spriteBatch, screenSize);
             if(menu.PageSelection == (int)MenuState.HighscoreBoard)
             {
+                scoreBoard.Draw(spriteBatch, scoreBoardFont);
             }
         }
     }

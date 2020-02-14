@@ -54,6 +54,8 @@ namespace GameJam2020_2D
             inGame = new InGame(scoreBoard, menuManager);
             inGame.Initialize();
 
+            Window.Title = "Weird tiles in space";
+
             base.Initialize();
         }
 
