@@ -91,23 +91,41 @@ namespace GameJam2020_2D
 
             float seconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight))
+            if (keyboardState.IsKeyDown(Keys.W) || gamePadState.IsButtonDown(Buttons.DPadRight))
             {
-                if (lastKeyboardState.IsKeyUp(Keys.Right) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadRight))
+                if (lastKeyboardState.IsKeyUp(Keys.W) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadRight))
                 {
                     keyRepeatTime = keyRepeatDelay;
                     //do key logic // Emil C.A. 200212
                     movement -= tileMap.TileMapWidth;
                     // Change texture // Olle A 200212
-                    texture = textureRight; 
+                    texture = textureRight;
 
                 }
                 else
                     keyRepeatTime -= seconds;
             }
-            if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft))
+
+
+            if (keyboardState.IsKeyDown(Keys.Up))
             {
-                if (lastKeyboardState.IsKeyUp(Keys.Left) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadLeft))
+                if (lastKeyboardState.IsKeyUp(Keys.Up) || keyRepeatTime < 0)
+                {
+                    keyRepeatTime = keyRepeatDelay;
+                    //do key logic // Emil C.A. 200212
+                    movement -= tileMap.TileMapWidth;
+                    // Change texture // Olle A 200212
+                    texture = textureRight;
+
+                }
+                else
+                    keyRepeatTime -= seconds;
+            }
+
+
+            if (keyboardState.IsKeyDown(Keys.S) || gamePadState.IsButtonDown(Buttons.DPadLeft))
+            {
+                if (lastKeyboardState.IsKeyUp(Keys.S) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadLeft))
                 {
                     keyRepeatTime = keyRepeatDelay;
                     //do key logic // Emil C.A. 200212
@@ -120,9 +138,27 @@ namespace GameJam2020_2D
                 else
                     keyRepeatTime -= seconds;
             }
-            if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp))
+
+
+            if (keyboardState.IsKeyDown(Keys.Down))
             {
-                if (lastKeyboardState.IsKeyUp(Keys.Up) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadUp))
+                if (lastKeyboardState.IsKeyUp(Keys.Down) || keyRepeatTime < 0)
+                {
+                    keyRepeatTime = keyRepeatDelay;
+                    //do key logic // Emil C.A. 200212
+                    movement += tileMap.TileMapWidth;
+                    // Change texture // Olle A 200212
+                    texture = textureLeft;
+
+                }
+                else
+                    keyRepeatTime -= seconds;
+            }
+
+
+            if (keyboardState.IsKeyDown(Keys.A) || gamePadState.IsButtonDown(Buttons.DPadUp))
+            {
+                if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0 || lastGamePadState.IsButtonDown(Buttons.DPadUp))
                 {
                     keyRepeatTime = keyRepeatDelay;
                     //do key logic // Emil C.A. 200212
@@ -134,9 +170,27 @@ namespace GameJam2020_2D
                 else
                     keyRepeatTime -= seconds;
             }
-            if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown))
+
+
+            if (keyboardState.IsKeyDown(Keys.Left))
             {
-                if (lastKeyboardState.IsKeyUp(Keys.Down) || keyRepeatTime < 0)
+                if (lastKeyboardState.IsKeyUp(Keys.Left) || keyRepeatTime < 0)
+                {
+                    keyRepeatTime = keyRepeatDelay;
+                    //do key logic // Emil C.A. 200212
+                    movement -= 1;
+                    // Change texture // Olle A 200212
+                    texture = textureUp;
+
+                }
+                else
+                    keyRepeatTime -= seconds;
+            }
+
+
+            if (keyboardState.IsKeyDown(Keys.D) || gamePadState.IsButtonDown(Buttons.DPadDown))
+            {
+                if (lastKeyboardState.IsKeyUp(Keys.D) || keyRepeatTime < 0)
                 {
                     keyRepeatTime = keyRepeatDelay;
                     //do key logic // Emil C.A. 200212
@@ -154,6 +208,21 @@ namespace GameJam2020_2D
                     movement += 1;
                     // Change texture // Olle A 200212
                     texture = textureDown;
+                }
+                else
+                    keyRepeatTime -= seconds;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Right))
+            {
+                if (lastKeyboardState.IsKeyUp(Keys.Right) || keyRepeatTime < 0)
+                {
+                    keyRepeatTime = keyRepeatDelay;
+                    //do key logic // Emil C.A. 200212
+                    movement += 1;
+                    // Change texture // Olle A 200212
+                    texture = textureDown;
+
                 }
                 else
                     keyRepeatTime -= seconds;
@@ -208,8 +277,10 @@ namespace GameJam2020_2D
                         break;
 
                     // Ground, open door and walkable tiles // Olle A 200213
-                    case 101: case 201: case 107:
-                    case 207: 
+                    case 101:
+                    case 201:
+                    case 107:
+                    case 207:
                     case 211:
                     case 212:
                     case 213:
@@ -228,7 +299,12 @@ namespace GameJam2020_2D
                         break;
 
                     // Wall, , dispenser, unwalkable tiles 
-                    case 102: case 202: case 103: case 203: case 105: case 205: 
+                    case 102:
+                    case 202:
+                    case 103:
+                    case 203:
+                    case 105:
+                    case 205:
                         // Do nothing // Olle A 200213
                         break;
 
@@ -265,7 +341,8 @@ namespace GameJam2020_2D
 
 
                     // End portal
-                    case 104: case 204:
+                    case 104:
+                    case 204:
                         // Save score
                         scoreboard.SaveHighScore(tileMap.LevelNumber, playerName, tileMap.timer);
                         // Change level
