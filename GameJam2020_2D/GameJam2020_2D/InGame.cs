@@ -29,6 +29,8 @@ namespace GameJam2020_2D
         TilesMap level7;
         TilesMap level8;
 
+        private Texture2D compassTexture;
+        GraphicsDeviceManager graphics;
 
         // Which level to start in // Olle A 200212
         public static Levels Level = Levels.Level1;
@@ -58,10 +60,11 @@ namespace GameJam2020_2D
         Highscore scoreboard;
         MenuManager menu;
 
-        public InGame(Highscore scoreboard, MenuManager menu)
+        public InGame(Highscore scoreboard, MenuManager menu, GraphicsDeviceManager graphics)
         {
             this.scoreboard = scoreboard;
             this.menu = menu;
+            this.graphics = graphics;
         }
 
         public void Initialize()
@@ -249,6 +252,8 @@ namespace GameJam2020_2D
                 content.Load<Texture2D>("Textures/Player/MageSpriteFaceViewLeft"),
                 content.Load<Texture2D>("Textures/Player/MageSpriteBackViewRight"),
                 level1, scoreboard, playerName);
+
+            compassTexture = content.Load<Texture2D>("Textures/compass");
         }
 
         public void Update(GameTime gameTime)
@@ -437,6 +442,9 @@ namespace GameJam2020_2D
                     //throw new ArgumentOutOfRangeException();
                     break;
             }
+
+            // Draw compass
+            spriteBatch.Draw(compassTexture, new Rectangle(graphics.PreferredBackBufferWidth - compassTexture.Width, graphics.PreferredBackBufferHeight- compassTexture.Height, compassTexture.Width, compassTexture.Height), Color.White);
         }
     }
 }
