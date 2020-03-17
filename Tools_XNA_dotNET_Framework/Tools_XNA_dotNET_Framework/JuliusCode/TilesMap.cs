@@ -41,6 +41,11 @@ namespace Tools_XNA
         public int Size;
         public int StartingPosition;
 
+        // Timer used to time shots // Olle A 20-03-17
+        private float shotTimer;
+        private List<Projectile> Projectiles = new List<Projectile>();
+        private Texture2D shotTexture;
+
         // En oanvänd construktor | Julius 18-11-26
         public TilesMap() { }
 
@@ -60,18 +65,51 @@ namespace Tools_XNA
                 {
                     collisionTiles[i].Type = 0;
                 }
+
+                // Do not proceed unless it is time for dispensers to shoot // Olle A 20-03-17
+                if (shotTimer < 5) break;
+
+                // Shoot projectiles with direction depending on dispenser type // Olle A 20-03-17
+                switch (collisionTiles[i].Type)
+                {
+                    // Up
+                    case 150:
+                    case 250:
+                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, 1), shotTexture);
+                        break;
+                    // Down
+                    case 151:
+                    case 251:
+                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, -1), shotTexture);
+                        break;
+                    // Left
+                    case 152:
+                    case 252:
+                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, 1), shotTexture);
+                        break;
+                    // Right
+                    case 153:
+                    case 253:
+                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, -1), shotTexture);
+                        break;
+                }
+
+                // Reset shot timer // Olle A 20-03-17
+                shotTimer = 0;
             }
 
             // Count up
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         // En kartgenererare där man bestämmer vart och vilken typ av tile som finns i en array (map) och pixelstorleken på tilens sida (size) | Julius 18-11-21
-        public void Generate(int[,] map, int StartingPosition, int tileMapWidth, int size, int xOffset, int yOffset, int LevelNumber)
+        public void Generate(int[,] map, int StartingPosition, int tileMapWidth, int size, int xOffset, int yOffset, int LevelNumber, Texture2D shotTexture)
         {
             TileMapWidth = tileMapWidth;
             this.StartingPosition = StartingPosition;
             Size = size;
+            this.shotTexture = shotTexture;
 
             // Ändrade så att y räknas baklänges. Fixar så att tiles:en ritas ut i rätt ordning | Olle A 20-02-11
             for (int x = 0; x < map.GetLength(1); x++)

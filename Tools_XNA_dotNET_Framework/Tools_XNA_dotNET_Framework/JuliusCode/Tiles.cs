@@ -43,9 +43,17 @@ namespace Tools_XNA
             // Läser in en textur och sammankopplar den tillsamans med en rektangel | Julius 18-11-21
             public CollisionTiles(int i, Rectangle newRectangle)
             {
-                // Laddar texturnamn efter "i" värdet, (kan ladda in Tile1.png och Tile2.png med en linje av kod) | Julius 18-11-21
-                texture = Content.Load<Texture2D>("Textures/Tiles/" + i);
-                this.Rectangle = newRectangle;
+                // Workaround that loads dispenser texture // Olle A 20-03-17
+                if (i == 150 || i == 151 || i == 152 || i == 153)
+                    texture = Content.Load<Texture2D>("Textures/Tiles/105");
+                else if (i == 250 || i == 251 || i == 252 || i == 253)
+                    texture = Content.Load<Texture2D>("Textures/Tiles/205");
+                else
+                {
+                    // Laddar texturnamn efter "i" värdet, (kan ladda in Tile1.png och Tile2.png med en linje av kod) | Julius 18-11-21
+                    texture = Content.Load<Texture2D>("Textures/Tiles/" + i);
+                    this.Rectangle = newRectangle;
+                }
 
                 // Update type of tile // Olle A 20-02-11
                 Type = i;
