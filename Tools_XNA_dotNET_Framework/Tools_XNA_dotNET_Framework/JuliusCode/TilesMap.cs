@@ -42,7 +42,7 @@ namespace Tools_XNA
         public int StartingPosition;
 
         // Timer used to time shots // Olle A 20-03-17
-        private float shotTimer;
+        private float shotTimer = 0;
         private List<Projectile> Projectiles = new List<Projectile>();
         private Texture2D shotTexture;
 
@@ -67,39 +67,56 @@ namespace Tools_XNA
                 }
 
                 // Do not proceed unless it is time for dispensers to shoot // Olle A 20-03-17
-                if (shotTimer < 5) break;
-
-                // Shoot projectiles with direction depending on dispenser type // Olle A 20-03-17
-                switch (collisionTiles[i].Type)
+                if (shotTimer > 5f)
                 {
-                    // Up
-                    case 150:
-                    case 250:
-                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, 1), shotTexture);
-                        break;
-                    // Down
-                    case 151:
-                    case 251:
-                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, -1), shotTexture);
-                        break;
-                    // Left
-                    case 152:
-                    case 252:
-                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, 1), shotTexture);
-                        break;
-                    // Right
-                    case 153:
-                    case 253:
-                        new Projectile(5, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, -1), shotTexture);
-                        break;
-                }
+                    // Create the projectile // Olle A 20-03-24
+                    Projectile projectile;
 
-                // Reset shot timer // Olle A 20-03-17
+                    // Shoot projectiles with direction depending on dispenser type // Olle A 20-03-17
+                    switch (collisionTiles[i].Type)
+                    {
+                        // Up
+                        case 150:
+                        case 250:
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, 1), shotTexture);
+                            Projectiles.Add(projectile);
+                            break;
+                        // Down
+                        case 151:
+                        case 251:
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, -1), shotTexture);
+                            Projectiles.Add(projectile);
+                            break;
+                        // Left
+                        case 152:
+                        case 252:
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, 1), shotTexture);
+                            Projectiles.Add(projectile);
+                            break;
+                        // Right
+                        case 153:
+                        case 253:
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, -1), shotTexture);
+                            Projectiles.Add(projectile);
+                            break;
+                    }
+               }
+
+                // Update all bulletst // Olle A 20-03-24
+                foreach (Projectile p in Projectiles)
+                {
+                    p.Update();
+                }
+            }
+
+            // Reset timer // Olle A 20-03-24
+            if (shotTimer > 5f)
+            {
                 shotTimer = 0;
             }
 
-            // Count up
-            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // Count up
+                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
@@ -138,18 +155,25 @@ namespace Tools_XNA
             foreach (CollisionTiles tile in collisionTiles)
                 tile.Draw(spriteBatch);
 
+            // Draw all bulletst // Olle A 20-03-24
+            foreach (Projectile projectile in Projectiles)
+            {
+                projectile.Draw(spriteBatch);
+            }
+
             // Draw time
             spriteBatch.DrawString(font, "Elapsed time: " + timer.ToString(), new Vector2(0, 0), Color.White);
         }
 
         /// <summary>
         /// Resets the tile map to an unedited state // Olle A 200213
+        /// Also clear projectiles // Olle A 200324
         /// </summary>
         public void Reset()
         {
             timer = 0;
             collisionTiles = collisionTilesUntouched.ConvertAll(x => new CollisionTiles(x.Type, x.Rectangle));
-            
+            Projectiles.Clear();
         }
 
     }
