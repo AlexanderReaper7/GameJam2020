@@ -42,8 +42,9 @@ namespace Tools_XNA
         public int StartingPosition;
 
         // Timer used to time shots // Olle A 20-03-17
-        private float shotTimer = 0;
-        private List<Projectile> Projectiles = new List<Projectile>();
+        private float shotTimer = 3;
+        private float shotTimerMax = 5f;
+        public List<Projectile> Projectiles = new List<Projectile>();
         private Texture2D shotTexture;
 
         // En oanvänd construktor | Julius 18-11-26
@@ -110,7 +111,7 @@ namespace Tools_XNA
             }
 
             // Reset timer // Olle A 20-03-24
-            if (shotTimer > 5f)
+            if (shotTimer > shotTimerMax)
             {
                 shotTimer = 0;
             }

@@ -100,7 +100,7 @@ namespace GameJam2020_2D
             ///     X02: Wall
             ///     X03: Wall Mirrored
             ///     X04: End portal
-            ///     X05: Dispenser
+            ///     X50-X53: Dispenser
             ///     X06: Door open
             ///     X07: Door closed
             ///     X08: Portal

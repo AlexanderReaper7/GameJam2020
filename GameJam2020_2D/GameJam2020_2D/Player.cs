@@ -258,6 +258,23 @@ namespace GameJam2020_2D
 
 
         /// <summary>
+        /// Checks for collision between player and projectiles // Olle A 2003-31
+        /// </summary>
+        /// <param name="tileMap"></param>
+        private void checkProjectileCollision()
+        {
+            foreach(Projectile Projectile in tileMap.Projectiles)
+            {
+                if (Projectile.Rectangle.Intersects(rectangle))
+                {
+                    //kill player   
+                }
+            }
+            
+        }
+
+
+        /// <summary>
         /// Method that handles collisions and moving the player // Olle A 200213
         /// </summary>
         /// <param name="movement">Movemet to attempt in number of tiles</param>

@@ -16,6 +16,11 @@ namespace Tools_XNA
         Vector2 Position2D;
         Vector2 velocity2D;
         Texture2D texture;
+        // Rectangle for collision // Olle A 20-03-31
+        public Rectangle Rectangle
+        {
+            get { return new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height); }
+        }
 
         // Variables for 3D
         Vector3 Position3D;
