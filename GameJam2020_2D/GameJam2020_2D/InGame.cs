@@ -132,7 +132,7 @@ namespace GameJam2020_2D
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
             }, 168, 12, 100, 100, 200, 1,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             level2.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
@@ -149,7 +149,7 @@ namespace GameJam2020_2D
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
             }, 168, 12, 110, 120, 270, 2,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             level3.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
@@ -166,7 +166,7 @@ namespace GameJam2020_2D
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
             }, 168, 12, 90, 120, 290, 3,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             level4.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
@@ -183,7 +183,7 @@ namespace GameJam2020_2D
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
             }, 168, 12, 110, 120, 270, 4,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             level5.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
@@ -200,7 +200,7 @@ namespace GameJam2020_2D
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
             }, 168, 12, 110, 120, 270, 5,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             level6.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
@@ -217,7 +217,7 @@ namespace GameJam2020_2D
                 {000,000,000,000,000,000,000,253,201,000,000,000,000,000,000},
                 {000,000,000,000,000,000,000,000,204,000,000,000,000,000,000},
             }, 168, 12, 90, 120, 270, 6,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             level7.Generate(new int[,] {
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
@@ -234,7 +234,7 @@ namespace GameJam2020_2D
                 {000,000,000,000,000,000,000,000,000,000,000,108,000,000,000},
                 {000,000,000,000,000,000,000,000,000,000,000,000,000,000,000},
             }, 174, 12, 90, 120, 270, 7,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             level8.Generate(new int[,] {
                 {000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000},
@@ -251,7 +251,7 @@ namespace GameJam2020_2D
                 {000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000},
                 {000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000},
             }, 159, 12, 80, 100, 250, 8,
-            content.Load<Texture2D>("Textures/Player/MageSpriteBackViewLeft"));
+            content.Load<Texture2D>("Textures/projectile"));
 
             // Load player // Olle A 20-02-11
             player = new Player(
