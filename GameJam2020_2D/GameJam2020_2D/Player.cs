@@ -56,6 +56,14 @@ namespace GameJam2020_2D
             get { return new Vector2(tileMap.CollisionTiles[TilePosition].Rectangle.X, tileMap.CollisionTiles[TilePosition].Rectangle.Y); }
         }
 
+        // Rectangle for collision // Olle A 200331
+        // This code hijacks the starting tile's size to properly scale thhe collision
+        private Rectangle rectangle
+        {
+            get { return new Rectangle((int)Position.X, (int)Position.Y, tileMap.CollisionTiles[TilePosition].Rectangle.Width, tileMap.CollisionTiles[TilePosition].Rectangle.Height); }
+        }
+
+
 
         /// <summary>
         /// Constructor // Olle A 200212
@@ -256,24 +264,6 @@ namespace GameJam2020_2D
             TilePosition = tileMap.StartingPosition;
         }
 
-
-        /// <summary>
-        /// Checks for collision between player and projectiles // Olle A 2003-31
-        /// </summary>
-        /// <param name="tileMap"></param>
-        private void checkProjectileCollision()
-        {
-            foreach(Projectile Projectile in tileMap.Projectiles)
-            {
-                if (Projectile.Rectangle.Intersects(rectangle))
-                {
-                    //kill player   
-                }
-            }
-            
-        }
-
-
         /// <summary>
         /// Method that handles collisions and moving the player // Olle A 200213
         /// </summary>
@@ -408,6 +398,19 @@ namespace GameJam2020_2D
                 }
             }
             catch { }
+
+            // Check collision against projectiles // Olle A 200331
+            foreach (Projectile Projectile in tileMap.Projectiles)
+            {
+                if (rectangle.Intersects(Projectile.Rectangle))
+                {
+                    // Kill player
+                    // TODO: Use Gustav's death code
+                    InGame.Level--;
+                }
+            }
+
+            Console.WriteLine(tileMap.Projectiles.Count());
         }
     }
 }

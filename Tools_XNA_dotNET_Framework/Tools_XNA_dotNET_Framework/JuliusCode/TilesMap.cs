@@ -79,25 +79,25 @@ namespace Tools_XNA
                         // Up
                         case 150:
                         case 250:
-                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, 0.5f), shotTexture);
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X + 15, collisionTiles[i].Rectangle.Y + 15), new Vector2(1, 0.5f), shotTexture);
                             Projectiles.Add(projectile);
                             break;
                         // Down
                         case 151:
                         case 251:
-                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, -0.5f), shotTexture);
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X + 15, collisionTiles[i].Rectangle.Y + 15), new Vector2(-1, -0.5f), shotTexture);
                             Projectiles.Add(projectile);
                             break;
                         // Left
                         case 152:
                         case 252:
-                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(-1, 0.5f), shotTexture);
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X + 15, collisionTiles[i].Rectangle.Y + 15), new Vector2(-1, 0.5f), shotTexture);
                             Projectiles.Add(projectile);
                             break;
                         // Right
                         case 153:
                         case 253:
-                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X, collisionTiles[i].Rectangle.Y), new Vector2(1, -0.5f), shotTexture);
+                            projectile = new Projectile(0.01f, new Vector2(collisionTiles[i].Rectangle.X + 15, collisionTiles[i].Rectangle.Y + 15), new Vector2(1, -0.5f), shotTexture);
                             Projectiles.Add(projectile);
                             break;
                     }
@@ -106,7 +106,7 @@ namespace Tools_XNA
                 // Update all bulletst // Olle A 20-03-24
                 foreach (Projectile p in Projectiles)
                 {
-                    p.Update();
+                    p.Update(gameTime);
                 }
             }
 
@@ -149,7 +149,6 @@ namespace Tools_XNA
         }
 
         // Ritar ut alla rektanglar | Julius 18-11-21
-
         public void Draw(SpriteBatch spriteBatch)
         {
 

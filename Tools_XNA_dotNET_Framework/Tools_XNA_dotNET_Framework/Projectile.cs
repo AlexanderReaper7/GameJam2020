@@ -15,7 +15,11 @@ namespace Tools_XNA
         // Variables for 2D
         Vector2 Position2D;
         Vector2 velocity2D;
+        private int tilePosition;
         Texture2D texture;
+        public TilesMap tilemap;
+        float moveTimer = 0;
+        float moveTimerMax = 1;
         // Rectangle for collision // Olle A 20-03-31
         public Rectangle Rectangle
         {
@@ -32,13 +36,13 @@ namespace Tools_XNA
         /// Constructor for 2D world
         /// </summary>
         /// <param name="speed">Speed to move at</param>
-        /// <param name="Position2D">Position as vector2</param>
-        /// <param name="direction">Direction of travel</param>
+        /// <param name="tilePosition">Position as int in tilemap</param>
+        /// <param name="direction">Direction of travel: left, right, up, down</param>
         /// <param name="texture">Texture of projectile</param>
-        public Projectile(float speed, Vector2 Position2D, Vector2 direction, Texture2D texture)
+        public Projectile(float speed, int tilePosition, string direction, Texture2D texture)
         {
             this.texture = texture;
-            this.Position2D = Position2D;
+            this.tilePosition = tilePosition;
 
             // Normalize direction
             direction.Normalize();
@@ -46,8 +50,17 @@ namespace Tools_XNA
             // Calculate velocity of the projectile
             velocity2D = direction * speed;
 
-            // Game is 2D
-            is2D = true;
+            switch (direction)
+            {
+                case "left":
+                    tilePosition 
+                    tilemap.TileMapWidth;
+                    tilemap.Height;
+                    break;
+            }
+
+                    // Game is 2D
+                    is2D = true;
         }
 
         // Olle A, Gustav H 200210
@@ -87,18 +100,16 @@ namespace Tools_XNA
         /// <summary>
         /// Update. Moves projectile and checks for collisions
         /// </summary>
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             // Move projectile according to time depending on 2D or 3D
-            if (is2D) Position2D += velocity2D;
+            if (is2D)
+            {
+                moveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (moveTimer > moveTimerMax) Position2D += velocity2D;
+            }
             else Position3D += velocity3D;
-
-
-            // Check for collisions
-            //CheckCollision();
         }
-
-
 
 
 
