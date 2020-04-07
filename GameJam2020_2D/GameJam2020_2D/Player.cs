@@ -28,7 +28,8 @@ namespace GameJam2020_2D
         Highscore scoreboard;
         string playerName;
 
-        public bool key = false;
+        // Number of keys the player has on them // Olle A 20-02-12
+        public int Keys = 0;
         public bool doorOpen = false;
 
         KeyboardState keyboardState, lastKeyboardState;
@@ -288,7 +289,6 @@ namespace GameJam2020_2D
                     case 201:
                     case 107:
                     case 207:
-                    case 211:
                     case 212:
                     case 213:
                     case 214:
@@ -335,15 +335,32 @@ namespace GameJam2020_2D
                         break;
 
 
-                    // keys
+                    // Keys // Olle A 200407
                     case 111:
-                        if (key == false)
-                        {
-                            key = true;
-                        }
+                        // Add one key
+                        Keys++;
+                        // Update bool in prev tile // Olle A 200212
+                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
+                        prevTilePosition = TilePosition;
 
-                        tileMap.CollisionTiles[TilePosition + movement].ChangeType(101);
-                        TilePosition = TilePosition + movement;
+                        TilePosition += movement;
+                        // Update bools in new tile // Olle A 200212
+                        tileMap.CollisionTiles[TilePosition].ChangeType(101);
+                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
+                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+                        break;
+                    case 211:
+                        // Add one key
+                        Keys++;
+                        // Update bool in prev tile // Olle A 200212
+                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
+                        prevTilePosition = TilePosition;
+
+                        TilePosition += movement;
+                        // Update bools in new tile // Olle A 200212
+                        tileMap.CollisionTiles[TilePosition].ChangeType(201);
+                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
+                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
                         break;
 
 
@@ -402,15 +419,13 @@ namespace GameJam2020_2D
             // Check collision against projectiles // Olle A 200331
             foreach (Projectile Projectile in tileMap.Projectiles)
             {
-                if (rectangle.Intersects(Projectile.Rectangle))
+                if (TilePosition == Projectile.TilePosition)
                 {
                     // Kill player
                     // TODO: Use Gustav's death code
                     InGame.Level--;
                 }
             }
-
-            Console.WriteLine(tileMap.Projectiles.Count());
         }
     }
 }

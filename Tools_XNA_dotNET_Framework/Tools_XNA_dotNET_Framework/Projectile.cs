@@ -15,16 +15,12 @@ namespace Tools_XNA
         // Variables for 2D
         Vector2 Position2D;
         Vector2 velocity2D;
-        private int tilePosition;
+        public int TilePosition;
+        private int direction;
         Texture2D texture;
         public TilesMap tilemap;
         float moveTimer = 0;
-        float moveTimerMax = 1;
-        // Rectangle for collision // Olle A 20-03-31
-        public Rectangle Rectangle
-        {
-            get { return new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height); }
-        }
+        float moveTimerMax = 50;
 
         // Variables for 3D
         Vector3 Position3D;
@@ -39,23 +35,26 @@ namespace Tools_XNA
         /// <param name="tilePosition">Position as int in tilemap</param>
         /// <param name="direction">Direction of travel: left, right, up, down</param>
         /// <param name="texture">Texture of projectile</param>
-        public Projectile(float speed, int tilePosition, string direction, Texture2D texture)
+        public Projectile(float speed, int tilePosition, string direction, TilesMap tilemap, Texture2D texture)
         {
             this.texture = texture;
-            this.tilePosition = tilePosition;
+            TilePosition = tilePosition;
+            this.tilemap = tilemap;
 
-            // Normalize direction
-            direction.Normalize();
-
-            // Calculate velocity of the projectile
-            velocity2D = direction * speed;
-
+            // Convert direction to momvent on tilemap grid // Olle A 200407
             switch (direction)
             {
+                case "down":
+                    this.direction = 1;
+                    break;
+                case "up":
+                    this.direction = -1;
+                    break;
                 case "left":
-                    tilePosition 
-                    tilemap.TileMapWidth;
-                    tilemap.Height;
+                    this.direction += tilemap.TileMapWidth;
+                    break;
+                case "right":
+                    this.direction -= tilemap.TileMapWidth;
                     break;
             }
 
@@ -105,8 +104,13 @@ namespace Tools_XNA
             // Move projectile according to time depending on 2D or 3D
             if (is2D)
             {
+                // Move after tilemap grid // Olle A. 200407
                 moveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (moveTimer > moveTimerMax) Position2D += velocity2D;
+                if (moveTimerMax <= moveTimer)
+                {
+                    TilePosition += direction;
+                    moveTimer = 0;
+                }
             }
             else Position3D += velocity3D;
         }
@@ -133,8 +137,12 @@ namespace Tools_XNA
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Draw texture
-            spriteBatch.Draw(texture, new Rectangle((int)Position2D.X, (int)Position2D.Y, texture.Width, texture.Height), Color.White);
+            try
+            {
+                // Draw texture
+                spriteBatch.Draw(texture, tilemap.CollisionTiles[TilePosition].Rectangle.Center.ToVector2() - new Vector2(texture.Width / 2, texture.Height / 2), Color.White);
+            }
+            catch { }
         }
 
         // Olle A 200211

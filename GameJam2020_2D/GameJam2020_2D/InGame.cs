@@ -33,7 +33,7 @@ namespace GameJam2020_2D
         GraphicsDeviceManager graphics;
 
         // Which level to start in // Olle A 200212
-        public static Levels Level = Levels.Level1;
+        public static Levels Level = Levels.preLevel1;
 
         // The different game states // Olle A 200212
         public enum Levels
@@ -100,7 +100,7 @@ namespace GameJam2020_2D
             ///     X02: Wall
             ///     X03: Wall Mirrored
             ///     X04: End portal
-            ///     X50-X53: Dispenser
+            ///     X50-X53: Dispenser (Different IDs for different firing directions)
             ///     X06: Door open
             ///     X07: Door closed
             ///     X08: Portal
