@@ -9,6 +9,7 @@ namespace Tools_XNA
     {
         Menu,
         Game,
+        PreGame
         //InsertName,
     }
 }

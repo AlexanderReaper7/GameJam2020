@@ -12,7 +12,7 @@ namespace Tools_XNA
     public class Highscore
     {
         // Variables for the score text | Julius 18-12-09
-        private Vector2 scorePosition = new Vector2(3, 60);
+        private Vector2 scorePosition = new Vector2(60, 60);
         private Vector2 scoreFontSpace = new Vector2(0, 40);
 
 
@@ -35,7 +35,6 @@ namespace Tools_XNA
         [Serializable]
         public struct SaveData
         {
-            public int[] Level;
             public string[] Name;
             public float[] Time;
             // Count = Total amount of Arrays | Julius 18-12-09
@@ -43,7 +42,6 @@ namespace Tools_XNA
 
             public SaveData(int count)
             {
-                Level = new int[count];
                 Name = new string[count];
                 Time = new float[count];
 
@@ -98,7 +96,7 @@ namespace Tools_XNA
         }
 
         // Function for easily saving score and sorting it | Julius 18-12-09
-        public void SaveHighScore(int level, string name, float time)
+        public void SaveHighScore(string name, float time)
         {
             // Create the data to save | Julius 18-12-09
             SaveData data = LoadData(Filename);
@@ -122,12 +120,10 @@ namespace Tools_XNA
                 // New highscore found ... put all the other arrays one step lower (making space for the new score) | Julius 18-12-09
                 for (int i = data.Count - 1; i > scoreIndex; i--)
                 {
-                    data.Level[i] = data.Level[i - 1];
                     data.Name[i] = data.Name[i - 1];
                     data.Time[i] = data.Time[i - 1];
                 }
                 // Save the new score | Julius 18-12-09
-                data.Level[scoreIndex] = level;
                 data.Name[scoreIndex] = name;
                 data.Time[scoreIndex] = time;
 
@@ -165,7 +161,6 @@ namespace Tools_XNA
                 SaveData data = new SaveData(5);
                 for (int i = 0; i < arrayLeangth; i++)
                 {
-                    data.Level[i] = 0;
                     data.Name[i] = "   ";
                     data.Time[i] = 10000;
                 }
@@ -181,7 +176,7 @@ namespace Tools_XNA
             // Draw date and score on highscore list | Julius 18-12-09
 
 
-            if (LoadData(Filename).Time[0] == 100009)
+            if (LoadData(Filename).Time[0] == 10000)
             {
                 spriteBatch.DrawString(scoreFont, "Play to get a score", scorePosition + scoreFontSpace, Color.White);
             }
@@ -190,9 +185,11 @@ namespace Tools_XNA
                 // Creates a list for the total amount of arrays | Julius 18-12-09
                 for (int i = 0; i < arrayLeangth; i++)
                 {
+                    // Dont draw if it's not a player's score | Olle A 20-04-17
+                    if (LoadData(Filename).Time[i] == 10000) break;
+
                     // if score is more than 0 blobs, then draw the score on screen | Julius 18-12-09
-                    spriteBatch.DrawString(scoreFont, "Level: " + (LoadData(Filename).Level[i] + 1), scorePosition + (3 * i + 1) * scoreFontSpace, Color.White);
-                    spriteBatch.DrawString(scoreFont, "Time: " + LoadData(Filename).Time[i] + " Seconds", scorePosition + (3 * i) * scoreFontSpace, Color.White);
+                    spriteBatch.DrawString(scoreFont, (i+1).ToString() + ":   " + "Time: " + LoadData(Filename).Time[i] + " Seconds", scorePosition + (3 * i) * scoreFontSpace, Color.White);
                 }
 
                 //for (int i = 0; i < arrayLeangth; i++)

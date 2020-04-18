@@ -33,7 +33,6 @@ namespace Tools_XNA
         }
 
         static SpriteFont font;
-        public float timer;
         public int LevelNumber;
 
         // Olle A 20-02-12
@@ -103,9 +102,21 @@ namespace Tools_XNA
                     }
                }
 
-                // Update all bulletst // Olle A 20-03-24
+                // Update all bullets // Olle A 20-03-24
                 foreach (Projectile p in Projectiles)
                 {
+                    // Remove bullet if it's colliding with something that isn't clear tile // Olle A 20-04-17
+                    if (collisionTiles[p.TilePosition].Type != 000 &&
+                        collisionTiles[p.TilePosition].Type != 101 &&
+                        collisionTiles[p.TilePosition].Type != 201 &&
+                        collisionTiles[p.TilePosition].Type != 115 &&
+                        collisionTiles[p.TilePosition].Type != 215 &&
+                        collisionTiles[p.TilePosition].Type != 107 &&
+                        collisionTiles[p.TilePosition].Type != 207)
+                    {
+                        Projectiles.Remove(p);
+                        break;
+                    }
                     p.Update(gameTime);
                 }
             }
@@ -117,7 +128,6 @@ namespace Tools_XNA
             }
 
                 // Count up
-                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
@@ -161,8 +171,6 @@ namespace Tools_XNA
                 projectile.Draw(spriteBatch);
             }
 
-            // Draw time
-            spriteBatch.DrawString(font, "Elapsed time: " + timer.ToString(), new Vector2(0, 0), Color.White);
         }
 
         /// <summary>
@@ -171,7 +179,6 @@ namespace Tools_XNA
         /// </summary>
         public void Reset()
         {
-            timer = 0;
             collisionTiles = collisionTilesUntouched.ConvertAll(x => new CollisionTiles(x.Type, x.Rectangle));
             Projectiles.Clear();
         }

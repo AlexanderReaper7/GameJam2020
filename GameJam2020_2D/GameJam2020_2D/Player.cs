@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using Tools_XNA;
 
 namespace GameJam2020_2D
@@ -25,12 +25,13 @@ namespace GameJam2020_2D
         // Previous position // Olle A 20-02-12
         private int prevTilePosition;
 
-        Highscore scoreboard;
+        public int lifes = 5;
+        SpriteFont hudFont;
+
         string playerName;
 
-        // Number of keys the player has on them // Olle A 20-02-12
-        public int Keys = 0;
-        public bool doorOpen = false;
+        // Number of keys for opening doors the player has on them // Olle A 20-04-17
+        public int DoorKeys = 0;
 
         KeyboardState keyboardState, lastKeyboardState;
         GamePadState gamePadState, lastGamePadState;
@@ -74,7 +75,7 @@ namespace GameJam2020_2D
         /// <param name="textureLeft"></param>
         /// <param name="textureRight"></param>
         /// <param name="tileMap"></param>
-        public Player(Texture2D textureUp, Texture2D textureDown, Texture2D textureLeft, Texture2D textureRight, TilesMap tileMap, Highscore scoreboard, string playerName)
+        public Player(Texture2D textureUp, Texture2D textureDown, Texture2D textureLeft, Texture2D textureRight, TilesMap tileMap, Highscore scoreboard, string playerName, SpriteFont hudFont)
         {
             texture = textureDown;
             this.textureUp = textureUp;
@@ -82,8 +83,8 @@ namespace GameJam2020_2D
             this.textureLeft = textureLeft;
             this.textureRight = textureRight;
             this.tileMap = tileMap;
-            this.scoreboard = scoreboard;
             this.playerName = playerName;
+            this.hudFont = hudFont;
 
             // Set position to start at // Olle A 200212
             TilePosition = tileMap.StartingPosition;
@@ -239,11 +240,16 @@ namespace GameJam2020_2D
 
             //if (keyboardState.IsKeyDown(Keys.A)) if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0) InGame.Level = InGame.Levels.Win;
             doCollisionAndMove(movement);
+
+
+            // DEBUG REMOVE BEFORE RELEASE:
+            if (keyboardState.IsKeyDown(Keys.PageUp) && lastKeyboardState.IsKeyUp(Keys.PageUp)) InGame.Level++;
         }
 
         public void ResetGame()
         {
-            InGame.Level = InGame.Levels.preLevel1;
+            InGame.Level--;
+            lifes -= 1;
         }
 
         /// <summary>
@@ -253,6 +259,7 @@ namespace GameJam2020_2D
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, tileMap.CollisionTiles[TilePosition].Rectangle, Color.White);
+            spriteBatch.DrawString(hudFont, "Life:" + lifes.ToString(), new Vector2(1280 - 150, 0 + 20), Color.White);
         }
 
         /// <summary>
@@ -278,9 +285,10 @@ namespace GameJam2020_2D
                 // Code specific to type of tile // Olle A 200213
                 switch (tileMap.CollisionTiles[TilePosition + movement].Type)
                 {
-                    // Air (no tile)
+                    // Air and bounds (no tile)
                     case 0:
-                        // TODO: Add death logic // Olle A 200212
+                    case 999:
+                        // Kill player // Olle A 200212
                         playerAlive = false;
                         break;
 
@@ -317,58 +325,26 @@ namespace GameJam2020_2D
 
                     // Door
                     case 106:
-                        if (doorOpen == false && doorOpen == true)
+                        // Open door if player has a key, otherwise do nothing // Olle A 200417
+                        if (DoorKeys > 0)
                         {
-                            doorOpen = true;
+                            DoorKeys--;
+                            tileMap.CollisionTiles[TilePosition + movement].ChangeType(107);
                         }
-
-                        tileMap.CollisionTiles[TilePosition + movement].ChangeType(107);
                         break;
                     // Door
                     case 206:
-                        if (doorOpen == false && doorOpen == true)
+                        // Open door if player has a key, otherwise do nothing // Olle A 200417
+                        if (DoorKeys > 0)
                         {
-                            doorOpen = true;
+                            DoorKeys--;
+                            tileMap.CollisionTiles[TilePosition + movement].ChangeType(207);
                         }
-
-                        tileMap.CollisionTiles[TilePosition + movement].ChangeType(207);
                         break;
-
-
-                    // Keys // Olle A 200407
-                    case 111:
-                        // Add one key
-                        Keys++;
-                        // Update bool in prev tile // Olle A 200212
-                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
-                        prevTilePosition = TilePosition;
-
-                        TilePosition += movement;
-                        // Update bools in new tile // Olle A 200212
-                        tileMap.CollisionTiles[TilePosition].ChangeType(101);
-                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
-                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
-                        break;
-                    case 211:
-                        // Add one key
-                        Keys++;
-                        // Update bool in prev tile // Olle A 200212
-                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
-                        prevTilePosition = TilePosition;
-
-                        TilePosition += movement;
-                        // Update bools in new tile // Olle A 200212
-                        tileMap.CollisionTiles[TilePosition].ChangeType(201);
-                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
-                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
-                        break;
-
 
                     // End portal
                     case 104:
                     case 204:
-                        // Save score
-                        scoreboard.SaveHighScore(tileMap.LevelNumber, playerName, tileMap.timer);
                         // Change level
                         InGame.Level++;
                         TilePosition = tileMap.StartingPosition;
@@ -409,6 +385,34 @@ namespace GameJam2020_2D
                         }
                         break;
 
+                    // Keys // Olle A 200417
+                    case 115:
+                        // Add one key
+                        DoorKeys++;
+                        // Update bool in prev tile // Olle A 200212
+                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
+                        prevTilePosition = TilePosition;
+
+                        TilePosition += movement;
+                        // Update bools in new tile // Olle A 200212
+                        tileMap.CollisionTiles[TilePosition].ChangeType(101);
+                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
+                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+                        break;
+                    case 215:
+                        // Add one key
+                        DoorKeys++;
+                        // Update bool in prev tile // Olle A 200212
+                        tileMap.CollisionTiles[prevTilePosition].IsOnTile = false;
+                        prevTilePosition = TilePosition;
+
+                        TilePosition += movement;
+                        // Update bools in new tile // Olle A 200212
+                        tileMap.CollisionTiles[TilePosition].ChangeType(201);
+                        tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
+                        tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+                        break;
+
                     // Unspecified tiles do nothing // Olle A 200213
                     default:
                         break;
@@ -422,8 +426,7 @@ namespace GameJam2020_2D
                 if (TilePosition == Projectile.TilePosition)
                 {
                     // Kill player
-                    // TODO: Use Gustav's death code
-                    InGame.Level--;
+                    playerAlive = false;
                 }
             }
         }

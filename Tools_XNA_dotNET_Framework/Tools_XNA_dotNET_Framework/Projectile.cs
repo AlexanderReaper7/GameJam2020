@@ -37,10 +37,6 @@ namespace Tools_XNA
         /// <param name="texture">Texture of projectile</param>
         public Projectile(float speed, int tilePosition, string direction, TilesMap tilemap, Texture2D texture)
         {
-            this.texture = texture;
-            TilePosition = tilePosition;
-            this.tilemap = tilemap;
-
             // Convert direction to momvent on tilemap grid // Olle A 200407
             switch (direction)
             {
@@ -58,8 +54,12 @@ namespace Tools_XNA
                     break;
             }
 
-                    // Game is 2D
-                    is2D = true;
+            this.texture = texture;
+            TilePosition = tilePosition + this.direction;
+            this.tilemap = tilemap;
+
+            // Game is 2D
+            is2D = true;
         }
 
         // Olle A, Gustav H 200210

@@ -154,7 +154,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Textures\Tiles\Sci-Fi_MicroChip.png">
-      <Name>Sci-Fi_MicroChip</Name>
+      <Name>115</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -261,12 +261,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Shared\Menu\MainMenu.png">
-      <Name>MainMenu</Name>
+      <Name>MainMenu2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Shared\Menu\Main_Menu_3D.png">
-      <Name>Main_Menu_3D</Name>
+      <Name>MainMenu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -295,6 +295,20 @@
   <ItemGroup>
     <Compile Include="Textures\projectile.png">
       <Name>projectile</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Fantasy_Key.png">
+      <Name>215</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Bounds.png">
+      <Name>999</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -97,12 +97,20 @@ namespace GameJam2020_2D
                 case GameStates.Menu:
                     menuManager.Update(gameTime);
                     break;
+                case GameStates.PreGame:
+                    InGame.Level = 0;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
                 case GameStates.Game:
                     inGame.Update(gameTime);
                     if (inGame.player.playerAlive == false)
                     {
-                        menuManager.ChangePage(MenuManager.MenuState.GameOver);
-                        menuManager.gameStates = GameStates.Menu;
+                        if (inGame.player.lifes <= 1)
+                        {
+                            menuManager.ChangePage(MenuManager.MenuState.GameOver);
+                            menuManager.gameStates = GameStates.Menu;
+                            inGame.player.lifes = 6;
+                        }
                         inGame.player.playerAlive = true;
                         inGame.player.ResetGame();
                     }
@@ -133,6 +141,8 @@ namespace GameJam2020_2D
             {
                 case GameStates.Menu:
                     menuManager.Draw(spriteBatch);
+                    break;
+                case GameStates.PreGame:
                     break;
                 case GameStates.Game:
                     inGame.Draw(spriteBatch, gameTime);
