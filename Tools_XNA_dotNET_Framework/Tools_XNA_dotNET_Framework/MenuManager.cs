@@ -132,7 +132,7 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.Victory].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Victory", Color.Yellow);
             menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Your time: " + score.ToString(), Color.White);
-            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3 + 60), true, "Highscore: ", Color.White);
+            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3 + 60), true, "", Color.White);
             menu.Pages[(int)MenuState.Victory].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.Credits].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
@@ -171,7 +171,8 @@ namespace Tools_XNA
 
             if (score < 999999) menu.Pages[(int)MenuState.Victory].Text[1].Text = "Your time: " + score.ToString() + " seconds";
             else menu.Pages[(int)MenuState.Victory].Text[1].Text = "(Start from first level to get a time)";
-            menu.Pages[(int)MenuState.Victory].Text[2].Text = "Highscore: " + scoreBoard.LoadData(scoreBoard.Filename).Time[0] + " seconds";
+            if (scoreBoard.LoadData(scoreBoard.Filename).Time[0] < 999999) menu.Pages[(int)MenuState.Victory].Text[2].Text = "Highscore: " + scoreBoard.LoadData(scoreBoard.Filename).Time[0] + " seconds";
+
 
             if (menu.PageSelection == (int)MenuState.InsertName)
             {

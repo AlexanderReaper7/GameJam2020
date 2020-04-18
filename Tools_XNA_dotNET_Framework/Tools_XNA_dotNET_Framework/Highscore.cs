@@ -178,7 +178,7 @@ namespace Tools_XNA
 
             if (LoadData(Filename).Time[0] == 999999)
             {
-                spriteBatch.DrawString(scoreFont, "Play to get a time", scorePosition + scoreFontSpace, Color.White);
+                spriteBatch.DrawString(scoreFont, "Play to get a time", scorePosition + scoreFontSpace + new Vector2(55, 0), Color.White);
             }
             else
             {
