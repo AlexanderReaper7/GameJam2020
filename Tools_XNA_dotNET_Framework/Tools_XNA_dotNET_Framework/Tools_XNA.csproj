@@ -65,6 +65,7 @@
     <Compile Include="JuliusCode\Menu.cs" />
     <Compile Include="MenuManager.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="SoundManager.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldObjects.cs" />
     <None Include="JuliusCode\Game1DrJekyll.cs" />
