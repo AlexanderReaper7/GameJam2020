@@ -12,8 +12,8 @@ namespace Tools_XNA
     public class Highscore
     {
         // Variables for the score text | Julius 18-12-09
-        private Vector2 scorePosition = new Vector2(60, 60);
-        private Vector2 scoreFontSpace = new Vector2(0, 40);
+        private Vector2 scorePosition = new Vector2(410, 200);
+        private Vector2 scoreFontSpace = new Vector2(0, 20);
 
 
         // Variables for Score, Name and ArrayIdentity | Julius 18-12-09
@@ -162,7 +162,7 @@ namespace Tools_XNA
                 for (int i = 0; i < arrayLeangth; i++)
                 {
                     data.Name[i] = "   ";
-                    data.Time[i] = 10000;
+                    data.Time[i] = 999999;
                 }
 
                 // Save the data into the file | Julius 18-12-09
@@ -176,9 +176,9 @@ namespace Tools_XNA
             // Draw date and score on highscore list | Julius 18-12-09
 
 
-            if (LoadData(Filename).Time[0] == 10000)
+            if (LoadData(Filename).Time[0] == 999999)
             {
-                spriteBatch.DrawString(scoreFont, "Play to get a score", scorePosition + scoreFontSpace, Color.White);
+                spriteBatch.DrawString(scoreFont, "Play to get a time", scorePosition + scoreFontSpace, Color.White);
             }
             else
             {
@@ -186,10 +186,10 @@ namespace Tools_XNA
                 for (int i = 0; i < arrayLeangth; i++)
                 {
                     // Dont draw if it's not a player's score | Olle A 20-04-17
-                    if (LoadData(Filename).Time[i] == 10000) break;
+                    if (LoadData(Filename).Time[i] == 999999) break;
 
                     // if score is more than 0 blobs, then draw the score on screen | Julius 18-12-09
-                    spriteBatch.DrawString(scoreFont, (i+1).ToString() + ":   " + "Time: " + LoadData(Filename).Time[i] + " Seconds", scorePosition + (3 * i) * scoreFontSpace, Color.White);
+                    spriteBatch.DrawString(scoreFont, (i+1).ToString() + ":   " + LoadData(Filename).Time[i] + " seconds", scorePosition + (3 * i) * scoreFontSpace, Color.White);
                 }
 
                 //for (int i = 0; i < arrayLeangth; i++)
@@ -205,8 +205,5 @@ namespace Tools_XNA
                 //}
             }
         }
-
-
-
     }
 }

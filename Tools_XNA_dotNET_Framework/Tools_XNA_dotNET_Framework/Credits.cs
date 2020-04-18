@@ -17,7 +17,7 @@ namespace Tools_XNA
         public float scale = 1.0f;    
 
         // Credits position
-        public Vector2 position = new Vector2(300, 150);
+        public Vector2 position = new Vector2(400, 150);
 
         // Texture object used for drawing the credits
         private Texture2D credits;
@@ -28,6 +28,11 @@ namespace Tools_XNA
             // Loads credit sprite
             credits = Content.Load<Texture2D>(@"Shared/Menu/Credits");
             size = new Rectangle(0, 0, credits.Width, credits.Height);
+        }
+
+        public void Reset()
+        {
+            position = new Vector2(400, 150);
         }
 
         public void Update(GameTime gameTime)

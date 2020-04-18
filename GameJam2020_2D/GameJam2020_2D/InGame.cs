@@ -277,7 +277,8 @@ namespace GameJam2020_2D
         public void Update(GameTime gameTime)
         {
             // Count up
-            Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (Timer < 999999) Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            else Timer = 999999;
             MenuManager.score = Timer;
 
             // Level specific code // Olle A 200212
@@ -412,8 +413,8 @@ namespace GameJam2020_2D
         public void Draw(SpriteBatch spriteBatch ,GameTime gameTime)
         {
             // Draw time
-            spriteBatch.DrawString(font, "Elapsed time: " + ((int)Timer).ToString(), new Vector2(20, 20), Color.White);
-             
+            if (Timer < 999999) spriteBatch.DrawString(font, "Elapsed time: " + ((int)Timer).ToString(), new Vector2(20, 20), Color.White);
+
             // Level specific code // Olle A 200212
             switch (Level)
             {

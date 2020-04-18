@@ -107,12 +107,20 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.Main].AddBackground(mainMenu);
             menu.Pages[(int)MenuState.Main].AddText(titleFont, new Vector2(60, 20), false, "WEIRD TILES IN SPACE", Color.White);
             menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth / 10, screenHeight / 5), 80f, new[] { "Play", "Level Select", "Instructions", "Highscore", "Credits", "Exit" },
-                new Action[] { () => gameStates = GameStates.PreGame, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.Instructions), () => ChangePage(MenuState.HighscoreBoard), () => ChangePage(MenuState.Credits), () => game.Exit() });
-            
+                new Action[] { () => gameStates = GameStates.PreLevel1, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.Instructions), () => ChangePage(MenuState.HighscoreBoard), () => { ChangePage(MenuState.Credits); credits.Reset(); }, () => game.Exit() });
+
+            menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.LevelSelect].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 7), true, "Select a level", Color.White);
+            menu.Pages[(int)MenuState.LevelSelect].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 7 + 45 ), true, "(Time will only be saved if you start from level 1)", Color.White);
+            menu.Pages[(int)MenuState.LevelSelect].AddButtonList_Single(menuFont, new Vector2(570, screenHeight / 5 + 30), 50f, new[] { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8" },
+                new Action[] { () => gameStates = GameStates.PreLevel1, () => gameStates = GameStates.PreLevel2, () => gameStates = GameStates.PreLevel3, () => gameStates = GameStates.PreLevel4, () => gameStates = GameStates.PreLevel5, () => gameStates = GameStates.PreLevel6, () => gameStates = GameStates.PreLevel7, () => gameStates = GameStates.PreLevel8, });
+            menu.Pages[(int)MenuState.HighscoreBoard].AddButton_Single(menuFont, new Vector2(80, 660), "Back", () => ChangePage(MenuState.Main));
+
             menu.Pages[(int)MenuState.LevelSelect].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.LevelSelect].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.HighscoreBoard].AddBackground(defaultBackground);
+            menu.Pages[(int)MenuState.HighscoreBoard].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 7), true, "Highscore", Color.White);
             menu.Pages[(int)MenuState.HighscoreBoard].AddButton_Single(menuFont, new Vector2(80, 660), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.GameOver].AddBackground(defaultBackground);
@@ -123,7 +131,8 @@ namespace Tools_XNA
             
             menu.Pages[(int)MenuState.Victory].AddBackground(defaultBackground);
             menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 5), true, "Victory", Color.Yellow);
-            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Time: " + score.ToString(), Color.White);
+            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3), true, "Your time: " + score.ToString(), Color.White);
+            menu.Pages[(int)MenuState.Victory].AddText(menuFont, new Vector2(screenWidth / 2, screenHeight / 3 + 60), true, "Highscore: ", Color.White);
             menu.Pages[(int)MenuState.Victory].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
             
             menu.Pages[(int)MenuState.Credits].AddButton_Single(menuFont, new Vector2(60, 560), "Back", () => ChangePage(MenuState.Main));
@@ -159,7 +168,10 @@ namespace Tools_XNA
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            menu.Pages[(int)MenuState.Victory].Text[1].Text = "Time: " + score.ToString();
+
+            if (score < 999999) menu.Pages[(int)MenuState.Victory].Text[1].Text = "Your time: " + score.ToString() + " seconds";
+            else menu.Pages[(int)MenuState.Victory].Text[1].Text = "(Start from first level to get a time)";
+            menu.Pages[(int)MenuState.Victory].Text[2].Text = "Highscore: " + scoreBoard.LoadData(scoreBoard.Filename).Time[0] + " seconds";
 
             if (menu.PageSelection == (int)MenuState.InsertName)
             {
@@ -173,7 +185,7 @@ namespace Tools_XNA
             else menu.Draw(spriteBatch, screenSize);
             if(menu.PageSelection == (int)MenuState.HighscoreBoard)
             {
-                try { scoreBoard.Draw(spriteBatch, scoreBoardFont); }
+                try { scoreBoard.Draw(spriteBatch, menuFont); }
                 catch { }
                 }
         }

@@ -9,7 +9,14 @@ namespace Tools_XNA
     {
         Menu,
         Game,
-        PreGame
+        PreLevel1,
+        PreLevel2,
+        PreLevel3,
+        PreLevel4,
+        PreLevel5,
+        PreLevel6,
+        PreLevel7,
+        PreLevel8
         //InsertName,
     }
 }

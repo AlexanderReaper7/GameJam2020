@@ -98,10 +98,6 @@ namespace GameJam2020_2D
                 case GameStates.Menu:
                     menuManager.Update(gameTime);
                     break;
-                case GameStates.PreGame:
-                    InGame.Level = 0;
-                    menuManager.gameStates = GameStates.Game;
-                    break;
                 case GameStates.Game:
                     inGame.Update(gameTime);
                     if (inGame.player.playerAlive == false)
@@ -116,6 +112,53 @@ namespace GameJam2020_2D
                         inGame.player.playerAlive = true;
                         inGame.player.ResetGame();
                     }
+                    break;
+                case GameStates.PreLevel1:
+                    InGame.Level = InGame.Levels.preLevel1;
+                    InGame.Timer = 0;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
+                case GameStates.PreLevel2:
+                    InGame.Level = InGame.Levels.preLevel1;
+                    // Set timer to 999999 which disables it. // Olle A 20-04-18
+                    InGame.Timer = 999999;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
+                case GameStates.PreLevel3:
+                    InGame.Level = InGame.Levels.preLevel3;
+                    // Set timer to 999999 which disables it. // Olle A 20-04-18
+                    InGame.Timer = 999999;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
+                case GameStates.PreLevel4:
+                    InGame.Level = InGame.Levels.preLevel4;
+                    // Set timer to 999999 which disables it. // Olle A 20-04-18
+                    InGame.Timer = 999999;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
+                case GameStates.PreLevel5:
+                    InGame.Level = InGame.Levels.preLevel5;
+                    // Set timer to 999999 which disables it. // Olle A 20-04-18
+                    InGame.Timer = 999999;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
+                case GameStates.PreLevel6:
+                    InGame.Level = InGame.Levels.preLevel6;
+                    // Set timer to 999999 which disables it. // Olle A 20-04-18
+                    InGame.Timer = 999999;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
+                case GameStates.PreLevel7:
+                    InGame.Level = InGame.Levels.preLevel7;
+                    // Set timer to 999999 which disables it. // Olle A 20-04-18
+                    InGame.Timer = 999999;
+                    menuManager.gameStates = GameStates.Game;
+                    break;
+                case GameStates.PreLevel8:
+                    InGame.Level = InGame.Levels.preLevel8;
+                    // Set timer to 999999 which disables it. // Olle A 20-04-18
+                    InGame.Timer = 999999;
+                    menuManager.gameStates = GameStates.Game;
                     break;
                 //case GameStates.InsertName:
                 //    // Updates the various code in the nameselect class 
@@ -144,8 +187,6 @@ namespace GameJam2020_2D
                 case GameStates.Menu:
                     menuManager.Draw(spriteBatch);
                     break;
-                case GameStates.PreGame:
-                    break;
                 case GameStates.Game:
                     inGame.Draw(spriteBatch, gameTime);
                     if (MenuManager.exclusiveBool) InGame.Level = InGame.Levels.preLevel1;
@@ -155,7 +196,8 @@ namespace GameJam2020_2D
                 //    nameSelect.Draw(spriteBatch);
                 //    break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
+                    //throw new ArgumentOutOfRangeException();
             }
             spriteBatch.End();
 
