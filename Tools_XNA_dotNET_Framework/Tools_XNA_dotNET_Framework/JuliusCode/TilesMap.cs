@@ -58,12 +58,15 @@ namespace Tools_XNA
         // Update
         public void Update(GameTime gameTime)
         {
+            bool playDispenserSound = false;
+
             // Remove tile (make it air) if player has walked on it but is no longer standing on it // Olle A 200212
             for (int i = 0; i < collisionTiles.Count; i++)
             {
-                if (collisionTiles[i].HasBeenWalkedOn && !collisionTiles[i].IsOnTile)
+                if (collisionTiles[i].HasBeenWalkedOn && !collisionTiles[i].IsOnTile && collisionTiles[i].Type != 000)
                 {
                     collisionTiles[i].Type = 0;
+                    SoundManager.TileBreak.Play();
                 }
 
                 // Do not proceed unless it is time for dispensers to shoot // Olle A 20-03-17
@@ -73,31 +76,52 @@ namespace Tools_XNA
                     Projectile projectile;
 
                     // Shoot projectiles with direction depending on dispenser type // Olle A 20-03-17
+                    // This should probably be another for loop but whatever
                     switch (collisionTiles[i].Type)
                     {
                         // Up
                         case 150:
+                            projectile = new Projectile(0.01f, i, "up", this, shotTexture);
+                            Projectiles.Add(projectile);
+                            playDispenserSound = true;
+                            break;
                         case 250:
                             projectile = new Projectile(0.01f, i, "up", this, shotTexture);
                             Projectiles.Add(projectile);
+                            playDispenserSound = true;
                             break;
                         // Down
                         case 151:
+                            projectile = new Projectile(0.01f, i, "down", this, shotTexture);
+                            Projectiles.Add(projectile);
+                            playDispenserSound = true;
+                            break;
                         case 251:
                             projectile = new Projectile(0.01f, i, "down", this, shotTexture);
                             Projectiles.Add(projectile);
+                            playDispenserSound = true;
                             break;
                         // Left
                         case 152:
+                            projectile = new Projectile(0.01f, i, "left", this, shotTexture);
+                            Projectiles.Add(projectile);
+                            playDispenserSound = true;
+                            break;
                         case 252:
                             projectile = new Projectile(0.01f, i, "left", this, shotTexture);
                             Projectiles.Add(projectile);
+                            playDispenserSound = true;
                             break;
                         // Right
                         case 153:
+                            projectile = new Projectile(0.01f, i, "right", this, shotTexture);
+                            Projectiles.Add(projectile);
+                            playDispenserSound = true;
+                            break;
                         case 253:
                             projectile = new Projectile(0.01f, i, "right", this, shotTexture);
                             Projectiles.Add(projectile);
+                            playDispenserSound = true;
                             break;
                     }
                }
@@ -120,6 +144,9 @@ namespace Tools_XNA
                     p.Update(gameTime);
                 }
             }
+
+
+            if(playDispenserSound == true)  SoundManager.DispenserFantasy.Play();
 
             // Reset timer // Olle A 20-03-24
             if (shotTimer > shotTimerMax)

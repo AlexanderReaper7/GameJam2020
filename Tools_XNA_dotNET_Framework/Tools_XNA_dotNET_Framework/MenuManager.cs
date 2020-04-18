@@ -136,14 +136,20 @@ namespace Tools_XNA
         public void ButtonNavigation()
         {
             if (input.PrevIsKeyUp && input.Up || input.PrevIsKeyUp && input.Down || input.PrevIsKeyUp && input.Left || input.PrevIsKeyUp && input.Right)
-            menu.Navigation(input.Up, input.Down, input.Left, input.Right);
+            {
+                menu.Navigation(input.Up, input.Down, input.Left, input.Right);
+                SoundManager.Select.Play();
+            } 
         }
 
         public void ButtonSelect()
         {
             if (input.PrevIsKeyUp && input.Select)
+            {
                 // Activate button
                 menu.Pages[menu.PageSelection].Buttons[menu.Pages[menu.PageSelection].ButtonSelection].Run();
+                SoundManager.Select.Play();
+            }
         }
 
         public void ChangePage(MenuState page)

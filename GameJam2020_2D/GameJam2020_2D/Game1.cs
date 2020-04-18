@@ -68,6 +68,7 @@ namespace GameJam2020_2D
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            SoundManager.LoadContent(Content, GraphicsDevice);
             menuManager.LoadMenues(Content);
             inGame.LoadContent(Content);
             nameSelect.LoadContent(Content);
@@ -105,6 +106,7 @@ namespace GameJam2020_2D
                     inGame.Update(gameTime);
                     if (inGame.player.playerAlive == false)
                     {
+                        SoundManager.Hurt.Play();
                         if (inGame.player.lifes <= 1)
                         {
                             menuManager.ChangePage(MenuManager.MenuState.GameOver);

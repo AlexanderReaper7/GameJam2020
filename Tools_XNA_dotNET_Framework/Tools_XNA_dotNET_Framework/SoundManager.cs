@@ -13,11 +13,20 @@ namespace Tools_XNA
     /// Class that manages all sounds in the game.
     /// All sounds are public static and can be called from everywhere.
     /// </summary>
-    static class SoundManager
+    public static class SoundManager
     {
         public static SoundEffect Select;
         public static SoundEffect Hurt;
-        public static SoundEffect PickUp;
+        public static SoundEffect KeyFantasy;
+        public static SoundEffect KeyScifi;
+        public static SoundEffect DoorOpenFantasy;
+        public static SoundEffect DoorOpenScifi;
+
+        public static SoundEffect DispenserScifi;
+        public static SoundEffect DispenserFantasy;
+
+        public static SoundEffect TileBreak;
+        public static SoundEffect Protal;
         public static SoundEffect NextLevel;
         public static SoundEffect Win;
 
@@ -28,14 +37,25 @@ namespace Tools_XNA
         public static void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             // Load sound effects
-            Select = Content.Load<SoundEffect>(@"Sounds/Select");
-            Hurt = Content.Load<SoundEffect>(@"Sounds/Hurt");
-            PickUp = Content.Load<SoundEffect>(@"Sounds/Pick Up");
-            NextLevel = Content.Load<SoundEffect>(@"Sounds/NextLevel");
-            Win = Content.Load<SoundEffect>(@"Sounds/win");
+            DoorOpenFantasy = Content.Load<SoundEffect>(@"Shared/Sounds/fantasy door");
+            DoorOpenScifi = Content.Load<SoundEffect>(@"Shared/Sounds/scifi door");
+
+            KeyFantasy = Content.Load<SoundEffect>(@"Shared/Sounds/fantasy key");
+            KeyScifi = Content.Load<SoundEffect>(@"Shared/Sounds/scifi key");
+
+            DispenserScifi = Content.Load<SoundEffect>(@"Shared/Sounds/scifi dispenser");
+            DispenserFantasy = Content.Load<SoundEffect>(@"Shared/Sounds/fantasy dispenser");
+
+            TileBreak = Content.Load<SoundEffect>(@"Shared/Sounds/tile break");
+            Hurt = Content.Load<SoundEffect>(@"Shared/Sounds/die");
+
+            Protal = Content.Load<SoundEffect>(@"Shared/Sounds/portal");
+            NextLevel = Content.Load<SoundEffect>(@"Shared/Sounds/endportal");
+
+            Select = Content.Load<SoundEffect>(@"Shared/Sounds/select");
 
             // Load music and loop it
-            music = Content.Load<SoundEffect>(@"Sounds/Ozzed - Lugn Techno");
+            music = Content.Load<SoundEffect>(@"Shared/Sounds/Andromeda Journey");
             MusicInstance = music.CreateInstance();
             MusicInstance.IsLooped = true;
             MusicInstance.Play();

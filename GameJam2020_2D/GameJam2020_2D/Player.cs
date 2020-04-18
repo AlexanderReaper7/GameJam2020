@@ -330,6 +330,8 @@ namespace GameJam2020_2D
                         {
                             DoorKeys--;
                             tileMap.CollisionTiles[TilePosition + movement].ChangeType(107);
+                            SoundManager.DoorOpenScifi.Play();
+
                         }
                         break;
                     // Door
@@ -339,6 +341,7 @@ namespace GameJam2020_2D
                         {
                             DoorKeys--;
                             tileMap.CollisionTiles[TilePosition + movement].ChangeType(207);
+                            SoundManager.DoorOpenFantasy.Play();
                         }
                         break;
 
@@ -348,6 +351,7 @@ namespace GameJam2020_2D
                         // Change level
                         InGame.Level++;
                         TilePosition = tileMap.StartingPosition;
+                        SoundManager.NextLevel.Play();
                         break;
 
                     // Trap door
@@ -383,6 +387,7 @@ namespace GameJam2020_2D
                             if (TilePosition == 86) TilePosition = 63;
                             if (TilePosition == 45) TilePosition = 176;
                         }
+                        SoundManager.Protal.Play();
                         break;
 
                     // Keys // Olle A 200417
@@ -398,6 +403,8 @@ namespace GameJam2020_2D
                         tileMap.CollisionTiles[TilePosition].ChangeType(101);
                         tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
                         tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+
+                        SoundManager.KeyScifi.Play();
                         break;
                     case 215:
                         // Add one key
@@ -411,6 +418,8 @@ namespace GameJam2020_2D
                         tileMap.CollisionTiles[TilePosition].ChangeType(201);
                         tileMap.CollisionTiles[TilePosition].HasBeenWalkedOn = true;
                         tileMap.CollisionTiles[TilePosition].IsOnTile = true;
+
+                        SoundManager.KeyFantasy.Play();
                         break;
 
                     // Unspecified tiles do nothing // Olle A 200213
