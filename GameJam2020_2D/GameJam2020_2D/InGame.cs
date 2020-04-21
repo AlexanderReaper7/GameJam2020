@@ -413,7 +413,7 @@ namespace GameJam2020_2D
         public void Draw(SpriteBatch spriteBatch ,GameTime gameTime)
         {
             // Draw time
-            if (Timer < 999999) spriteBatch.DrawString(font, "Elapsed time: " + ((int)Timer).ToString(), new Vector2(20, 20), Color.White);
+            if (Timer < 999999) spriteBatch.DrawString(font, "Elapsed time: " + ((int)Timer).ToString(), new Vector2(20, 60), Color.White);
 
             // Level specific code // Olle A 200212
             switch (Level)

@@ -14,7 +14,7 @@ namespace Tools_XNA
         public Menu menu = new Menu(9);
 
         SpriteFont menuFont, textFont, scoreBoardFont;
-        Texture2D defaultBackground, mainMenu;
+        Texture2D defaultBackground, mainMenu, logo;
         private ControlScheme input;
         private Game game;
         private GraphicsDeviceManager graphics;
@@ -94,6 +94,7 @@ namespace Tools_XNA
             defaultBackground = Content.Load<Texture2D>(@"Shared/Menu/Background");
             mainMenu = Content.Load<Texture2D>(@"Shared/Menu/MainMenu");
             Texture2D instructionsMenu = Content.Load<Texture2D>(@"Shared/Menu/Instructions");
+            Texture2D logo = Content.Load<Texture2D>(@"Shared/Menu/logo");
 
 
             // StartMenu

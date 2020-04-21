@@ -263,8 +263,8 @@ namespace GameJam2020_2D
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, tileMap.CollisionTiles[TilePosition].Rectangle, Color.White);
-            spriteBatch.DrawString(hudFont, "Life:" + lifes.ToString(), new Vector2(1280 - 100, 20), Color.White);
-            spriteBatch.DrawString(hudFont, "Keys:" + DoorKeys.ToString(), new Vector2(1280 - 100, 40), Color.White);
+            spriteBatch.DrawString(hudFont, "Life:" + lifes.ToString(), new Vector2(20, 20), Color.White);
+            spriteBatch.DrawString(hudFont, "Keys:" + DoorKeys.ToString(), new Vector2(20, 40), Color.White);
         }
 
         /// <summary>
