@@ -14,7 +14,7 @@ namespace Tools_XNA
         public Menu menu = new Menu(9);
 
         SpriteFont menuFont, textFont, scoreBoardFont;
-        Texture2D defaultBackground, mainMenu, logo;
+        Texture2D defaultBackground, mainMenu;
         private ControlScheme input;
         private Game game;
         private GraphicsDeviceManager graphics;
@@ -106,7 +106,7 @@ namespace Tools_XNA
             menu.Pages[(int)MenuState.InsertName].AddBackground(defaultBackground);
 
             menu.Pages[(int)MenuState.Main].AddBackground(mainMenu);
-            menu.Pages[(int)MenuState.Main].AddText(titleFont, new Vector2(60, 20), false, "WEIRD TILES IN SPACE", Color.White);
+            menu.Pages[(int)MenuState.Main].AddBackground(logo);
             menu.Pages[(int)MenuState.Main].AddButtonList_Single(menuFont, new Vector2(screenWidth / 10, screenHeight / 5), 80f, new[] { "Play", "Level Select", "Instructions", "Highscore", "Credits", "Exit" },
                 new Action[] { () => gameStates = GameStates.PreLevel1, () => ChangePage(MenuState.LevelSelect), () => ChangePage(MenuState.Instructions), () => ChangePage(MenuState.HighscoreBoard), () => { ChangePage(MenuState.Credits); credits.Reset(); }, () => game.Exit() });
 

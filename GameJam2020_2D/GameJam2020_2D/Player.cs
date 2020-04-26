@@ -240,10 +240,6 @@ namespace GameJam2020_2D
 
             //if (keyboardState.IsKeyDown(Keys.A)) if (lastKeyboardState.IsKeyUp(Keys.A) || keyRepeatTime < 0) InGame.Level = InGame.Levels.Win;
             doCollisionAndMove(movement);
-
-
-            // DEBUG REMOVE BEFORE RELEASE:
-            if (keyboardState.IsKeyDown(Keys.PageUp) && lastKeyboardState.IsKeyUp(Keys.PageUp)) InGame.Level++;
         }
 
         public void ResetGame()
