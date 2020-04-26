@@ -91,7 +91,19 @@ namespace GameJam2020_2D
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
+            {
+                menuManager.ChangePage(MenuManager.MenuState.Main);
+                menuManager.gameStates = GameStates.Menu;
+                inGame.player.lifes = 6;
+                inGame.player.playerAlive = true;
+                inGame.player.ResetGame();
+             }
+            // Toggle fullscreen when pressing F
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                graphics.IsFullScreen = !graphics.IsFullScreen;
+                graphics.ApplyChanges();
+            }
 
             switch (menuManager.gameStates)
             {
